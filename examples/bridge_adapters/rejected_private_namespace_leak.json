@@ -1,0 +1,26 @@
+{
+  "schema_version": "v1",
+  "type": "downstream_bridge_adapter",
+  "adapter_id": "bridge_leaky_v1",
+  "core_schemas_consumed": ["agent_session"],
+  "translation_invariants": [
+    {
+      "invariant_id": "inv_private_leak",
+      "core_artifact_ref": "agent_session.forbids_autonomous_execution",
+      "downstream_enforcement": "Bridge imports ForbiddenNamespace\\CommandService directly",
+      "verification_method": "Static analysis: assert no private namespace references"
+    }
+  ],
+  "forbids_autonomous_execution": true,
+  "forbids_private_namespace_leak": false,
+  "runtime_enforcement_policy": {
+    "enforcement_level": "strict",
+    "fail_closed": true,
+    "human_override_allowed": false
+  },
+  "audit": {
+    "adapter_fingerprint": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "created_at": "2025-05-28T12:00:00Z",
+    "core_release_ref": "v8.3.0"
+  }
+}

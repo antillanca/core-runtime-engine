@@ -1,0 +1,12 @@
+{
+  "schema_version": "core.bounded_read_window.v1",
+  "type": "bounded_read_window",
+  "index_id": "synthetic.docs.v1",
+  "ref_id": "chapter_a",
+  "path": "sample_document.md",
+  "start_offset": 137,
+  "end_offset": 451,
+  "bytes_read": 314,
+  "window_fingerprint": "sha256:f499ed739cdc0514ed558dc2c58a556fbc4d2ea64cd4d4eb683a96957207e8d1",
+  "end_reason": "next_marker"
+}

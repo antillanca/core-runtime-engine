@@ -1,0 +1,14 @@
+{
+  "schema_version": "core.sandbox_execution_record.v1",
+  "type": "sandbox_execution_record",
+  "proposal_id": "synthetic.execution.docs_check.v1",
+  "execution_id": "synthetic.execution.docs_check.run_001",
+  "sandbox_profile": "read_only_no_network.v1",
+  "started": true,
+  "completed": true,
+  "exit_code": 0,
+  "outputs": [
+    "sha256:validation_report"
+  ],
+  "mutations_detected": false
+}

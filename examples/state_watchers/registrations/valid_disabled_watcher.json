@@ -1,0 +1,12 @@
+{
+  "watcher_id": "synthetic.disabled_monitor",
+  "watch_condition": {
+    "operator": "lt",
+    "operand_schema": "scalar_observation.value",
+    "threshold_schema": "scalar_observation.reference"
+  },
+  "event_type": "below_threshold",
+  "profile_id": "default",
+  "enabled": false,
+  "threshold_value": 10.0
+}

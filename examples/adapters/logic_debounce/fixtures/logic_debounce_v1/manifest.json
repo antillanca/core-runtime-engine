@@ -1,0 +1,32 @@
+{
+  "calibration_id": "calibration:logic_debounce:v1",
+  "capture_mode": "offline_fixture",
+  "environment_id": "environment:example",
+  "expected_event_type": "sensor.logic_debounce.stable_high",
+  "expected_sensor_id": "sensor:logic_debounce:v1",
+  "expected_trace_id": "trace:logic_debounce:v1",
+  "fixture_id": "logic_debounce_v1",
+  "notes": [
+    "Digital debounce example.",
+    "raw_signal contains deterministic bounce.",
+    "debounced_signal is used to derive the ObservationEvent.",
+    "Offline-only.",
+    "No hardware dependency."
+  ],
+  "observation_event_fingerprints": {
+    "event:logic_debounce:stable_high:v1": "fe6d8f60612c0659507d947c796b572d1605bc8d9671ad51ecd22a2e0ce02771"
+  },
+  "observation_event_id": "event:logic_debounce:stable_high:v1",
+  "sample_count": 100,
+  "schema_version": "core.sensor_evidence.v1",
+  "sensor_id": "sensor:logic_debounce:v1",
+  "sensor_type": "logic_debounce",
+  "threshold": 0.5,
+  "trace_fingerprint": "096a7bda2f1281194c1d5ab82cc503761dd7162d2454fa72f89b8511058406da",
+  "trace_id": "trace:logic_debounce:v1",
+  "value_key": "debounced_signal",
+  "value_keys": [
+    "raw_signal",
+    "debounced_signal"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": "core.memory_artifact.v1",
+  "memory_id": "memory-001",
+  "source_refs": ["run:task-001", "report:reports/task-001.md"],
+  "authority": "reference_only",
+  "summary": "Closeout memory for a deterministic task.",
+  "stable_facts": [
+    "task finished",
+    "memory reused"
+  ],
+  "decisions": [
+    "keep closeout reference only"
+  ],
+  "invariants": [
+    "reference-only authority"
+  ],
+  "open_risks": [
+    "runtime consumers must not infer authority"
+  ],
+  "next_actions": [
+    "map artifact in adapters"
+  ],
+  "retention": {
+    "retention_class": "keep",
+    "reason": "audit continuity"
+  },
+  "created_at": "2026-06-01T00:00:00Z"
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": "core.parametric_template.v1",
+  "type": "parametric_template",
+  "template_id": "synthetic_reports.daily_summary.v1",
+  "template_fingerprint": "not-a-valid-fingerprint",
+  "domain": "synthetic_reports",
+  "intent": "daily_summary",
+  "slots": [
+    {
+      "name": "date_preset",
+      "type": "enum",
+      "required": true,
+      "enum_values": ["today", "yesterday", "last_week"]
+    }
+  ],
+  "route": {
+    "action": "generate_report",
+    "method": "read"
+  },
+  "safety": {
+    "requires_command_validation": true,
+    "forbidden_categories": ["live_results"]
+  }
+}

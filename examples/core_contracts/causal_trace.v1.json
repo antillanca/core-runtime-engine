@@ -1,0 +1,49 @@
+{
+  "schema_version": "core.causal_trace.v1",
+  "type": "causal_trace",
+  "trace_id": "trace_001",
+  "root_ref": "decision:decision_001",
+  "nodes": [
+    {
+      "node_id": "node_001",
+      "kind": "decision",
+      "ref": "decision:decision_001",
+      "summary": "Human confirmation required before mutation.",
+      "source_refs": [
+        "intent:creator-001"
+      ],
+      "evidence_refs": [
+        "artifact:evidence/decision_001.json"
+      ]
+    },
+    {
+      "node_id": "node_002",
+      "kind": "receipt",
+      "ref": "receipt:receipt_001",
+      "summary": "Execution completed with a receipt.",
+      "source_refs": [
+        "decision:decision_001"
+      ],
+      "evidence_refs": [
+        "artifact:evidence/receipt_001.json"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from_ref": "decision:decision_001",
+      "to_ref": "receipt:receipt_001",
+      "relation": "produces",
+      "notes": "Approved decision leads to execution receipt."
+    }
+  ],
+  "source_refs": [
+    "intent:creator-001"
+  ],
+  "evidence_refs": [
+    "artifact:evidence/decision_001.json",
+    "artifact:evidence/receipt_001.json"
+  ],
+  "created_at": "2026-06-01T00:00:00Z",
+  "fingerprint": "trace-001"
+}

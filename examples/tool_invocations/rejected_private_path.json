@@ -1,0 +1,34 @@
+{
+  "schema_version": "core.tool_invocation_proposal.v1",
+  "type": "tool_invocation_proposal",
+  "proposal_id": "tool_invocation_proposal:leak.path.v1",
+  "session_ref": "agent_session:rejected.leak.v1",
+  "plan_step_ref": "agent_plan_step:leak.step0.v1",
+  "tool": {
+    "logical_name": "file_reader",
+    "version": "1.0.0",
+    "category": "read_only"
+  },
+  "arguments": {
+    "path": "/home/user/secret_data.db",
+    "mode": "read"
+  },
+  "risk": {
+    "risk_tier": "none",
+    "side_effects": "read_only",
+    "reversibility": "reversible"
+  },
+  "approval": {
+    "requires_human_approval": true,
+    "approval_reason": "Session policy."
+  },
+  "expected_evidence": {
+    "evidence_type": "output_summary",
+    "description": "File content summary."
+  },
+  "safety": {
+    "forbids_autonomous_execution": true,
+    "timeout_seconds": 30,
+    "max_retries": 0
+  }
+}

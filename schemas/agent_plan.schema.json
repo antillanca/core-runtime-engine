@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Agent Plan v1",
+  "description": "Schema for a domain-neutral agent work plan: ordered steps with dependencies, per-step permissions, and expected results.",
+  "type": "object",
+  "required": ["schema_version", "type", "plan_id", "session_ref", "steps", "safety"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.agent_plan.v1"
+    },
+    "type": {
+      "type": "string",
+      "const": "agent_plan"
+    },
+    "plan_id": {
+      "type": "string",
+      "pattern": "^agent_plan:[a-z0-9_]+\\.[a-z0-9_]+\\.v1$"
+    },
+    "session_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "required": ["step_index", "intent", "depends_on", "safety", "expected_result", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "step_index": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "intent": {
+            "type": "string",
+            "minLength": 1
+          },
+          "tool_proposal_ref": {
+            "type": ["string", "null"]
+          },
+          "depends_on": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "safety": {
+            "type": "object",
+            "required": ["requires_human_approval", "risk_tier", "forbids_autonomous_execution"],
+            "additionalProperties": false,
+            "properties": {
+              "requires_human_approval": {
+                "type": "boolean"
+              },
+              "risk_tier": {
+                "type": "string",
+                "enum": ["none", "low", "medium", "high"]
+              },
+              "forbids_autonomous_execution": {
+                "type": "boolean"
+              }
+            }
+          },
+          "expected_result": {
+            "type": "object",
+            "required": ["result_type", "description"],
+            "additionalProperties": false,
+            "properties": {
+              "result_type": {
+                "type": "string",
+                "enum": ["proposal_only", "read_result", "approval_record", "escalation_record"]
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": ["planned", "approved", "rejected", "skipped", "completed"]
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "required": ["requires_step_approval", "forbids_parallel_execution", "max_steps"],
+      "additionalProperties": false,
+      "properties": {
+        "requires_step_approval": {
+          "type": "boolean"
+        },
+        "forbids_parallel_execution": {
+          "type": "boolean"
+        },
+        "max_steps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

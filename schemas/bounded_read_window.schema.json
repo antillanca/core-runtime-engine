@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Bounded Read Window v1",
+  "description": "Schema for a bounded read window that records the exact bytes an agent read from a declared reference.",
+  "type": "object",
+  "required": ["schema_version", "type", "index_id", "ref_id", "path", "start_offset", "end_offset", "bytes_read", "window_fingerprint", "end_reason"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.bounded_read_window.v1"
+    },
+    "type": {
+      "type": "string",
+      "const": "bounded_read_window"
+    },
+    "index_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ref_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "start_offset": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Byte offset where the read window starts."
+    },
+    "end_offset": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Byte offset where the read window ends (exclusive)."
+    },
+    "bytes_read": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total bytes read in the window."
+    },
+    "window_fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "SHA-256 fingerprint of the window content."
+    },
+    "end_reason": {
+      "type": "string",
+      "enum": ["explicit_end_marker", "next_marker", "max_bytes", "end_of_file"],
+      "description": "Why the read stopped at this boundary."
+    }
+  },
+  "additionalProperties": false
+}

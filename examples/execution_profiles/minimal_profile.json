@@ -1,0 +1,25 @@
+{
+  "description": "Minimal declarative profile for structural checks only.",
+  "expected_use": "Low-cost static validation of proposal shape.",
+  "notes": [
+    "Static profile fixture only.",
+    "This profile is not executed by CORE.",
+    "This profile does not allow tool execution or runtime mutation."
+  ],
+  "profile_id": "execution_profile:minimal:v1",
+  "profile_name": "minimal",
+  "profile_schema": "core.execution_profile.v1",
+  "requirements": {
+    "audit_level": "none",
+    "requires_batch_report": false,
+    "requires_certified_evidence": false,
+    "requires_deterministic_evaluation": false,
+    "requires_explainability": false,
+    "requires_replay_certification": false,
+    "requires_structural_validation": true
+  },
+  "safety": {
+    "allows_runtime_mutation": false,
+    "allows_tool_execution": false
+  }
+}

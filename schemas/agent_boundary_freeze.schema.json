@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://core.antillanca.dev/schemas/agent_boundary_freeze.schema.json",
+  "title": "Agent Boundary Freeze",
+  "description": "Certifies that the v8.x line is frozen: all schemas, validators, fixtures, and gate checks are immutable. No additions unless a security fix is required.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "type",
+    "freeze_id",
+    "frozen_release",
+    "frozen_schemas",
+    "frozen_validators",
+    "frozen_fixture_count",
+    "frozen_test_count",
+    "gate_checks_total",
+    "gate_checks_passed",
+    "freeze_fingerprint",
+    "freeze_timestamp",
+    "freeze_policy"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "type": {
+      "type": "string",
+      "const": "agent_boundary_freeze"
+    },
+    "freeze_id": {
+      "type": "string",
+      "pattern": "^freeze_v8x_[a-z0-9]{8}$"
+    },
+    "frozen_release": {
+      "type": "string",
+      "pattern": "^v8\\.[0-9]+\\.[0-9]+$"
+    },
+    "frozen_schemas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "frozen_validators": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "frozen_fixture_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "frozen_test_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "gate_checks_total": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "gate_checks_passed": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "freeze_fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "freeze_timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "freeze_policy": {
+      "type": "object",
+      "required": [
+        "immutable_line",
+        "security_only_exceptions",
+        "downstream_bridge_required"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "immutable_line": {
+          "type": "boolean",
+          "const": true
+        },
+        "security_only_exceptions": {
+          "type": "boolean",
+          "const": true
+        },
+        "downstream_bridge_required": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    }
+  }
+}

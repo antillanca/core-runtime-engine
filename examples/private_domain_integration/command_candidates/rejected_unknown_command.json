@@ -1,0 +1,21 @@
+{
+  "schema": "core.command_candidate.v1",
+  "vocabulary_id": "external:synthetic_sales.commands.v1",
+  "domain_id": "synthetic_sales",
+  "command": "delete_all_records",
+  "output_kind": "command_candidate",
+  "label": "accepted_candidate",
+  "arguments": {
+    "confirm": true
+  },
+  "effects": [
+    "write",
+    "delete"
+  ],
+  "profile_id": "public_synthetic",
+  "artifact_type": "synthetic_sales_fixture_bundle",
+  "notes": [
+    "REJECTED: command 'delete_all_records' does not exist in vocabulary.",
+    "Also rejected: effects include write and delete, which are not read_only."
+  ]
+}

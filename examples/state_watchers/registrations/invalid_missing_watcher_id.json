@@ -1,0 +1,10 @@
+{
+  "watch_condition": {
+    "operator": "gt",
+    "operand_schema": "scalar_observation.value",
+    "threshold_schema": "scalar_observation.reference"
+  },
+  "event_type": "threshold_exceeded",
+  "profile_id": "default",
+  "enabled": true
+}

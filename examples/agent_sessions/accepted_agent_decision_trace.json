@@ -1,0 +1,54 @@
+{
+  "schema_version": "core.agent_decision_trace.v1",
+  "type": "agent_decision_trace",
+  "trace_id": "decision_trace:accepted.read_and_propose.v1",
+  "session_ref": "agent_session:accepted.read_and_propose.v1",
+  "decisions": [
+    {
+      "step": 0,
+      "action": "classify",
+      "outcome": "success",
+      "contract_ref": "classification_candidate:accepted.read_and_propose.v1",
+      "fingerprint": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "timestamp": "2025-05-27T10:00:00Z"
+    },
+    {
+      "step": 1,
+      "action": "read",
+      "outcome": "success",
+      "contract_ref": "bounded_reference_index:accepted.read_and_propose.v1",
+      "fingerprint": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "timestamp": "2025-05-27T10:00:01Z"
+    },
+    {
+      "step": 2,
+      "action": "validate",
+      "outcome": "success",
+      "contract_ref": "command_candidate:accepted.read_and_propose.v1",
+      "fingerprint": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "timestamp": "2025-05-27T10:00:02Z"
+    },
+    {
+      "step": 3,
+      "action": "propose",
+      "outcome": "success",
+      "contract_ref": "command_candidate:accepted.read_and_propose.v1",
+      "fingerprint": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "timestamp": "2025-05-27T10:00:03Z"
+    },
+    {
+      "step": 4,
+      "action": "approve",
+      "outcome": "success",
+      "contract_ref": "human_approval_record:accepted.read_and_propose.v1",
+      "fingerprint": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "timestamp": "2025-05-27T10:00:04Z"
+    }
+  ],
+  "summary": {
+    "total_steps": 5,
+    "escalation_count": 0,
+    "rejection_count": 0,
+    "human_decisions": 1
+  }
+}

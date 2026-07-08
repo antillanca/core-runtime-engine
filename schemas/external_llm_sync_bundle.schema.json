@@ -1,0 +1,176 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE External LLM Sync Bundle v1",
+  "description": "Schema for a sync bundle produced by an external LLM consumer. External LLMs produce advisory candidates only; CORE validates before trusting. Bundles with private data, unbounded context, or tool execution requests are always rejected.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "type",
+    "bundle_id",
+    "producer",
+    "context",
+    "retrieval",
+    "candidate",
+    "evidence",
+    "safety",
+    "status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.external_llm_sync_bundle.v1",
+      "description": "Schema version identifier."
+    },
+    "type": {
+      "type": "string",
+      "const": "external_llm_sync_bundle",
+      "description": "Artifact type."
+    },
+    "bundle_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for this sync bundle."
+    },
+    "producer": {
+      "type": "object",
+      "required": ["id", "kind"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Producer identifier."
+        },
+        "kind": {
+          "type": "string",
+          "enum": ["llm_translation", "llm_classification", "llm_extraction"],
+          "description": "Kind of LLM operation that produced this bundle."
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "required": ["context_budget_ref", "read_refs", "query_fingerprint"],
+      "additionalProperties": false,
+      "properties": {
+        "context_budget_ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Reference to the context budget governing this sync."
+        },
+        "bounded_reference_index_ref": {
+          "type": "string",
+          "description": "Optional reference to the bounded reference index used for retrieval."
+        },
+        "read_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "description": "List of context references that were read."
+        },
+        "query_fingerprint": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$",
+          "description": "SHA-256 fingerprint of the query that triggered this sync."
+        }
+      }
+    },
+    "retrieval": {
+      "type": "object",
+      "required": ["retrieval_profile", "context_bundle_fingerprint", "freshness"],
+      "additionalProperties": false,
+      "properties": {
+        "retrieval_profile": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Retrieval profile identifier."
+        },
+        "context_bundle_fingerprint": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$",
+          "description": "SHA-256 fingerprint of the context bundle retrieved."
+        },
+        "freshness": {
+          "type": "string",
+          "enum": ["fresh", "cached", "stale"],
+          "description": "Freshness status of the retrieved context."
+        }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "required": ["candidate_type", "candidate_ref", "candidate_fingerprint"],
+      "additionalProperties": false,
+      "properties": {
+        "candidate_type": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Type of candidate produced."
+        },
+        "candidate_ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Reference to the candidate artifact."
+        },
+        "candidate_fingerprint": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$",
+          "description": "SHA-256 fingerprint of the candidate."
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["evidence_bundle_fingerprint", "missing_facts"],
+      "additionalProperties": false,
+      "properties": {
+        "evidence_bundle_fingerprint": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$",
+          "description": "SHA-256 fingerprint of the evidence bundle."
+        },
+        "missing_facts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "List of facts that were not available to the LLM. If non-empty, status must not be 'accepted'."
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "required": ["authority", "private_data_included", "unbounded_context_used", "tool_execution_requested"],
+      "additionalProperties": false,
+      "properties": {
+        "authority": {
+          "type": "string",
+          "const": "advisory_only",
+          "description": "Authority level. External LLM bundles are always advisory_only."
+        },
+        "private_data_included": {
+          "type": "boolean",
+          "description": "Whether private data was included in the bundle. Must be false."
+        },
+        "unbounded_context_used": {
+          "type": "boolean",
+          "description": "Whether unbounded (un-budgeted) context was used. Must be false."
+        },
+        "tool_execution_requested": {
+          "type": "boolean",
+          "description": "Whether the LLM requested tool execution. Must be false."
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["accepted", "rejected", "clarification_needed"],
+      "description": "Processing status. 'accepted' is only valid when missing_facts is empty and all safety flags are false."
+    }
+  }
+}

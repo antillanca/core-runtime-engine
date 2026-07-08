@@ -1,0 +1,28 @@
+{
+  "schema_version": "core.control_decision.v1",
+  "type": "control_decision",
+  "decision_id": "decision_001",
+  "intent_ref": "intent:creator-001",
+  "target_ref": "tenant_a:order_cancel:order-123",
+  "decision": "require_confirmation",
+  "reason": "policy_requires_human_confirmation",
+  "policy_refs": [
+    "policy:order_cancel:v3"
+  ],
+  "entropy_signal_refs": [
+    "signal:missing_evidence:001"
+  ],
+  "reversibility_class": "compensable",
+  "evidence_required": [
+    "receipt",
+    "audit_log"
+  ],
+  "source_refs": [
+    "intent:creator-001"
+  ],
+  "evidence_refs": [
+    "artifact:evidence/decision_001.json"
+  ],
+  "created_at": "2026-06-01T00:00:00Z",
+  "fingerprint": "abc123"
+}

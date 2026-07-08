@@ -1,0 +1,15 @@
+{
+  "schema_version": "v9.2.0",
+  "adapter_id": "ethereum-sepolia",
+  "chain_family": "evm",
+  "chain_name": "ethereum",
+  "network": "testnet",
+  "chain_id": 11155111,
+  "rpc_endpoint_kind": "infura",
+  "contract_address": "0xa1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+  "contract_version": "v1.0.0",
+  "submission_gas_limit": 100000,
+  "confirmation_blocks": 3,
+  "timeout_ms": 30000,
+  "fingerprint": "sha256:941563985e88ae38440ef611a049f338fcdf847b81bc3c5f6596be6a6fad3e86"
+}

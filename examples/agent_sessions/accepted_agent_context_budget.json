@@ -1,0 +1,28 @@
+{
+  "schema_version": "core.agent_context_budget.v1",
+  "type": "agent_context_budget",
+  "budget_id": "context_budget:accepted.read_and_propose.v1",
+  "read_limit": {
+    "max_references": 10,
+    "max_depth": 3,
+    "bounded_index_ref": "bounded_reference_index:accepted.read_and_propose.v1"
+  },
+  "write_limit": {
+    "allows_proposal_only": true,
+    "allowed_command_types": ["report", "query"]
+  },
+  "tools": {
+    "allowed_tools": [
+      {
+        "tool_name": "read_inventory",
+        "risk_level": "read_only"
+      },
+      {
+        "tool_name": "propose_restock",
+        "risk_level": "proposal_only"
+      }
+    ],
+    "forbidden_tools": ["execute_sql", "send_email"]
+  },
+  "session_ref": "agent_session:accepted.read_and_propose.v1"
+}

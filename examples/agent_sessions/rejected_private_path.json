@@ -1,0 +1,30 @@
+{
+  "schema_version": "core.agent_session.v1",
+  "type": "agent_session",
+  "session_id": "agent_session:rejected.private_path.v1",
+  "agent": {
+    "agent_id": "synthetic.leaky_assistant.v1",
+    "agent_kind": "llm_assistant"
+  },
+  "task": {
+    "task_ref": "agent_task:rejected.private_path.v1"
+  },
+  "context_budget": {
+    "budget_ref": "context_budget:rejected.private_path.v1",
+    "read_policy": "bounded_read_only",
+    "allowed_reference_index": "bounded_reference_index:rejected.private_path.v1"
+  },
+  "safety": {
+    "requires_human_approval": true,
+    "forbids_autonomous_execution": true,
+    "risk_tier": "low"
+  },
+  "trace": {
+    "decision_trace_ref": "decision_trace:rejected.private_path.v1"
+  },
+  "metadata": {
+    "description": "Synthetic fixture: REJECTED — contains absolute private path /home/user/private/db.sql in metadata.",
+    "_expected_rejection": "private_path_detected",
+    "leaked_path": "/home/user/private/db.sql"
+  }
+}

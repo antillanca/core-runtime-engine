@@ -1,0 +1,27 @@
+{
+  "fixture_id": "simulated_scalar_v1",
+  "schema_version": "core.sensor_evidence.v1",
+  "trace_id": "trace:simulated:scalar:v1",
+  "sensor_id": "sensor:simulated:scalar:v1",
+  "expected_trace_id": "trace:simulated:scalar:v1",
+  "expected_sensor_id": "sensor:simulated:scalar:v1",
+  "sample_count": 100,
+  "sensor_type": "simulated_scalar",
+  "capture_mode": "offline_fixture",
+  "value_keys": [
+    "signal"
+  ],
+  "value_key": "signal",
+  "threshold": 0.75,
+  "expected_event_type": "sensor.simulated.threshold_crossing",
+  "observation_event_id": "event:sensor:simulated:threshold:v1",
+  "trace_fingerprint": "094f4ae2372fad9ff96a0f39add3d48c052bd23a903785793624ed26fb3eb8d4",
+  "observation_event_fingerprints": {
+    "event:sensor:simulated:threshold:v1": "e90a7a6f53bf8bffbf29aa01844f5a575785caac658b468e65f0ef293931feef"
+  },
+  "notes": [
+    "Fixture is offline-only.",
+    "No live sensor is involved.",
+    "No runtime authority is granted to sensor data."
+  ]
+}

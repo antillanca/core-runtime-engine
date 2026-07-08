@@ -1,0 +1,15 @@
+{
+  "schema_version": "v9.2.0",
+  "adapter_id": "local-devnet",
+  "chain_family": "evm",
+  "chain_name": "ethereum",
+  "network": "devnet",
+  "chain_id": 1337,
+  "rpc_endpoint_kind": "local",
+  "contract_address": "0xd4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3",
+  "contract_version": "v0.1.0",
+  "submission_gas_limit": 50000,
+  "confirmation_blocks": 1,
+  "timeout_ms": 5000,
+  "fingerprint": "sha256:95996832b9b0cb9ef6be6485ba4f160f4f07a78135fe958a127d8a16f115ed9c"
+}

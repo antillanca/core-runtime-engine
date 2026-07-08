@@ -1,0 +1,11 @@
+{
+  "schema_version": "core.pre_resolution_step.v1",
+  "conflict_id": "synthetic.conflict.command_equivalence.v1",
+  "protocol_id": "canonicalization_check.v1",
+  "status": "resolved_equivalent",
+  "evidence": {
+    "canonical_claim_fingerprint": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+    "equivalent_outputs": ["expert_a", "expert_b"]
+  },
+  "fingerprint": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+}

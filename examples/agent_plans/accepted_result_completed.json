@@ -1,0 +1,27 @@
+{
+  "schema_version": "core.agent_plan_result.v1",
+  "type": "agent_plan_result",
+  "result_id": "agent_plan_result:read_and_propose.completed.v1",
+  "plan_ref": "agent_plan:read_and_propose.linear.v1",
+  "session_ref": "agent_session:accepted.read_and_propose.v1",
+  "overall_status": "completed",
+  "step_results": [
+    {
+      "step_index": 0,
+      "status": "completed",
+      "outcome_fingerprint": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "step_index": 1,
+      "status": "completed",
+      "outcome_fingerprint": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    {
+      "step_index": 2,
+      "status": "approved",
+      "outcome_fingerprint": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    }
+  ],
+  "plan_fingerprint": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "validation_fingerprint": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+}

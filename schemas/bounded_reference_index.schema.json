@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Bounded Reference Index v1",
+  "description": "Schema for a bounded reference index that maps stable IDs to files and read boundaries for deterministic agents.",
+  "type": "object",
+  "required": ["schema_version", "type", "index_id", "entries"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.bounded_reference_index.v1"
+    },
+    "type": {
+      "type": "string",
+      "const": "bounded_reference_index"
+    },
+    "index_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Stable identifier for this index."
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["ref_id", "path", "start_marker", "end_policy", "max_bytes", "expected_window_fingerprint", "read_mode"],
+        "properties": {
+          "ref_id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Stable reference ID for this entry."
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[^/]",
+            "description": "Relative path from the index location. Must not be absolute or escape repo root."
+          },
+          "start_marker": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Marker string that marks the start of the read window."
+          },
+          "end_policy": {
+            "type": "string",
+            "enum": ["next_marker", "explicit_end_marker", "end_of_file", "max_bytes"],
+            "description": "How the read window ends."
+          },
+          "end_marker": {
+            "type": "string",
+            "description": "Required when end_policy is explicit_end_marker."
+          },
+          "max_bytes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1048576,
+            "description": "Maximum bytes the agent may read for this reference."
+          },
+          "expected_window_fingerprint": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "description": "Expected SHA-256 fingerprint of the read window content."
+          },
+          "read_mode": {
+            "type": "string",
+            "enum": ["text"],
+            "description": "Read mode. Currently only 'text' is supported."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

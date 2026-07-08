@@ -1,0 +1,29 @@
+{
+  "schema_version": "core.agent_session.v1",
+  "type": "agent_session",
+  "session_id": "agent_session:rejected.autonomous_execution.v1",
+  "agent": {
+    "agent_id": "synthetic.autonomous_assistant.v1",
+    "agent_kind": "llm_assistant"
+  },
+  "task": {
+    "task_ref": "agent_task:rejected.autonomous_execution.v1"
+  },
+  "context_budget": {
+    "budget_ref": "context_budget:rejected.autonomous_execution.v1",
+    "read_policy": "bounded_read_only",
+    "allowed_reference_index": "bounded_reference_index:rejected.autonomous_execution.v1"
+  },
+  "safety": {
+    "requires_human_approval": true,
+    "forbids_autonomous_execution": false,
+    "risk_tier": "high"
+  },
+  "trace": {
+    "decision_trace_ref": "decision_trace:rejected.autonomous_execution.v1"
+  },
+  "metadata": {
+    "description": "Synthetic fixture: REJECTED — forbids_autonomous_execution is false, allowing autonomous execution.",
+    "_expected_rejection": "autonomous_execution_allowed"
+  }
+}

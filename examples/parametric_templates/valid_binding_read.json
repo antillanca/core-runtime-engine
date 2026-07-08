@@ -1,0 +1,16 @@
+{
+  "schema_version": "core.variable_binding.v1",
+  "type": "variable_binding",
+  "template_id": "synthetic_reports.daily_summary.v1",
+  "template_fingerprint": "sha256:a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
+  "bindings": {
+    "date_preset": {
+      "value": "today",
+      "source": "explicit"
+    },
+    "metric_filter": {
+      "value": "revenue",
+      "source": "inferred"
+    }
+  }
+}

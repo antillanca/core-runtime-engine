@@ -1,0 +1,9 @@
+{
+  "schema_version": "core.skill_promotion_candidate.v1",
+  "type": "skill_promotion_candidate",
+  "source_execution_id": "synthetic.execution.auto_activate.run_001",
+  "skill_id": "synthetic.auto_deploy.v1",
+  "promotion_reason": "auto-deploy without approval",
+  "requires_human_approval": false,
+  "activation_default": "enabled"
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": "core.agent_plan.v1",
+  "type": "agent_plan",
+  "plan_id": "agent_plan:read_and_propose.linear.v1",
+  "session_ref": "agent_session:accepted.read_and_propose.v1",
+  "steps": [
+    {
+      "step_index": 0,
+      "intent": "Read daily sales summary from bounded index",
+      "tool_proposal_ref": null,
+      "depends_on": [],
+      "safety": {
+        "requires_human_approval": true,
+        "risk_tier": "none",
+        "forbids_autonomous_execution": true
+      },
+      "expected_result": {
+        "result_type": "read_result",
+        "description": "Summary data from bounded reference index"
+      },
+      "status": "planned"
+    },
+    {
+      "step_index": 1,
+      "intent": "Propose restock order based on summary",
+      "tool_proposal_ref": "tool_invocation_proposal:restock.propose.v1",
+      "depends_on": [0],
+      "safety": {
+        "requires_human_approval": true,
+        "risk_tier": "low",
+        "forbids_autonomous_execution": true
+      },
+      "expected_result": {
+        "result_type": "proposal_only",
+        "description": "Restock proposal for human review"
+      },
+      "status": "planned"
+    },
+    {
+      "step_index": 2,
+      "intent": "Escalate to human for final approval",
+      "tool_proposal_ref": null,
+      "depends_on": [1],
+      "safety": {
+        "requires_human_approval": true,
+        "risk_tier": "none",
+        "forbids_autonomous_execution": true
+      },
+      "expected_result": {
+        "result_type": "escalation_record",
+        "description": "Human approval or rejection of the proposal"
+      },
+      "status": "planned"
+    }
+  ],
+  "safety": {
+    "requires_step_approval": true,
+    "forbids_parallel_execution": true,
+    "max_steps": 8
+  }
+}

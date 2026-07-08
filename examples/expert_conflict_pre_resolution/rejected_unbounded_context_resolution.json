@@ -1,0 +1,14 @@
+{
+  "schema_version": "core.pre_resolution_report.v1",
+  "conflict_id": "synthetic.conflict.unbounded.v1",
+  "steps": [
+    "sha256:0000000000000000000000000000000000000000000000000000000000000003"
+  ],
+  "outcome": "resolved_by_protocol",
+  "human_required": false,
+  "resolution_summary": "Resolved by reading full repository without bounded reference index.",
+  "preserved_claims": [
+    "sha256:0000000000000000000000000000000000000000000000000000000000000004"
+  ],
+  "unbounded_context_used": true
+}

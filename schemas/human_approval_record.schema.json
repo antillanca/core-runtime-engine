@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Human Approval Record v1",
+  "description": "Schema for the only normal authorization for execution-sensitive actions. No advisory consensus can substitute for this record.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "type",
+    "proposal_id",
+    "decision",
+    "approver_id",
+    "approval_fingerprint"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.human_approval_record.v1",
+      "description": "Schema version identifier."
+    },
+    "type": {
+      "type": "string",
+      "const": "human_approval_record",
+      "description": "Artifact type."
+    },
+    "proposal_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The proposal this approval addresses."
+    },
+    "decision": {
+      "type": "string",
+      "enum": [
+        "approved_for_sandbox_execution",
+        "rejected",
+        "clarification_required"
+      ],
+      "description": "Human approval decision."
+    },
+    "approver_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human approver identifier (e.g. 'human.operator.local')."
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Conditions attached to the approval."
+    },
+    "approval_fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "SHA-256 fingerprint of the approval record."
+    }
+  }
+}

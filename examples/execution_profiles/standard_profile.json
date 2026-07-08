@@ -1,0 +1,25 @@
+{
+  "description": "Standard declarative profile for validated and evaluated proposals.",
+  "expected_use": "Default read-only Expert Proposal validation and evaluation flow.",
+  "notes": [
+    "Static profile fixture only.",
+    "This profile is not executed by CORE.",
+    "This profile does not allow tool execution or runtime mutation."
+  ],
+  "profile_id": "execution_profile:standard:v1",
+  "profile_name": "standard",
+  "profile_schema": "core.execution_profile.v1",
+  "requirements": {
+    "audit_level": "standard",
+    "requires_batch_report": true,
+    "requires_certified_evidence": false,
+    "requires_deterministic_evaluation": true,
+    "requires_explainability": false,
+    "requires_replay_certification": false,
+    "requires_structural_validation": true
+  },
+  "safety": {
+    "allows_runtime_mutation": false,
+    "allows_tool_execution": false
+  }
+}

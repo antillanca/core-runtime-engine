@@ -1,0 +1,36 @@
+{
+  "schema_version": "core.agent_decision_trace.v1",
+  "type": "agent_decision_trace",
+  "trace_id": "agent_decision_trace:governance.rejection.v1",
+  "session_ref": "agent_session:rejected.autonomous.v1",
+  "plan_ref": "agent_plan:read_and_propose.linear.v1",
+  "trace_entries": [
+    {
+      "entry_id": 0,
+      "timestamp_iso": "2025-05-28T11:00:00Z",
+      "entry_type": "observation",
+      "summary": "Agent detected anomaly.",
+      "evidence_hash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    },
+    {
+      "entry_id": 1,
+      "timestamp_iso": "2025-05-28T11:01:00Z",
+      "entry_type": "rejection",
+      "source_ref": "tool_invocation_proposal:write.autonomous.v1",
+      "summary": "Governance rejected autonomous write proposal.",
+      "evidence_hash": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "metadata": {"governance_violation": true, "violation_code": "autonomous_execution_allowed"}
+    }
+  ],
+  "trace_summary": {
+    "total_entries": 2,
+    "entry_type_counts": {"observation": 1, "rejection": 1},
+    "governance_violations": 1,
+    "requires_review": true
+  },
+  "integrity": {
+    "chain_root_hash": "sha256:af1ecda78b49031b90b061b3f1a749a7a4fbf0413c71da4969b4a868ea7a4596",
+    "entry_count": 2,
+    "immutability_guarantee": true
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": "v1",
+  "type": "anchoring_event",
+  "event_id": "evt_f1e2d3c4_aabbccddeeff",
+  "submission_ref": "anchor_a1b2c3d4_d37606cbfa0e",
+  "anchor_hash": "0x542308c5313d2ce3607b243e4067855a3f760d925382828decc0383182007c02",
+  "artifact_fingerprint": "sha256:542308c5313d2ce3607b243e4067855a3f760d925382828decc0383182007c02",
+  "chain_id": 11155111,
+  "contract_address": "0xdead000000000000000000000000000000000000",
+  "anchorer": "0xbeef000000000000000000000000000000000000",
+  "block_number": 5500000,
+  "tx_hash": "0xaaaa000000000000000000000000000000000000000000000000000000000001",
+  "timestamp": "2026-06-01T12:00:00Z",
+  "artifact_type": "freeze_artifact",
+  "metadata": {
+    "core_version": "v9.0.0",
+    "log_index": 0,
+    "verification_status": "confirmed"
+  },
+  "event_fingerprint": "sha256:8e989324afcab21d07125b0d1dc344810c58faa8516475909465c1818cbfa9ed"
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": "core.agent_task.v1",
+  "type": "agent_task",
+  "task_id": "agent_task:accepted.read_and_propose.v1",
+  "intent": "Read daily summary and propose a restock order",
+  "slots": {
+    "target_date": "2025-05-27",
+    "department": "inventory"
+  },
+  "vocabulary_id": "external:inventory",
+  "classification_candidate_ref": "classification_candidate:accepted.read_and_propose.v1",
+  "safety": {
+    "requires_command_validation": true,
+    "forbidden_patterns": ["DROP", "DELETE", "TRUNCATE"]
+  },
+  "provenance": {
+    "source": "human_input",
+    "trigger_fingerprint": "sha256:0000000000000000000000000000000000000000000000000000000000000001"
+  }
+}

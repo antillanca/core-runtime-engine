@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Multi-Expert Review Bundle v1",
+  "description": "Schema for a bundle of advisory reviews plus divergence measurement. If experts disagree, a divergence summary is required. Human approval is always required regardless of consensus.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "type",
+    "proposal_id",
+    "reviews",
+    "agreement",
+    "requires_human_review"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.multi_expert_review_bundle.v1",
+      "description": "Schema version identifier."
+    },
+    "type": {
+      "type": "string",
+      "const": "multi_expert_review_bundle",
+      "description": "Artifact type."
+    },
+    "proposal_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The proposal this bundle addresses."
+    },
+    "reviews": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^sha256:[0-9a-f]{64}$",
+        "description": "Fingerprint of an advisory review artifact."
+      },
+      "minItems": 1,
+      "description": "Fingerprints of the advisory review artifacts in this bundle."
+    },
+    "agreement": {
+      "type": "string",
+      "enum": [
+        "unanimous_approval",
+        "partial",
+        "unanimous_rejection"
+      ],
+      "description": "Agreement level across advisory experts."
+    },
+    "divergence_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "approval_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rejection_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "clarification_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "primary_disagreement": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "description": "Required when agreement is not unanimous_approval."
+    },
+    "requires_human_review": {
+      "type": "boolean",
+      "const": true,
+      "description": "Must be true. Human review is always required."
+    }
+  }
+}

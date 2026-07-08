@@ -1,0 +1,35 @@
+{
+  "schema_version": "core.classification_candidate.v1",
+  "type": "classification_candidate",
+  "producer": {
+    "id": "synthetic.keyword_classifier.v1",
+    "kind": "deterministic_classifier"
+  },
+  "input": {
+    "input_fingerprint": "sha256:479d1b9c3b2d275c4c83c8d197fe9e32e8d139e8b4aefff6ef5513688f8de3f0",
+    "language": "en",
+    "normalized_text": "weekly summary"
+  },
+  "classification": {
+    "domain": "synthetic_reports",
+    "intent": "summary_report",
+    "confidence": 0.5,
+    "decision": "accepted",
+    "slots": {
+      "date_preset": "week"
+    },
+    "matched_features": [
+      "weekly",
+      "summary"
+    ]
+  },
+  "policy": {
+    "vocabulary_id": "synthetic_reports.v1",
+    "accept_threshold": 0.85,
+    "clarify_threshold": 0.6
+  },
+  "safety": {
+    "forbidden_patterns_detected": [],
+    "requires_command_validation": true
+  }
+}

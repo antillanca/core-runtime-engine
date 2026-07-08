@@ -1,0 +1,11 @@
+{
+  "watcher_id": "synthetic.within_range",
+  "watch_condition": {
+    "operator": "within_range",
+    "operand_schema": "scalar_observation.value",
+    "threshold_schema": "scalar_observation.range"
+  },
+  "event_type": "range_entered",
+  "profile_id": "default",
+  "enabled": true
+}

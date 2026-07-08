@@ -1,0 +1,15 @@
+{
+  "schema_version": "core.pre_resolution_report.v1",
+  "conflict_id": "synthetic.conflict.human_bypass.v1",
+  "steps": [
+    "sha256:0000000000000000000000000000000000000000000000000000000000000001"
+  ],
+  "outcome": "resolved_by_protocol",
+  "human_required": false,
+  "resolution_summary": "Protocol resolved conflict; human approval bypassed despite high-risk profile.",
+  "preserved_claims": [
+    "sha256:0000000000000000000000000000000000000000000000000000000000000002"
+  ],
+  "risk_tier_override": "high",
+  "human_required_by_profile": true
+}

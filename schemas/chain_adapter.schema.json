@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://core.antillanca.dev/schemas/chain_adapter.schema.json",
+  "title": "Chain Adapter Boundary",
+  "description": "Abstracts chain-specific details behind a validable adapter boundary so downstream systems remain independent of chain implementations. The adapter is a descriptor — it never executes submission.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "adapter_id",
+    "chain_family",
+    "chain_name",
+    "network",
+    "chain_id",
+    "rpc_endpoint_kind",
+    "contract_address",
+    "contract_version",
+    "submission_gas_limit",
+    "confirmation_blocks",
+    "timeout_ms",
+    "fingerprint"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Schema semver"
+    },
+    "adapter_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*[a-z0-9]$",
+      "description": "Unique slug identifier for the adapter"
+    },
+    "chain_family": {
+      "type": "string",
+      "enum": [
+        "evm",
+        "substrate",
+        "solana",
+        "cosmos"
+      ],
+      "description": "Chain family classification"
+    },
+    "chain_name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$",
+      "description": "Human-readable chain name (e.g. ethereum, polygon)"
+    },
+    "network": {
+      "type": "string",
+      "enum": [
+        "mainnet",
+        "testnet",
+        "devnet",
+        "local"
+      ],
+      "description": "Network type"
+    },
+    "chain_id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "EIP-155 chain ID or equivalent"
+    },
+    "rpc_endpoint_kind": {
+      "type": "string",
+      "enum": [
+        "infura",
+        "alchemy",
+        "local",
+        "custom"
+      ],
+      "description": "RPC endpoint classification"
+    },
+    "contract_address": {
+      "type": "string",
+      "description": "External contract address (0x... for EVM). CORE does not execute this."
+    },
+    "contract_version": {
+      "type": "string",
+      "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Contract semver"
+    },
+    "submission_gas_limit": {
+      "type": "integer",
+      "minimum": 21000,
+      "maximum": 500000,
+      "description": "Gas limit for submission transactions"
+    },
+    "confirmation_blocks": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 256,
+      "description": "Required confirmation blocks"
+    },
+    "timeout_ms": {
+      "type": "integer",
+      "minimum": 1000,
+      "maximum": 60000,
+      "description": "Timeout in milliseconds"
+    },
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "description": "SHA-256 of canonical adapter JSON (excluding fingerprint field)"
+    }
+  }
+}

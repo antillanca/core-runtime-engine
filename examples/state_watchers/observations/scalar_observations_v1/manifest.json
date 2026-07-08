@@ -1,0 +1,10 @@
+{
+  "schema": "core.scalar_observation_fixture.v1",
+  "fixture_id": "scalar_observations_v1",
+  "observation_count": 5,
+  "notes": [
+    "Synthetic scalar observations for state watcher derivation.",
+    "Offline-only.",
+    "No runtime authority is granted by these fixtures."
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Advisory Review v1",
+  "description": "Schema for a non-authoritative review from an external expert. Advisory reviews are evidence only; they never authorize execution.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "type",
+    "proposal_id",
+    "expert_id",
+    "verdict",
+    "authority"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.advisory_review.v1",
+      "description": "Schema version identifier."
+    },
+    "type": {
+      "type": "string",
+      "const": "advisory_review",
+      "description": "Artifact type."
+    },
+    "proposal_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The proposal this review addresses."
+    },
+    "expert_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "External expert identifier (e.g. 'external_llm.synthetic_reviewer_a')."
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "approve",
+        "approve_with_conditions",
+        "clarification_requested",
+        "reject"
+      ],
+      "description": "Advisory verdict. Never constitutes authorization."
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Review confidence in [0.0, 1.0]."
+    },
+    "concerns": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Concerns or conditions raised by the expert."
+    },
+    "authority": {
+      "type": "string",
+      "const": "advisory_only",
+      "description": "Must be 'advisory_only'. Reviews never authorize execution."
+    }
+  }
+}

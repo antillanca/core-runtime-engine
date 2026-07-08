@@ -1,0 +1,13 @@
+{
+  "schema": "core.business_event_fixture.v1",
+  "fixture_id": "derived_events_v1",
+  "source_watcher": "synthetic.threshold_exceeded",
+  "source_observations": "scalar_observations_v1",
+  "triggered_count": 2,
+  "non_triggered_count": 1,
+  "notes": [
+    "Synthetic derived business events.",
+    "Offline-only.",
+    "No runtime authority is granted by these fixtures."
+  ]
+}

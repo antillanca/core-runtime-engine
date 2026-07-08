@@ -1,0 +1,45 @@
+{
+  "schema_version": "core.agent_decision_trace.v1",
+  "type": "agent_decision_trace",
+  "trace_id": "agent_decision_trace:read_and_propose.linear.v1",
+  "session_ref": "agent_session:accepted.read_and_propose.v1",
+  "plan_ref": "agent_plan:read_and_propose.linear.v1",
+  "trace_entries": [
+    {
+      "entry_id": 0,
+      "timestamp_iso": "2025-05-28T10:00:00Z",
+      "entry_type": "observation",
+      "summary": "Agent observed current system state.",
+      "evidence_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "metadata": {"source": "system_state_reader"}
+    },
+    {
+      "entry_id": 1,
+      "timestamp_iso": "2025-05-28T10:01:00Z",
+      "entry_type": "proposal",
+      "source_ref": "tool_invocation_proposal:read.query.v1",
+      "summary": "Agent proposed to read system configuration.",
+      "evidence_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "metadata": {"plan_step": 0}
+    },
+    {
+      "entry_id": 2,
+      "timestamp_iso": "2025-05-28T10:02:00Z",
+      "entry_type": "approval",
+      "source_ref": "human_approval:read.query.v1",
+      "summary": "Human approved read operation.",
+      "evidence_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    }
+  ],
+  "trace_summary": {
+    "total_entries": 3,
+    "entry_type_counts": {"observation": 1, "proposal": 1, "approval": 1},
+    "governance_violations": 0,
+    "requires_review": false
+  },
+  "integrity": {
+    "chain_root_hash": "sha256:950016a7445ac06cfcc26244bdfa287fb631ecaf549826f73891975d856b62e8",
+    "entry_count": 3,
+    "immutability_guarantee": true
+  }
+}

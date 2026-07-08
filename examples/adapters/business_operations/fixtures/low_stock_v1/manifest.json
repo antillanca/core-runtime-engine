@@ -1,0 +1,31 @@
+{
+  "calibration_id": "calibration:business_operations:inventory:v1",
+  "capture_mode": "offline_fixture",
+  "environment_id": "environment:business_operations_example",
+  "expected_event_type": "sensor.business_operations.low_stock",
+  "expected_sensor_id": "sensor:business_operations:inventory:v1",
+  "expected_trace_id": "trace:business_operations:low_stock:v1",
+  "fixture_id": "low_stock_v1",
+  "notes": [
+    "Synthetic business operations low-stock example.",
+    "Offline-only.",
+    "No real inventory data.",
+    "No runtime authority is granted to adapter data."
+  ],
+  "observation_event_fingerprints": {
+    "event:business_operations:low_stock:v1": "196b96646b106e5af6b3dc7a7f3e5bb32b5f61715c7a2cf735a294ef16e0969f"
+  },
+  "observation_event_id": "event:business_operations:low_stock:v1",
+  "sample_count": 100,
+  "schema_version": "core.sensor_evidence.v1",
+  "sensor_id": "sensor:business_operations:inventory:v1",
+  "sensor_type": "business_operations_inventory",
+  "threshold": 20.0,
+  "trace_fingerprint": "1b7cf69099035525443d24ce54aafefc253806b738aa1aa1fe0e5aba1b9c3e9b",
+  "trace_id": "trace:business_operations:low_stock:v1",
+  "value_key": "stock_units",
+  "value_keys": [
+    "reorder_level",
+    "stock_units"
+  ]
+}

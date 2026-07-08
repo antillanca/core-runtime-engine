@@ -1,0 +1,15 @@
+{
+  "schema_version": "v9.2.0",
+  "adapter_id": "ethereum-local-mainnet",
+  "chain_family": "evm",
+  "chain_name": "ethereum",
+  "network": "mainnet",
+  "chain_id": 1,
+  "rpc_endpoint_kind": "local",
+  "contract_address": "0xe5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4",
+  "contract_version": "v1.0.0",
+  "submission_gas_limit": 100000,
+  "confirmation_blocks": 5,
+  "timeout_ms": 30000,
+  "fingerprint": "sha256:8074d2ae00b88c1b6af5fa01301f3c53a4d2d86a39f6ba5d55f3dd8f6723c41a"
+}

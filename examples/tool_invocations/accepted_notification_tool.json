@@ -1,0 +1,35 @@
+{
+  "schema_version": "core.tool_invocation_proposal.v1",
+  "type": "tool_invocation_proposal",
+  "proposal_id": "tool_invocation_proposal:notify.alert.v1",
+  "session_ref": "agent_session:accepted.notification.v1",
+  "plan_step_ref": "agent_plan_step:notify.step1.v1",
+  "tool": {
+    "logical_name": "notification_sender",
+    "version": "2.1.0",
+    "category": "notification"
+  },
+  "arguments": {
+    "channel": "dashboard",
+    "priority": "low"
+  },
+  "risk": {
+    "risk_tier": "low",
+    "side_effects": "external_side_effect",
+    "reversibility": "irreversible"
+  },
+  "approval": {
+    "requires_human_approval": true,
+    "approval_reason": "Notification sends external signal; human must confirm intent.",
+    "escalation_path": "shift_lead"
+  },
+  "expected_evidence": {
+    "evidence_type": "confirmation_record",
+    "description": "Confirmation that notification was dispatched to the dashboard channel."
+  },
+  "safety": {
+    "forbids_autonomous_execution": true,
+    "timeout_seconds": 10,
+    "max_retries": 0
+  }
+}

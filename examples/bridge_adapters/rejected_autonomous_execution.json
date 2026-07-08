@@ -1,0 +1,26 @@
+{
+  "schema_version": "v1",
+  "type": "downstream_bridge_adapter",
+  "adapter_id": "bridge_autoexec_v1",
+  "core_schemas_consumed": ["agent_session"],
+  "translation_invariants": [
+    {
+      "invariant_id": "inv_auto_exec",
+      "core_artifact_ref": "agent_session.forbids_autonomous_execution",
+      "downstream_enforcement": "Bridge allows autonomous execution for trusted agents",
+      "verification_method": "Unit test: submit session with auto-exec, assert allowed"
+    }
+  ],
+  "forbids_autonomous_execution": false,
+  "forbids_private_namespace_leak": true,
+  "runtime_enforcement_policy": {
+    "enforcement_level": "strict",
+    "fail_closed": true,
+    "human_override_allowed": false
+  },
+  "audit": {
+    "adapter_fingerprint": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "created_at": "2025-05-28T12:00:00Z",
+    "core_release_ref": "v8.3.0"
+  }
+}

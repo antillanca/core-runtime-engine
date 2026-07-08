@@ -1,0 +1,20 @@
+{
+  "schema_version": "v1",
+  "type": "anchoring_event",
+  "event_id": "evt_b1a2c3d4_112233445566",
+  "submission_ref": "anchor_e5f60708_0e6750c4e663",
+  "anchor_hash": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "artifact_fingerprint": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "chain_id": 11155111,
+  "contract_address": "0xdead000000000000000000000000000000000000",
+  "anchorer": "0xbeef000000000000000000000000000000000000",
+  "block_number": 5500001,
+  "tx_hash": "0xbbbb000000000000000000000000000000000000000000000000000000000001",
+  "timestamp": "2026-06-01T12:05:00Z",
+  "artifact_type": "business_profile",
+  "metadata": {
+    "core_version": "v9.1.0",
+    "verification_status": "confirmed"
+  },
+  "event_fingerprint": "sha256:97306cfcea950118ff74bfac575e50a0c98a504f60efb00b7437b813a961b3b4"
+}

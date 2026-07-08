@@ -1,0 +1,26 @@
+{
+  "schema_version": "core.execution_proposal.v1",
+  "type": "execution_proposal",
+  "proposal_id": "synthetic.execution.docs_check.v1",
+  "producer": {
+    "id": "synthetic.assistant.v1",
+    "kind": "private_assistant"
+  },
+  "requested_action": {
+    "action_type": "read_only_check",
+    "command_ref": "scripts/check_docs.py",
+    "arguments": [
+      "--mode",
+      "read_only"
+    ],
+    "sandbox_required": true
+  },
+  "risk_tier": "low",
+  "declared_scope": [
+    "docs/"
+  ],
+  "expected_outputs": [
+    "validation_report"
+  ],
+  "requires_human_approval": true
+}

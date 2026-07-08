@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Execution Proposal v1",
+  "description": "Schema for a structured request to execute a procedure, script, code change or skill. The execution gate validates structure, laws and profile before any advisory review or human approval.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "type",
+    "proposal_id",
+    "producer",
+    "requested_action",
+    "risk_tier",
+    "declared_scope",
+    "expected_outputs",
+    "requires_human_approval"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.execution_proposal.v1",
+      "description": "Schema version identifier."
+    },
+    "type": {
+      "type": "string",
+      "const": "execution_proposal",
+      "description": "Artifact type."
+    },
+    "proposal_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique proposal identifier (e.g. 'synthetic.execution.docs_check.v1')."
+    },
+    "producer": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Unique producer identifier."
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "private_assistant",
+            "development_agent",
+            "skill_runner",
+            "human_operator"
+          ],
+          "description": "Producer type."
+        }
+      }
+    },
+    "requested_action": {
+      "type": "object",
+      "required": [
+        "action_type",
+        "command_ref",
+        "sandbox_required"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "action_type": {
+          "type": "string",
+          "enum": [
+            "run_script",
+            "apply_patch",
+            "generate_artifact",
+            "read_only_check"
+          ],
+          "description": "Action type."
+        },
+        "command_ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Reference to the command or script to execute."
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Arguments to pass to the command."
+        },
+        "sandbox_required": {
+          "type": "boolean",
+          "description": "Whether sandbox execution is required."
+        }
+      }
+    },
+    "risk_tier": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "description": "Risk tier of the proposed action."
+    },
+    "declared_scope": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "description": "Declared scope of the action (e.g. ['docs/']). Must not escape declared boundaries."
+    },
+    "expected_outputs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Expected output artifacts from the execution."
+    },
+    "requires_human_approval": {
+      "type": "boolean",
+      "description": "Whether human approval is required before execution."
+    }
+  }
+}

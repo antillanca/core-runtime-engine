@@ -1,0 +1,15 @@
+{
+  "schema_version": "v9.2.0",
+  "adapter_id": "ethereum-mainnet-low-conf",
+  "chain_family": "evm",
+  "chain_name": "ethereum",
+  "network": "mainnet",
+  "chain_id": 1,
+  "rpc_endpoint_kind": "infura",
+  "contract_address": "0xf6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5",
+  "contract_version": "v1.0.0",
+  "submission_gas_limit": 100000,
+  "confirmation_blocks": 1,
+  "timeout_ms": 30000,
+  "fingerprint": "sha256:19ebe651245d87a7df1acb95a7481a96ce283918d418dd238304840870e9ac16"
+}

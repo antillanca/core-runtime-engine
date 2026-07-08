@@ -1,0 +1,61 @@
+{
+  "schema_version": "core.agent_plan.v1",
+  "type": "agent_plan",
+  "plan_id": "agent_plan:multi_dep.dag.v1",
+  "session_ref": "agent_session:accepted.dag_workflow.v1",
+  "steps": [
+    {
+      "step_index": 0,
+      "intent": "Fetch current inventory levels",
+      "tool_proposal_ref": null,
+      "depends_on": [],
+      "safety": {
+        "requires_human_approval": true,
+        "risk_tier": "none",
+        "forbids_autonomous_execution": true
+      },
+      "expected_result": {
+        "result_type": "read_result",
+        "description": "Inventory snapshot from bounded index"
+      },
+      "status": "planned"
+    },
+    {
+      "step_index": 1,
+      "intent": "Fetch pricing data",
+      "tool_proposal_ref": null,
+      "depends_on": [],
+      "safety": {
+        "requires_human_approval": true,
+        "risk_tier": "none",
+        "forbids_autonomous_execution": true
+      },
+      "expected_result": {
+        "result_type": "read_result",
+        "description": "Pricing reference data"
+      },
+      "status": "planned"
+    },
+    {
+      "step_index": 2,
+      "intent": "Generate discount proposal combining inventory and pricing",
+      "tool_proposal_ref": "tool_invocation_proposal:discount.propose.v1",
+      "depends_on": [0, 1],
+      "safety": {
+        "requires_human_approval": true,
+        "risk_tier": "medium",
+        "forbids_autonomous_execution": true
+      },
+      "expected_result": {
+        "result_type": "proposal_only",
+        "description": "Discount proposal for human approval"
+      },
+      "status": "planned"
+    }
+  ],
+  "safety": {
+    "requires_step_approval": true,
+    "forbids_parallel_execution": true,
+    "max_steps": 16
+  }
+}

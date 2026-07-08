@@ -1,0 +1,23 @@
+{
+  "schema_version": "core.execution_proposal.v1",
+  "type": "execution_proposal",
+  "proposal_id": "synthetic.execution.scope_escape.v1",
+  "producer": {
+    "id": "synthetic.assistant.v1",
+    "kind": "private_assistant"
+  },
+  "requested_action": {
+    "action_type": "apply_patch",
+    "command_ref": "scripts/patch_core.sh",
+    "sandbox_required": true
+  },
+  "risk_tier": "critical",
+  "declared_scope": [
+    "../core-runtime-engine/",
+    "/etc/"
+  ],
+  "expected_outputs": [
+    "patch_result"
+  ],
+  "requires_human_approval": true
+}

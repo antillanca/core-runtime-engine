@@ -1,0 +1,33 @@
+{
+  "schema_version": "core.tool_invocation_proposal.v1",
+  "type": "tool_invocation_proposal",
+  "proposal_id": "tool_invocation_proposal:bad.timeout.v1",
+  "session_ref": "agent_session:rejected.timeout.v1",
+  "plan_step_ref": "agent_plan_step:bad.step1.v1",
+  "tool": {
+    "logical_name": "slow_tool",
+    "version": "1.0.0",
+    "category": "external_call"
+  },
+  "arguments": {
+    "operation": "fetch"
+  },
+  "risk": {
+    "risk_tier": "medium",
+    "side_effects": "external_side_effect",
+    "reversibility": "irreversible"
+  },
+  "approval": {
+    "requires_human_approval": true,
+    "approval_reason": "External call with side effects."
+  },
+  "expected_evidence": {
+    "evidence_type": "output_summary",
+    "description": "Fetch result."
+  },
+  "safety": {
+    "forbids_autonomous_execution": true,
+    "timeout_seconds": 99999,
+    "max_retries": 10
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": "v1",
+  "type": "anchoring_event",
+  "event_id": "evt_bad00001_aabbccddeeff",
+  "submission_ref": "anchor_bad00001_aabbccddeeff",
+  "anchor_hash": "0xcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "artifact_fingerprint": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "chain_id": 11155111,
+  "contract_address": "0xdead000000000000000000000000000000000000",
+  "anchorer": "0xbeef000000000000000000000000000000000000",
+  "block_number": 5500002,
+  "tx_hash": "0xcccc000000000000000000000000000000000000000000000000000000000001",
+  "timestamp": "2026-06-01T12:10:00Z",
+  "event_fingerprint": "sha256:ffff000000000000000000000000000000000000000000000000000000000000",
+  "artifact_type": "release_manifest",
+  "metadata": {
+    "core_version": "v9.1.0",
+    "verification_status": "confirmed"
+  }
+}

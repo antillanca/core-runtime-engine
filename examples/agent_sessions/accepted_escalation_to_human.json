@@ -1,0 +1,34 @@
+{
+  "schema_version": "core.agent_session.v1",
+  "type": "agent_session",
+  "session_id": "agent_session:accepted.escalation_to_human.v1",
+  "agent": {
+    "agent_id": "synthetic.escalation_assistant.v1",
+    "agent_kind": "hybrid_pipeline"
+  },
+  "task": {
+    "task_ref": "agent_task:accepted.escalation_to_human.v1",
+    "classification_ref": "classification_candidate:accepted.escalation_to_human.v1"
+  },
+  "context_budget": {
+    "budget_ref": "context_budget:accepted.escalation_to_human.v1",
+    "read_policy": "read_write_proposal_only",
+    "allowed_reference_index": "bounded_reference_index:accepted.escalation_to_human.v1"
+  },
+  "safety": {
+    "requires_human_approval": true,
+    "forbids_autonomous_execution": true,
+    "approval_ref": "human_approval_record:accepted.escalation_to_human.v1",
+    "risk_tier": "high"
+  },
+  "trace": {
+    "decision_trace_ref": "decision_trace:accepted.escalation_to_human.v1",
+    "expert_review_refs": [
+      "expert_review:accepted.escalation_to_human.v1"
+    ],
+    "pre_resolution_ref": "pre_resolution_report:accepted.escalation_to_human.v1"
+  },
+  "metadata": {
+    "description": "Synthetic fixture: valid session escalating to human for high-risk task."
+  }
+}

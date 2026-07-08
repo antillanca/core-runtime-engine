@@ -1,0 +1,129 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://core.antillanca.dev/schemas/anchoring_submission.schema.json",
+  "title": "Anchoring Submission",
+  "description": "A request to notarize the canonical hash of a frozen CORE artefact on an external blockchain. The chain only stores the hash; CORE remains the validation authority.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "type",
+    "submission_id",
+    "artifact_type",
+    "artifact_fingerprint",
+    "anchor_hash",
+    "chain_id",
+    "contract_address",
+    "submitter",
+    "submission_timestamp",
+    "eligibility"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "type": {
+      "type": "string",
+      "const": "anchoring_submission"
+    },
+    "submission_id": {
+      "type": "string",
+      "pattern": "^anchor_[a-z0-9]{8}_[a-f0-9]{12}$",
+      "description": "Unique identifier: anchor_{random8}_{hash12}"
+    },
+    "artifact_type": {
+      "type": "string",
+      "enum": [
+        "release_manifest",
+        "audit_trail_fingerprint",
+        "certification_report",
+        "replay_certification",
+        "frozen_fixture_hash",
+        "routing_decision_fingerprint",
+        "evidence_bundle_fingerprint",
+        "freeze_artifact",
+        "downstream_bridge_compliance",
+        "preintegration_manifest"
+      ],
+      "description": "Which CORE artefact type is being anchored"
+    },
+    "artifact_fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "description": "Canonical CORE fingerprint of the artefact"
+    },
+    "anchor_hash": {
+      "type": "string",
+      "pattern": "^0x[a-f0-9]{64}$",
+      "description": "The bytes32 hash to submit on-chain (must match artifact_fingerprint core)"
+    },
+    "chain_id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "EIP-155 chain ID (1=Ethereum mainnet, 11155111=Sepolia, 137=Polygon)"
+    },
+    "contract_address": {
+      "type": "string",
+      "pattern": "^0x[a-f0-9]{40}$",
+      "description": "Deployed CoreAnchor contract address"
+    },
+    "submitter": {
+      "type": "string",
+      "pattern": "^0x[a-f0-9]{40}$",
+      "description": "Ethereum address that will submit the transaction"
+    },
+    "submission_timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the submission request"
+    },
+    "eligibility": {
+      "type": "object",
+      "required": [
+        "frozen_artifact",
+        "hash_matches_fingerprint",
+        "no_private_data",
+        "no_runtime_authority_change"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "frozen_artifact": {
+          "type": "boolean",
+          "description": "The artefact is frozen and will not change"
+        },
+        "hash_matches_fingerprint": {
+          "type": "boolean",
+          "description": "anchor_hash is derived from the canonical CORE fingerprint"
+        },
+        "no_private_data": {
+          "type": "boolean",
+          "description": "No private domain data is exposed in the hash"
+        },
+        "no_runtime_authority_change": {
+          "type": "boolean",
+          "description": "Anchoring does not alter CORE runtime authority"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "artifact_path": {
+          "type": "string",
+          "description": "Relative path to the artefact within the repository"
+        },
+        "release_version": {
+          "type": "string",
+          "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "description": "CORE release version that produced the artefact"
+        },
+        "submission_reason": {
+          "type": "string",
+          "description": "Human-readable reason for this anchoring"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Parametric Cache Entry v1",
+  "description": "Schema for a parametric cache entry that stores the compiled command structure (skeleton) from a resolved template+binding pair. Caches ONLY the structural/route/shape information -- never live results, state events, or permissions.",
+  "type": "object",
+  "required": ["schema_version", "type", "template_id", "template_fingerprint", "binding_fingerprint", "compiled_shape", "cache_policy", "safety"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.parametric_cache_entry.v1",
+      "description": "Schema version identifier."
+    },
+    "type": {
+      "type": "string",
+      "const": "parametric_cache_entry",
+      "description": "Artifact type."
+    },
+    "template_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Reference to the source parametric template."
+    },
+    "template_fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "description": "SHA-256 fingerprint of the source template."
+    },
+    "binding_fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "description": "SHA-256 fingerprint of the canonical binding values (sorted by slot name). Identifies which variable set produced this shape."
+    },
+    "compiled_shape": {
+      "type": "object",
+      "required": ["action", "method", "resolved_slots"],
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The resolved action identifier."
+        },
+        "method": {
+          "type": "string",
+          "enum": ["read", "write", "delete"],
+          "description": "The resolved method semantics."
+        },
+        "resolved_slots": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "The fully resolved slot name-to-value map after binding."
+        }
+      },
+      "description": "The compiled structural shape of the command. Contains NO live data -- only the command skeleton."
+    },
+    "cache_policy": {
+      "type": "object",
+      "required": ["ttl_seconds", "max_entries_per_template", "eviction_policy"],
+      "additionalProperties": false,
+      "properties": {
+        "ttl_seconds": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Time-to-live in seconds. 0 = no expiry (structure is stable)."
+        },
+        "max_entries_per_template": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum cache entries per template_id before eviction."
+        },
+        "eviction_policy": {
+          "type": "string",
+          "enum": ["lru", "fifo", "ttl_only"],
+          "description": "Eviction strategy when max_entries_per_template is reached."
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "required": ["forbidden_categories_cached", "live_data_excluded"],
+      "additionalProperties": false,
+      "properties": {
+        "forbidden_categories_cached": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["live_results", "state_events", "permissions", "financial_state", "stock_state"]
+          },
+          "description": "Categories explicitly confirmed as NOT cached. Must match the template's forbidden_categories."
+        },
+        "live_data_excluded": {
+          "type": "boolean",
+          "const": true,
+          "description": "Must be true. Confirms no live data is present in this cache entry."
+        }
+      }
+    }
+  }
+}

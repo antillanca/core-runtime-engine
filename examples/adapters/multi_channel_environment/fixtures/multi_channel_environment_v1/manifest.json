@@ -1,0 +1,32 @@
+{
+  "calibration_id": "calibration:multi_channel_environment:v1",
+  "capture_mode": "offline_fixture",
+  "environment_id": "environment:example",
+  "expected_event_type": "sensor.multi_channel_environment.temperature_threshold_crossing",
+  "expected_sensor_id": "sensor:multi_channel_environment:v1",
+  "expected_trace_id": "trace:multi_channel_environment:v1",
+  "fixture_id": "multi_channel_environment_v1",
+  "notes": [
+    "Multi-channel environment example.",
+    "Only temperature is used to derive the ObservationEvent.",
+    "Offline-only.",
+    "No hardware dependency."
+  ],
+  "observation_event_fingerprints": {
+    "event:multi_channel_environment:temperature_threshold:v1": "07ca1752f12a1262f9e819855a22cc46119a2856818745c75629af9f84aabc14"
+  },
+  "observation_event_id": "event:multi_channel_environment:temperature_threshold:v1",
+  "sample_count": 100,
+  "schema_version": "core.sensor_evidence.v1",
+  "sensor_id": "sensor:multi_channel_environment:v1",
+  "sensor_type": "multi_channel_environment",
+  "threshold": 30.0,
+  "trace_fingerprint": "7500670541e9604780f10a75e6f0359dec640db3afcae556450fc60ccdd37ded",
+  "trace_id": "trace:multi_channel_environment:v1",
+  "value_key": "temperature",
+  "value_keys": [
+    "temperature",
+    "humidity",
+    "pressure"
+  ]
+}

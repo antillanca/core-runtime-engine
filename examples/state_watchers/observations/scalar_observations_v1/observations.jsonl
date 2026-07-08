@@ -1,0 +1,5 @@
+{"observation_id": "obs_001", "timestamp": "2026-06-01T08:00:00Z", "value": 50.0, "reference": 100.0}
+{"observation_id": "obs_002", "timestamp": "2026-06-01T09:00:00Z", "value": 120.0, "reference": 100.0}
+{"observation_id": "obs_003", "timestamp": "2026-06-01T10:00:00Z", "value": 95.0, "reference": 100.0}
+{"observation_id": "obs_004", "timestamp": "2026-06-01T11:00:00Z", "value": 150.0, "reference": 100.0}
+{"observation_id": "obs_005", "timestamp": "2026-06-01T12:00:00Z", "value": 80.0, "reference": 100.0}

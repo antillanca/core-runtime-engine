@@ -1,0 +1,15 @@
+{
+  "schema_version": "v9.2.0",
+  "adapter_id": "polkadot-mainnet",
+  "chain_family": "substrate",
+  "chain_name": "polkadot",
+  "network": "mainnet",
+  "chain_id": 0,
+  "rpc_endpoint_kind": "custom",
+  "contract_address": "0x0000000000000000000000000000000000000000",
+  "contract_version": "v1.0.0",
+  "submission_gas_limit": 100000,
+  "confirmation_blocks": 5,
+  "timeout_ms": 30000,
+  "fingerprint": "sha256:04aed69e419412f7960955766961afef259f1f986bfcb369e694f923e30efce9"
+}

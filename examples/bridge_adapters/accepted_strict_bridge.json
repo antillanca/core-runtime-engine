@@ -1,0 +1,49 @@
+{
+  "schema_version": "v1",
+  "type": "downstream_bridge_adapter",
+  "adapter_id": "bridge_tenantops_v1",
+  "core_schemas_consumed": [
+    "agent_session",
+    "agent_plan",
+    "tool_invocation_proposal",
+    "agent_decision_trace"
+  ],
+  "translation_invariants": [
+    {
+      "invariant_id": "inv_session_no_auto_exec",
+      "core_artifact_ref": "agent_session.forbids_autonomous_execution",
+      "downstream_enforcement": "BridgeRuntime validates forbids_autonomous_execution=true before dispatching any task",
+      "verification_method": "Unit test: submit session with forbids_autonomous_execution=false, assert bridge rejects"
+    },
+    {
+      "invariant_id": "inv_plan_human_approval",
+      "core_artifact_ref": "agent_plan_step.requires_human_approval",
+      "downstream_enforcement": "PlanExecutor blocks on steps where requires_human_approval=true until human confirms",
+      "verification_method": "Integration test: execute plan with approval step, assert pipeline pauses"
+    },
+    {
+      "invariant_id": "inv_tool_risk_approval",
+      "core_artifact_ref": "tool_invocation_proposal.requires_human_approval",
+      "downstream_enforcement": "ToolInvoker rejects any proposal with risk_tier=high and requires_human_approval=true without human sign-off",
+      "verification_method": "Unit test: submit high-risk tool proposal, assert approval gate triggers"
+    },
+    {
+      "invariant_id": "inv_trace_immutability",
+      "core_artifact_ref": "agent_decision_trace.trace_metadata.immutability_guarantee",
+      "downstream_enforcement": "TraceStore rejects any mutation request on committed traces",
+      "verification_method": "Unit test: attempt to modify a committed trace, assert rejection"
+    }
+  ],
+  "forbids_autonomous_execution": true,
+  "forbids_private_namespace_leak": true,
+  "runtime_enforcement_policy": {
+    "enforcement_level": "strict",
+    "fail_closed": true,
+    "human_override_allowed": false
+  },
+  "audit": {
+    "adapter_fingerprint": "sha256:2909356e0fed42f24c9ad6a6a816b5b45569e6831552b294a1810ec2df0cef3a",
+    "created_at": "2025-05-28T12:00:00Z",
+    "core_release_ref": "v8.3.0"
+  }
+}

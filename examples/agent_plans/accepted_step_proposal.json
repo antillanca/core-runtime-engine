@@ -1,0 +1,20 @@
+{
+  "schema_version": "core.agent_plan_step.v1",
+  "type": "agent_plan_step",
+  "step_id": "agent_plan_step:read_and_propose.step1.v1",
+  "plan_ref": "agent_plan:read_and_propose.linear.v1",
+  "step_index": 1,
+  "intent": "Propose restock order based on summary",
+  "tool_proposal_ref": "tool_invocation_proposal:restock.propose.v1",
+  "depends_on": [0],
+  "safety": {
+    "requires_human_approval": true,
+    "risk_tier": "low",
+    "forbids_autonomous_execution": true
+  },
+  "expected_result": {
+    "result_type": "proposal_only",
+    "description": "Restock proposal for human review"
+  },
+  "status": "planned"
+}

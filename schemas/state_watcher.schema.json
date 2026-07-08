@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE State Watcher Registration v1",
+  "description": "Schema for a domain-neutral state watcher registration. CORE defines the schema; downstream forks provide the values.",
+  "type": "object",
+  "required": ["watcher_id", "watch_condition", "event_type"],
+  "additionalProperties": false,
+  "properties": {
+    "watcher_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]*$",
+      "description": "Unique identifier within the fork namespace."
+    },
+    "watch_condition": {
+      "type": "object",
+      "required": ["operator", "operand_schema", "threshold_schema"],
+      "additionalProperties": false,
+      "properties": {
+        "operator": {
+          "type": "string",
+          "enum": ["gt", "gte", "lt", "lte", "eq", "neq", "within_range", "outside_range"],
+          "description": "Comparison operator for the watch condition."
+        },
+        "operand_schema": {
+          "type": "string",
+          "description": "Schema path for the observed value."
+        },
+        "threshold_schema": {
+          "type": "string",
+          "description": "Schema path for the threshold or reference value."
+        }
+      }
+    },
+    "event_type": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]*$",
+      "description": "Business event type to emit when condition is met."
+    },
+    "profile_id": {
+      "type": "string",
+      "default": "default",
+      "description": "Execution profile under which this watcher is active."
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether the watcher is active."
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional human-readable description."
+    },
+    "threshold_value": {
+      "type": "number",
+      "description": "Scalar threshold value for gt/gte/lt/lte operators."
+    },
+    "hysteresis": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Hysteresis band to prevent flapping."
+    },
+    "cooldown_seconds": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Minimum seconds between consecutive events from this watcher."
+    }
+  }
+}

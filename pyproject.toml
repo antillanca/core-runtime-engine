@@ -1,0 +1,30 @@
+[project]
+name = "core-runtime-engine"
+version = "11.0.1"
+description = "CORE - deterministic contract, schema and validation engine"
+readme = "docs/CORE_RELEASE_README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+authors = [
+    {name = "CORE Project"},
+]
+
+dependencies = [
+    "jsonschema>=4.0",
+]
+
+[project.optional-dependencies]
+anchoring = [
+    "web3>=6.0",
+]
+dev = [
+    "pytest>=7.0",
+    "packaging>=23.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

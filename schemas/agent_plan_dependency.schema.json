@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Agent Plan Dependency v1",
+  "description": "Schema for an explicit dependency edge between two steps in an agent plan.",
+  "type": "object",
+  "required": ["schema_version", "type", "dependency_id", "plan_ref", "from_step", "to_step", "dependency_type", "description"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.agent_plan_dependency.v1"
+    },
+    "type": {
+      "type": "string",
+      "const": "agent_plan_dependency"
+    },
+    "dependency_id": {
+      "type": "string",
+      "pattern": "^agent_plan_dependency:[a-z0-9_]+\\.[a-z0-9_]+\\.[a-z0-9_]+\\.v1$"
+    },
+    "plan_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "from_step": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "to_step": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "dependency_type": {
+      "type": "string",
+      "enum": ["sequential", "data_flow", "approval_required"]
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://core.nousresearch.com/schemas/pre_resolution_protocol.v1",
+  "title": "PreResolutionProtocol",
+  "description": "A deterministic protocol that attempts to reduce expert disagreement. Pre-resolution can organize disagreement; it cannot authorize execution.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "protocol_id",
+    "input_conflict_id",
+    "protocol_type",
+    "deterministic",
+    "requires_human_approval"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.pre_resolution_protocol.v1",
+      "description": "Schema version identifier."
+    },
+    "protocol_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for this protocol instance."
+    },
+    "input_conflict_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Conflict ID this protocol operates on."
+    },
+    "protocol_type": {
+      "type": "string",
+      "enum": [
+        "canonicalization_check",
+        "schema_alignment",
+        "lawset_check",
+        "evidence_completeness_check",
+        "bounded_reference_lookup",
+        "classification_recheck",
+        "template_match_check",
+        "replay_check",
+        "risk_tier_check",
+        "confidence_gap_check"
+      ],
+      "description": "Type of pre-resolution protocol."
+    },
+    "deterministic": {
+      "type": "boolean",
+      "const": true,
+      "description": "Must be true. Non-deterministic protocols are rejected."
+    },
+    "requires_human_approval": {
+      "type": "boolean",
+      "description": "Whether this protocol requires human approval to run."
+    },
+    "bounded_reference_required": {
+      "type": "boolean",
+      "description": "Whether a bounded reference index is required for this protocol."
+    },
+    "allowed_scope": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Paths this protocol is allowed to reference."
+    }
+  },
+  "additionalProperties": false
+}

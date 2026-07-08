@@ -1,0 +1,28 @@
+{
+  "schema_version": "core.parametric_template.v1",
+  "type": "parametric_template",
+  "template_id": "synthetic_reports.update_config.v1",
+  "template_fingerprint": "sha256:b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3",
+  "domain": "synthetic_reports",
+  "intent": "update_config",
+  "slots": [
+    {
+      "name": "config_key",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "config_value",
+      "type": "string",
+      "required": true
+    }
+  ],
+  "route": {
+    "action": "update_configuration",
+    "method": "write"
+  },
+  "safety": {
+    "requires_command_validation": true,
+    "forbidden_categories": ["live_results", "state_events", "permissions", "financial_state", "stock_state"]
+  }
+}

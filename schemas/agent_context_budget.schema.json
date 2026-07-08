@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Agent Context Budget v1",
+  "description": "Schema for a domain-neutral agent context budget that constrains what an agent may read, write, and invoke. CORE validates structure; downstream forks enforce at runtime.",
+  "type": "object",
+  "required": ["schema_version", "type", "budget_id", "read_limit", "write_limit", "tools"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.agent_context_budget.v1",
+      "description": "Schema version identifier."
+    },
+    "type": {
+      "type": "string",
+      "const": "agent_context_budget",
+      "description": "Artifact type."
+    },
+    "budget_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^context_budget:[a-z0-9_:.-]+$",
+      "description": "Unique budget identifier. Format: context_budget:<domain-specific-id>."
+    },
+    "read_limit": {
+      "type": "object",
+      "required": ["max_references", "max_depth"],
+      "additionalProperties": false,
+      "properties": {
+        "max_references": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum number of references the agent may read per session."
+        },
+        "max_depth": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum traversal depth for reference lookups."
+        },
+        "bounded_index_ref": {
+          "type": "string",
+          "description": "Optional reference to a bounded_reference_index for read operations."
+        }
+      }
+    },
+    "write_limit": {
+      "type": "object",
+      "required": ["allows_proposal_only"],
+      "additionalProperties": false,
+      "properties": {
+        "allows_proposal_only": {
+          "type": "boolean",
+          "description": "Whether the agent may only propose, never execute. Must be true."
+        },
+        "allowed_command_types": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Optional list of command types the agent may propose."
+        }
+      }
+    },
+    "tools": {
+      "type": "object",
+      "required": ["allowed_tools"],
+      "additionalProperties": false,
+      "properties": {
+        "allowed_tools": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["tool_name", "risk_level"],
+            "additionalProperties": false,
+            "properties": {
+              "tool_name": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Logical tool name."
+              },
+              "risk_level": {
+                "type": "string",
+                "enum": [
+                  "read_only",
+                  "proposal_only",
+                  "execution_requires_approval"
+                ],
+                "description": "Risk level classification for this tool."
+              }
+            }
+          },
+          "description": "List of tools the agent is allowed to use."
+        },
+        "forbidden_tools": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Tools explicitly forbidden for this agent."
+        }
+      }
+    },
+    "session_ref": {
+      "type": "string",
+      "description": "Optional reference to the agent_session this budget belongs to."
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Optional extensible metadata."
+    }
+  }
+}

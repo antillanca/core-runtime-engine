@@ -1,0 +1,29 @@
+{
+  "schema_version": "core.expert_conflict_bundle.v1",
+  "type": "expert_conflict_bundle",
+  "conflict_id": "synthetic.conflict.command_equivalence.v1",
+  "input_fingerprint": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "expert_outputs": [
+    {
+      "expert_id": "expert_a",
+      "output_ref": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "claim_type": "command_candidate",
+      "decision": "accepted"
+    },
+    {
+      "expert_id": "expert_b",
+      "output_ref": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "claim_type": "command_candidate",
+      "decision": "accepted"
+    },
+    {
+      "expert_id": "expert_c",
+      "output_ref": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "claim_type": "classification_candidate",
+      "decision": "clarification_required"
+    }
+  ],
+  "risk_tier": "low",
+  "human_required_by_profile": false,
+  "bounded_reference_used": true
+}

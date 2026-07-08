@@ -1,0 +1,31 @@
+{
+  "calibration_id": "calibration:threshold_scalar_basic:hysteresis:v1",
+  "capture_mode": "offline_fixture",
+  "environment_id": "environment:example",
+  "expected_event_type": "sensor.threshold_scalar_basic.hysteresis_active",
+  "expected_sensor_id": "sensor:threshold_scalar_basic:hysteresis:v1",
+  "expected_trace_id": "trace:threshold_scalar_basic:hysteresis:v1",
+  "fixture_id": "hysteresis_v1",
+  "notes": [
+    "Hysteresis threshold example.",
+    "Offline-only.",
+    "No hardware dependency.",
+    "No runtime authority is granted to adapter data."
+  ],
+  "observation_event_fingerprints": {
+    "event:threshold_scalar_basic:hysteresis_active:v1": "83538cc059a26b9c296768aec591fcb4fbd4ccb4638afa6398bc42516dd7e90f"
+  },
+  "observation_event_id": "event:threshold_scalar_basic:hysteresis_active:v1",
+  "sample_count": 100,
+  "schema_version": "core.sensor_evidence.v1",
+  "sensor_id": "sensor:threshold_scalar_basic:hysteresis:v1",
+  "sensor_type": "threshold_scalar_basic",
+  "threshold": 0.5,
+  "trace_fingerprint": "6abee47ee3cd8ff595b926ab3e24989a11ac22a648d769a2f441eeb45cc64715",
+  "trace_id": "trace:threshold_scalar_basic:hysteresis:v1",
+  "value_key": "hysteresis_state",
+  "value_keys": [
+    "signal",
+    "hysteresis_state"
+  ]
+}

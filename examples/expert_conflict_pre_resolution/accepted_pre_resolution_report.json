@@ -1,0 +1,16 @@
+{
+  "schema_version": "core.pre_resolution_report.v1",
+  "conflict_id": "synthetic.conflict.command_equivalence.v1",
+  "steps": [
+    "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  ],
+  "outcome": "resolved_by_protocol",
+  "human_required": false,
+  "resolution_summary": "Two command candidates are canonically equivalent; clarification candidate did not add blocking evidence.",
+  "preserved_claims": [
+    "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  ],
+  "executes_action": false
+}

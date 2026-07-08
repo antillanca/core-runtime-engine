@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://core.nousresearch.com/schemas/expert_conflict_bundle.v1",
+  "title": "ExpertConflictBundle",
+  "description": "A structured bundle of conflicting expert outputs. Pre-resolution can organize disagreement; it cannot override laws, profiles or required human approval.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "type",
+    "conflict_id",
+    "input_fingerprint",
+    "expert_outputs",
+    "risk_tier",
+    "human_required_by_profile"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.expert_conflict_bundle.v1",
+      "description": "Schema version identifier."
+    },
+    "type": {
+      "type": "string",
+      "const": "expert_conflict_bundle",
+      "description": "Artifact type discriminator."
+    },
+    "conflict_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for this conflict."
+    },
+    "input_fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "SHA-256 fingerprint of the input that triggered the conflict."
+    },
+    "expert_outputs": {
+      "type": "array",
+      "minItems": 2,
+      "description": "Array of conflicting expert outputs.",
+      "items": {
+        "type": "object",
+        "required": ["expert_id", "output_ref", "claim_type", "decision"],
+        "properties": {
+          "expert_id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Identifier of the expert."
+          },
+          "output_ref": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "description": "Fingerprint of the expert's output claim."
+          },
+          "claim_type": {
+            "type": "string",
+            "enum": ["command_candidate", "classification_candidate", "evidence_bundle", "advisory_review"],
+            "description": "Type of claim produced by this expert."
+          },
+          "decision": {
+            "type": "string",
+            "enum": ["accepted", "rejected", "clarification_required", "missing_evidence"],
+            "description": "Decision produced by this expert."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "risk_tier": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"],
+      "description": "Risk tier of the conflict context."
+    },
+    "human_required_by_profile": {
+      "type": "boolean",
+      "description": "Whether the active profile requires human approval for this conflict."
+    },
+    "bounded_reference_used": {
+      "type": "boolean",
+      "description": "Whether a bounded reference index was consulted for this conflict."
+    }
+  },
+  "additionalProperties": false
+}

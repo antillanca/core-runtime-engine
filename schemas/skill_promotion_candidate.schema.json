@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Skill Promotion Candidate v1",
+  "description": "Schema for a proposal to convert a successful procedure into a versioned assistant skill. Requires frozen evidence and human approval. Skills start disabled by default.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "type",
+    "source_execution_id",
+    "skill_id",
+    "promotion_reason",
+    "requires_human_approval",
+    "activation_default"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.skill_promotion_candidate.v1",
+      "description": "Schema version identifier."
+    },
+    "type": {
+      "type": "string",
+      "const": "skill_promotion_candidate",
+      "description": "Artifact type."
+    },
+    "source_execution_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The execution_id of the source sandbox execution."
+    },
+    "skill_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Proposed skill identifier."
+    },
+    "promotion_reason": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Why this procedure should become a versioned skill."
+    },
+    "requires_human_approval": {
+      "type": "boolean",
+      "const": true,
+      "description": "Must be true. Skill promotion always requires human approval."
+    },
+    "activation_default": {
+      "type": "string",
+      "const": "disabled",
+      "description": "Must be 'disabled'. Skills never auto-activate."
+    }
+  }
+}

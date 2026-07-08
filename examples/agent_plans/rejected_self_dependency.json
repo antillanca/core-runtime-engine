@@ -1,0 +1,10 @@
+{
+  "schema_version": "core.agent_plan_dependency.v1",
+  "type": "agent_plan_dependency",
+  "dependency_id": "agent_plan_dependency:rejected.self_dep.step0.step0.v1",
+  "plan_ref": "agent_plan:rejected.self.v1",
+  "from_step": 0,
+  "to_step": 0,
+  "dependency_type": "sequential",
+  "description": "Invalid self-dependency"
+}

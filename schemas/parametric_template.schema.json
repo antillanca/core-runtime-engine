@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Parametric Template v1",
+  "description": "Schema for a parametric template that defines a reusable command skeleton with typed variable slots. Templates produce command_candidates and MUST require command_validation=true. No live data, state events, or permissions may be cached.",
+  "type": "object",
+  "required": ["schema_version", "type", "template_id", "template_fingerprint", "domain", "intent", "slots", "route", "safety"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.parametric_template.v1",
+      "description": "Schema version identifier."
+    },
+    "type": {
+      "type": "string",
+      "const": "parametric_template",
+      "description": "Artifact type."
+    },
+    "template_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique template identifier within its domain (e.g. 'synthetic_reports.daily_summary.v1')."
+    },
+    "template_fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "description": "SHA-256 fingerprint of the canonical template structure (excluding variable values). Format: sha256:<64 lowercase hex chars>."
+    },
+    "domain": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Vocabulary domain this template belongs to (e.g. 'synthetic_reports')."
+    },
+    "intent": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Intent this template resolves (e.g. 'daily_summary')."
+    },
+    "slots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type", "required"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Slot variable name (e.g. 'date_preset', 'metric_filter')."
+          },
+          "type": {
+            "type": "string",
+            "enum": ["string", "integer", "float", "boolean", "enum"],
+            "description": "Slot value type. 'enum' requires 'enum_values' to be non-empty."
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether this slot must be bound before command compilation."
+          },
+          "default": {
+            "description": "Optional default value when slot is not bound."
+          },
+          "enum_values": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Allowed values when type='enum'. Must be non-empty for enum slots."
+          }
+        }
+      },
+      "minItems": 1,
+      "description": "Variable slots that must be bound to produce a command_candidate."
+    },
+    "route": {
+      "type": "object",
+      "required": ["action", "method"],
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Action identifier the compiled command will invoke (e.g. 'generate_report')."
+        },
+        "method": {
+          "type": "string",
+          "enum": ["read", "write", "delete"],
+          "description": "HTTP-like method semantics. 'write' and 'delete' require heightened safety review."
+        }
+      },
+      "description": "Target route the compiled command will execute."
+    },
+    "safety": {
+      "type": "object",
+      "required": ["requires_command_validation", "forbidden_categories"],
+      "additionalProperties": false,
+      "properties": {
+        "requires_command_validation": {
+          "type": "boolean",
+          "const": true,
+          "description": "Must be true. All parametric templates produce command_candidates and require downstream validation."
+        },
+        "forbidden_categories": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["live_results", "state_events", "permissions", "financial_state", "stock_state"],
+            "description": "Categories that MUST NOT appear in any cache entry derived from this template."
+          },
+          "description": "Explicit prohibition of cacheable categories. Always includes at least 'live_results'."
+        }
+      }
+    }
+  }
+}

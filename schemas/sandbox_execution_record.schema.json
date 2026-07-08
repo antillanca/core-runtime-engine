@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Sandbox Execution Record v1",
+  "description": "Schema for evidence that execution happened under declared constraints. A sandbox profile must always be explicit.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "type",
+    "proposal_id",
+    "execution_id",
+    "sandbox_profile",
+    "started",
+    "completed",
+    "exit_code",
+    "mutations_detected"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.sandbox_execution_record.v1",
+      "description": "Schema version identifier."
+    },
+    "type": {
+      "type": "string",
+      "const": "sandbox_execution_record",
+      "description": "Artifact type."
+    },
+    "proposal_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The proposal this execution fulfills."
+    },
+    "execution_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique execution identifier."
+    },
+    "sandbox_profile": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Explicit sandbox profile identifier (e.g. 'read_only_no_network.v1')."
+    },
+    "started": {
+      "type": "boolean",
+      "description": "Whether execution started."
+    },
+    "completed": {
+      "type": "boolean",
+      "description": "Whether execution completed."
+    },
+    "exit_code": {
+      "type": "integer",
+      "description": "Process exit code."
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^sha256:[0-9a-f]{64}$"
+      },
+      "description": "Fingerprints of output artifacts."
+    },
+    "mutations_detected": {
+      "type": "boolean",
+      "description": "Whether unexpected mutations were detected during execution."
+    }
+  }
+}

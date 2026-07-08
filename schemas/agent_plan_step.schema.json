@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Agent Plan Step v1",
+  "description": "Schema for a single step within an agent plan, with its own safety constraints and expected result.",
+  "type": "object",
+  "required": ["schema_version", "type", "step_id", "plan_ref", "step_index", "intent", "depends_on", "safety", "expected_result", "status"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.agent_plan_step.v1"
+    },
+    "type": {
+      "type": "string",
+      "const": "agent_plan_step"
+    },
+    "step_id": {
+      "type": "string",
+      "pattern": "^agent_plan_step:[a-z0-9_]+\\.[a-z0-9_]+\\.v1$"
+    },
+    "plan_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "step_index": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "intent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tool_proposal_ref": {
+      "type": ["string", "null"]
+    },
+    "depends_on": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "safety": {
+      "type": "object",
+      "required": ["requires_human_approval", "risk_tier", "forbids_autonomous_execution"],
+      "additionalProperties": false,
+      "properties": {
+        "requires_human_approval": {
+          "type": "boolean"
+        },
+        "risk_tier": {
+          "type": "string",
+          "enum": ["none", "low", "medium", "high"]
+        },
+        "forbids_autonomous_execution": {
+          "type": "boolean"
+        }
+      }
+    },
+    "expected_result": {
+      "type": "object",
+      "required": ["result_type", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "result_type": {
+          "type": "string",
+          "enum": ["proposal_only", "read_result", "approval_record", "escalation_record"]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["planned", "approved", "rejected", "skipped", "completed"]
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

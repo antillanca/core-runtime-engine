@@ -1,0 +1,34 @@
+{
+  "schema_version": "core.tool_invocation_proposal.v1",
+  "type": "tool_invocation_proposal",
+  "proposal_id": "tool_invocation_proposal:call.no_approval.v1",
+  "session_ref": "agent_session:rejected.no_approval.v1",
+  "plan_step_ref": "agent_plan_step:call.step0.v1",
+  "tool": {
+    "logical_name": "external_api",
+    "version": "3.0.0",
+    "category": "external_call"
+  },
+  "arguments": {
+    "endpoint": "weather",
+    "method": "GET"
+  },
+  "risk": {
+    "risk_tier": "medium",
+    "side_effects": "external_side_effect",
+    "reversibility": "irreversible"
+  },
+  "approval": {
+    "requires_human_approval": false,
+    "approval_reason": "Read-only external call, no approval needed."
+  },
+  "expected_evidence": {
+    "evidence_type": "output_summary",
+    "description": "Weather API response summary."
+  },
+  "safety": {
+    "forbids_autonomous_execution": true,
+    "timeout_seconds": 15,
+    "max_retries": 1
+  }
+}

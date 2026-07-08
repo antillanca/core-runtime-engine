@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://core-runtime-engine.local/schemas/core/context_threshold.v1.json",
+  "title": "ContextThreshold.v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "status", "source_type", "source_id", "should_compress_now", "reason"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.context_threshold.v1"
+    },
+    "status": {
+      "type": "string"
+    },
+    "source_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "should_compress_now": {
+      "type": "boolean"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "current_usage_percent": {
+      "type": "number"
+    },
+    "previous_usage_percent": {
+      "type": "number"
+    },
+    "ema_usage_percent": {
+      "type": "number"
+    },
+    "compression_threshold_percent": {
+      "type": "number"
+    },
+    "recommended_action": {
+      "type": "string"
+    }
+  }
+}

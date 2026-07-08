@@ -1,0 +1,34 @@
+{
+  "schema_version": "core.tool_invocation_proposal.v1",
+  "type": "tool_invocation_proposal",
+  "proposal_id": "tool_invocation_proposal:write.autonomous.v1",
+  "session_ref": "agent_session:rejected.autonomous.v1",
+  "plan_step_ref": "agent_plan_step:write.step0.v1",
+  "tool": {
+    "logical_name": "state_writer",
+    "version": "1.0.0",
+    "category": "write"
+  },
+  "arguments": {
+    "target": "config",
+    "operation": "update"
+  },
+  "risk": {
+    "risk_tier": "high",
+    "side_effects": "writes_state",
+    "reversibility": "partially_reversible"
+  },
+  "approval": {
+    "requires_human_approval": false,
+    "approval_reason": "Agent can write config autonomously."
+  },
+  "expected_evidence": {
+    "evidence_type": "confirmation_record",
+    "description": "Config update confirmation."
+  },
+  "safety": {
+    "forbids_autonomous_execution": false,
+    "timeout_seconds": 60,
+    "max_retries": 2
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": "core.agent_plan.v1",
+  "type": "agent_plan",
+  "plan_id": "agent_plan:rejected.autonomous.v1",
+  "session_ref": "agent_session:rejected.autonomous.v1",
+  "steps": [
+    {
+      "step_index": 0,
+      "intent": "Execute restock order directly",
+      "tool_proposal_ref": "tool_invocation_proposal:restock.execute.v1",
+      "depends_on": [],
+      "safety": {
+        "requires_human_approval": false,
+        "risk_tier": "high",
+        "forbids_autonomous_execution": false
+      },
+      "expected_result": {
+        "result_type": "approval_record",
+        "description": "Automatic restock without human approval"
+      },
+      "status": "planned"
+    }
+  ],
+  "safety": {
+    "requires_step_approval": false,
+    "forbids_parallel_execution": false,
+    "max_steps": 4
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "schema_version": "core.advisory_review.v1",
+  "type": "advisory_review",
+  "proposal_id": "synthetic.execution.docs_check.v1",
+  "expert_id": "external_llm.synthetic_reviewer_a",
+  "verdict": "approve",
+  "confidence": 0.95,
+  "authority": "execution_authority"
+}

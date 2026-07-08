@@ -1,0 +1,136 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://core.antillanca.dev/schemas/downstream_bridge_adapter.schema.json",
+  "title": "Downstream Bridge Adapter",
+  "description": "Contract for a validated bridge adapter through which a private downstream system consumes CORE artifacts.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "type",
+    "adapter_id",
+    "core_schemas_consumed",
+    "translation_invariants",
+    "forbids_autonomous_execution",
+    "forbids_private_namespace_leak",
+    "runtime_enforcement_policy",
+    "audit"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "type": {
+      "type": "string",
+      "const": "downstream_bridge_adapter"
+    },
+    "adapter_id": {
+      "type": "string",
+      "pattern": "^bridge_[a-z][a-z0-9]*_v[0-9]+$"
+    },
+    "core_schemas_consumed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "translation_invariants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/translation_invariant"
+      },
+      "minItems": 1
+    },
+    "forbids_autonomous_execution": {
+      "type": "boolean",
+      "const": true
+    },
+    "forbids_private_namespace_leak": {
+      "type": "boolean",
+      "const": true
+    },
+    "runtime_enforcement_policy": {
+      "$ref": "#/definitions/runtime_enforcement_policy"
+    },
+    "audit": {
+      "$ref": "#/definitions/audit"
+    }
+  },
+  "definitions": {
+    "translation_invariant": {
+      "type": "object",
+      "required": [
+        "invariant_id",
+        "core_artifact_ref",
+        "downstream_enforcement",
+        "verification_method"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "invariant_id": {
+          "type": "string",
+          "pattern": "^inv_[a-z][a-z0-9_]*$"
+        },
+        "core_artifact_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "downstream_enforcement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "verification_method": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "runtime_enforcement_policy": {
+      "type": "object",
+      "required": [
+        "enforcement_level",
+        "fail_closed",
+        "human_override_allowed"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "enforcement_level": {
+          "type": "string",
+          "enum": ["strict", "degraded", "emergency"]
+        },
+        "fail_closed": {
+          "type": "boolean"
+        },
+        "human_override_allowed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "required": [
+        "adapter_fingerprint",
+        "created_at",
+        "core_release_ref"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "adapter_fingerprint": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "core_release_ref": {
+          "type": "string",
+          "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+        }
+      }
+    }
+  }
+}

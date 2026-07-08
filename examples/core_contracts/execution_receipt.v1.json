@@ -1,0 +1,20 @@
+{
+  "schema_version": "core.execution_receipt.v1",
+  "type": "execution_receipt",
+  "receipt_id": "receipt_001",
+  "executor_ref": "executor:tenant_a",
+  "decision_ref": "decision:decision_001",
+  "command_ref": "command:order_cancel:123",
+  "status": "succeeded",
+  "state_transition_refs": [
+    "transition:order_cancel:123"
+  ],
+  "evidence_refs": [
+    "artifact:evidence/receipt_001.json"
+  ],
+  "source_refs": [
+    "command:order_cancel:123"
+  ],
+  "created_at": "2026-06-01T00:00:00Z",
+  "fingerprint": "ghi789"
+}

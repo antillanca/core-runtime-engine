@@ -1,0 +1,35 @@
+{
+  "schema_version": "v1",
+  "type": "downstream_bridge_adapter",
+  "adapter_id": "bridge_emergencyops_v1",
+  "core_schemas_consumed": [
+    "agent_session",
+    "agent_decision_trace"
+  ],
+  "translation_invariants": [
+    {
+      "invariant_id": "inv_session_no_auto_exec",
+      "core_artifact_ref": "agent_session.forbids_autonomous_execution",
+      "downstream_enforcement": "BridgeRuntime validates forbids_autonomous_execution=true; emergency override available with human sign-off",
+      "verification_method": "Unit test: submit session, enable emergency override with human approval, assert override logged"
+    },
+    {
+      "invariant_id": "inv_trace_immutability",
+      "core_artifact_ref": "agent_decision_trace.trace_metadata.immutability_guarantee",
+      "downstream_enforcement": "TraceStore is read-only; emergency read-only snapshot export allowed",
+      "verification_method": "Integration test: export trace snapshot, assert no mutation"
+    }
+  ],
+  "forbids_autonomous_execution": true,
+  "forbids_private_namespace_leak": true,
+  "runtime_enforcement_policy": {
+    "enforcement_level": "emergency",
+    "fail_closed": false,
+    "human_override_allowed": true
+  },
+  "audit": {
+    "adapter_fingerprint": "sha256:c51323ed97e2cae341c10860e5ac46e16a126b64b8fe474e1efece2a061d2d97",
+    "created_at": "2025-05-28T12:00:00Z",
+    "core_release_ref": "v8.3.0"
+  }
+}

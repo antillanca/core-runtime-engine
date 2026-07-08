@@ -1,0 +1,44 @@
+{
+  "calibration_id": "calibration:audio_envelope_wav:v1",
+  "capture_mode": "offline_fixture",
+  "environment_id": "environment:synthetic_audio_example",
+  "expected_event_type": "sensor.audio_envelope_wav.rms_spike",
+  "expected_sensor_id": "sensor:audio_envelope_wav:v1",
+  "expected_trace_id": "trace:audio_envelope_wav:v1",
+  "fixture_id": "audio_envelope_wav_v1",
+  "media": {
+    "channels": 1,
+    "duration_seconds": 1.0,
+    "path": "synthetic.wav",
+    "sample_rate": 8000,
+    "sample_width_bytes": 2,
+    "type": "wav",
+    "window_seconds": 0.1
+  },
+  "notes": [
+    "Synthetic audio envelope example.",
+    "WAV file is generated deterministically with Python stdlib.",
+    "RMS envelope is computed over fixed rectangular windows.",
+    "Offline-only.",
+    "No microphone.",
+    "No external audio dataset.",
+    "No runtime authority is granted to adapter data."
+  ],
+  "observation_event_fingerprints": {
+    "event:audio_envelope_wav:rms_spike:v1": "3e8419e4f33507ff2c472fc9135725eeedc21021914ade1c1f6627a253a0b751"
+  },
+  "observation_event_id": "event:audio_envelope_wav:rms_spike:v1",
+  "sample_count": 10,
+  "schema_version": "core.sensor_evidence.v1",
+  "sensor_id": "sensor:audio_envelope_wav:v1",
+  "sensor_type": "audio_envelope_wav",
+  "threshold": 0.5,
+  "trace_fingerprint": "830928de03efd421bb22fc013251c35466b5d10594eac07f2f753ee5f0e801c6",
+  "trace_id": "trace:audio_envelope_wav:v1",
+  "value_key": "rms_amplitude",
+  "value_keys": [
+    "rms_amplitude",
+    "window_end",
+    "window_start"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "core.agent_session.v1",
+  "type": "agent_session",
+  "session_id": "agent_session:rejected.tool_execution.v1",
+  "agent": {
+    "agent_id": "synthetic.execution_assistant.v1",
+    "agent_kind": "llm_assistant"
+  },
+  "task": {
+    "task_ref": "agent_task:rejected.tool_execution.v1",
+    "command_ref": "command_candidate:rejected.tool_execution.v1"
+  },
+  "context_budget": {
+    "budget_ref": "context_budget:rejected.tool_execution.v1",
+    "read_policy": "bounded_read_only",
+    "allowed_reference_index": "bounded_reference_index:rejected.tool_execution.v1"
+  },
+  "safety": {
+    "requires_human_approval": false,
+    "forbids_autonomous_execution": false,
+    "risk_tier": "critical"
+  },
+  "trace": {
+    "decision_trace_ref": "decision_trace:rejected.tool_execution.v1"
+  },
+  "metadata": {
+    "description": "Synthetic fixture: REJECTED — tool execution attempted without human approval (requires_human_approval=false, forbids_autonomous_execution=false).",
+    "_expected_rejection": "tool_execution_without_approval"
+  }
+}

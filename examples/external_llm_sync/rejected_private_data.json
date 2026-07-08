@@ -1,0 +1,35 @@
+{
+  "schema_version": "core.external_llm_sync_bundle.v1",
+  "type": "external_llm_sync_bundle",
+  "bundle_id": "external_llm_sync:example:rejected_private:v1",
+  "producer": {
+    "id": "external_llm:advisory:v1",
+    "kind": "llm_extraction"
+  },
+  "context": {
+    "context_budget_ref": "context_budget:external_llm_sync:v1",
+    "read_refs": ["llm_context", "external_llm_sync"],
+    "query_fingerprint": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "retrieval": {
+    "retrieval_profile": "controlled_retrieval:audit_v1",
+    "context_bundle_fingerprint": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "freshness": "fresh"
+  },
+  "candidate": {
+    "candidate_type": "classification_candidate",
+    "candidate_ref": "examples/external_llm_sync/rejected_private_data.json",
+    "candidate_fingerprint": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  },
+  "evidence": {
+    "evidence_bundle_fingerprint": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "missing_facts": []
+  },
+  "safety": {
+    "authority": "advisory_only",
+    "private_data_included": true,
+    "unbounded_context_used": false,
+    "tool_execution_requested": false
+  },
+  "status": "rejected"
+}

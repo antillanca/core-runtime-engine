@@ -1,0 +1,10 @@
+{
+  "schema_version": "core.pre_resolution_protocol.v1",
+  "protocol_id": "canonicalization_check.v1",
+  "input_conflict_id": "synthetic.conflict.command_equivalence.v1",
+  "protocol_type": "canonicalization_check",
+  "deterministic": true,
+  "requires_human_approval": false,
+  "bounded_reference_required": true,
+  "allowed_scope": ["docs", "schemas"]
+}

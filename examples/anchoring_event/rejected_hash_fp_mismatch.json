@@ -1,0 +1,16 @@
+{
+  "schema_version": "v1",
+  "type": "anchoring_event",
+  "event_id": "evt_bad00002_aabbccddeeff",
+  "submission_ref": "anchor_bad00002_aabbccddeeff",
+  "anchor_hash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "artifact_fingerprint": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "chain_id": 11155111,
+  "contract_address": "0xdead000000000000000000000000000000000000",
+  "anchorer": "0xbeef000000000000000000000000000000000000",
+  "block_number": 5500003,
+  "tx_hash": "0xdddd000000000000000000000000000000000000000000000000000000000001",
+  "timestamp": "2026-06-01T12:15:00Z",
+  "artifact_type": "watcher_result",
+  "event_fingerprint": "sha256:f6b8a53f47036eebfe86682c856f92928c49441560edd3b735e8f444878d4bd5"
+}

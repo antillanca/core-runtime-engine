@@ -1,0 +1,21 @@
+{
+  "schema": "core.command_candidate.v1",
+  "vocabulary_id": "external:synthetic_sales.commands.v1",
+  "domain_id": "synthetic_sales",
+  "command": "sales_summary",
+  "output_kind": "command_candidate",
+  "label": "accepted_candidate",
+  "arguments": {
+    "period": "today",
+    "target": "all_items"
+  },
+  "effects": [
+    "read_only"
+  ],
+  "profile_id": "public_synthetic",
+  "artifact_type": "synthetic_sales_fixture_bundle",
+  "notes": [
+    "Valid command candidate referencing an external vocabulary.",
+    "CORE validates structure; the downstream fork validates semantics."
+  ]
+}

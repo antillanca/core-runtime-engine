@@ -1,0 +1,22 @@
+{
+  "schema_version": "v1",
+  "type": "anchoring_submission",
+  "submission_id": "anchor_e5f6g7h8_0e6750c4e663",
+  "artifact_type": "release_manifest",
+  "artifact_fingerprint": "sha256:cc4dc0c82c5300bea0b90a75ca67f4f4aaf853bd917c97c840800e6750c4e663",
+  "anchor_hash": "0xcc4dc0c82c5300bea0b90a75ca67f4f4aaf853bd917c97c840800e6750c4e663",
+  "chain_id": 1,
+  "contract_address": "0x9876543210fedcba9876543210fedcba98765432",
+  "submitter": "0x1234567890abcdef1234567890abcdef12345678",
+  "submission_timestamp": "2026-05-29T12:00:00+00:00",
+  "eligibility": {
+    "frozen_artifact": true,
+    "hash_matches_fingerprint": true,
+    "no_private_data": true,
+    "no_runtime_authority_change": true
+  },
+  "metadata": {
+    "release_version": "v8.5.0",
+    "submission_reason": "Release manifest anchoring on Ethereum mainnet"
+  }
+}

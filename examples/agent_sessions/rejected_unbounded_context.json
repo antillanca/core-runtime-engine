@@ -1,0 +1,28 @@
+{
+  "schema_version": "core.agent_session.v1",
+  "type": "agent_session",
+  "session_id": "agent_session:rejected.unbounded_context.v1",
+  "agent": {
+    "agent_id": "synthetic.unbounded_assistant.v1",
+    "agent_kind": "llm_assistant"
+  },
+  "task": {
+    "task_ref": "agent_task:rejected.unbounded_context.v1"
+  },
+  "context_budget": {
+    "budget_ref": "context_budget:rejected.unbounded_context.v1",
+    "read_policy": "bounded_read_only"
+  },
+  "safety": {
+    "requires_human_approval": true,
+    "forbids_autonomous_execution": true,
+    "risk_tier": "medium"
+  },
+  "trace": {
+    "decision_trace_ref": "decision_trace:rejected.unbounded_context.v1"
+  },
+  "metadata": {
+    "description": "Synthetic fixture: REJECTED — read_policy is bounded_read_only but no allowed_reference_index provided. Context is effectively unbounded.",
+    "_expected_rejection": "unbounded_context"
+  }
+}

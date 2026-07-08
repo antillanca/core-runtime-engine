@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://core.antillanca.dev/schemas/anchoring_event.schema.json",
+  "title": "Anchoring Event",
+  "description": "A deterministic record of a hash-anchoring event on an external blockchain. Produced after a successful notarizeHash transaction or a verified historical anchor. This is off-chain evidence — CORE validates structure and consistency, not on-chain state.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "type",
+    "event_id",
+    "submission_ref",
+    "anchor_hash",
+    "chain_id",
+    "contract_address",
+    "anchorer",
+    "block_number",
+    "tx_hash",
+    "timestamp",
+    "event_fingerprint"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1",
+      "description": "Schema version for anchoring_event"
+    },
+    "type": {
+      "type": "string",
+      "const": "anchoring_event",
+      "description": "Artefact type discriminator"
+    },
+    "event_id": {
+      "type": "string",
+      "pattern": "^evt_[0-9a-f]{8}_[0-9a-f]{12}$",
+      "description": "Unique event identifier: evt_{hex8}_{hex12}"
+    },
+    "submission_ref": {
+      "type": "string",
+      "pattern": "^anchor_[0-9a-f]{8}_[0-9a-f]{12}$",
+      "description": "Reference to the anchoring_submission that produced this event"
+    },
+    "anchor_hash": {
+      "type": "string",
+      "pattern": "^0x[0-9a-fA-F]{64}$",
+      "description": "The bytes32 hash that was anchored on-chain"
+    },
+    "artifact_fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "The CORE canonical fingerprint of the anchored artefact (must match anchor_hash when converted)"
+    },
+    "chain_id": {
+      "type": "integer",
+      "enum": [1, 5, 11155111, 137, 80001, 42161, 421614],
+      "description": "EVM chain ID where the anchor was recorded"
+    },
+    "contract_address": {
+      "type": "string",
+      "pattern": "^0x[0-9a-fA-F]{40}$",
+      "description": "Deployed CoreAnchor contract address (checksummed)"
+    },
+    "anchorer": {
+      "type": "string",
+      "pattern": "^0x[0-9a-fA-F]{40}$",
+      "description": "Address that submitted the notarizeHash transaction (checksummed)"
+    },
+    "block_number": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Block number where the HashAnchored event was emitted"
+    },
+    "tx_hash": {
+      "type": "string",
+      "pattern": "^0x[0-9a-fA-F]{64}$",
+      "description": "Transaction hash of the notarizeHash call"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 UTC timestamp of the block (or submission if block timestamp unavailable)"
+    },
+    "event_fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "Canonical fingerprint of this event document (excluding the event_fingerprint field itself)"
+    },
+    "artifact_type": {
+      "type": "string",
+      "enum": [
+        "freeze_artifact",
+        "release_manifest",
+        "certification_report",
+        "compliance_report",
+        "audit_trail",
+        "business_profile",
+        "ruleset_version",
+        "watcher_result",
+        "evidence_bundle"
+      ],
+      "description": "Type of the artefact that was anchored"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "core_version": {
+          "type": "string",
+          "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "description": "CORE version that produced this event"
+        },
+        "log_index": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Log index within the block for the HashAnchored event"
+        },
+        "verification_status": {
+          "type": "string",
+          "enum": ["confirmed", "pending", "unverified"],
+          "description": "Status of on-chain verification"
+        }
+      },
+      "description": "Optional metadata about the anchoring event"
+    }
+  }
+}

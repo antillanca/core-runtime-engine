@@ -1,0 +1,31 @@
+{
+  "calibration_id": "calibration:business_operations:sales:v1",
+  "capture_mode": "offline_fixture",
+  "environment_id": "environment:business_operations_example",
+  "expected_event_type": "sensor.business_operations.sales_drop",
+  "expected_sensor_id": "sensor:business_operations:sales:v1",
+  "expected_trace_id": "trace:business_operations:sales_drop:v1",
+  "fixture_id": "sales_drop_v1",
+  "notes": [
+    "Synthetic business operations sales-drop example.",
+    "Offline-only.",
+    "No real business data.",
+    "No runtime authority is granted to adapter data."
+  ],
+  "observation_event_fingerprints": {
+    "event:business_operations:sales_drop:v1": "be6864f40a3c366b0731fce3733214d77fc39298d2f696a5397d206786dcd55b"
+  },
+  "observation_event_id": "event:business_operations:sales_drop:v1",
+  "sample_count": 100,
+  "schema_version": "core.sensor_evidence.v1",
+  "sensor_id": "sensor:business_operations:sales:v1",
+  "sensor_type": "business_operations_sales",
+  "threshold": 600.0,
+  "trace_fingerprint": "a9190e473589db3cd868dc63dc5a7082e88e02b6d6a84774ecaff9f3ccdf460c",
+  "trace_id": "trace:business_operations:sales_drop:v1",
+  "value_key": "daily_sales",
+  "value_keys": [
+    "baseline_sales",
+    "daily_sales"
+  ]
+}

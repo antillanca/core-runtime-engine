@@ -1,0 +1,14 @@
+{
+  "schema_version": "core.pre_resolution_report.v1",
+  "conflict_id": "synthetic.conflict.llm_authority.v1",
+  "steps": [
+    "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  ],
+  "outcome": "resolved_by_protocol",
+  "human_required": false,
+  "resolution_summary": "LLM consensus resolved the conflict by majority vote of 3 advisory experts.",
+  "preserved_claims": [
+    "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+  ],
+  "llm_authority_used": true
+}

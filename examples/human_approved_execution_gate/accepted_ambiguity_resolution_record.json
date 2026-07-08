@@ -1,0 +1,14 @@
+{
+  "schema_version": "core.ambiguity_resolution_record.v1",
+  "type": "ambiguity_resolution_record",
+  "proposal_id": "synthetic.execution.docs_check.v1",
+  "ambiguity_type": "scope_interpretation",
+  "interpretations": [
+    "docs-only read",
+    "docs plus generated report write"
+  ],
+  "resolution": "docs-only read",
+  "resolved_by": "human.operator.local",
+  "promotes_to_rule": false,
+  "promotes_to_skill": false
+}

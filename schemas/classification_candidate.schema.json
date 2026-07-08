@@ -1,0 +1,151 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Classification Candidate v1",
+  "description": "Schema for a domain-neutral classification candidate produced by any classifier, parser, tiny model, LLM translation or expert. CORE validates the structure; the downstream fork interprets the intent and slots.",
+  "type": "object",
+  "required": ["schema_version", "type", "producer", "input", "classification", "policy", "safety"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.classification_candidate.v1",
+      "description": "Schema version identifier."
+    },
+    "type": {
+      "type": "string",
+      "const": "classification_candidate",
+      "description": "Artifact type."
+    },
+    "producer": {
+      "type": "object",
+      "required": ["id", "kind"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Unique producer identifier (e.g. 'synthetic.keyword_classifier.v1')."
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "deterministic_classifier",
+            "statistical_classifier",
+            "llm_translation",
+            "expert_proposal",
+            "hybrid_pipeline"
+          ],
+          "description": "Producer type."
+        }
+      }
+    },
+    "input": {
+      "type": "object",
+      "required": ["input_fingerprint", "language", "normalized_text"],
+      "additionalProperties": false,
+      "properties": {
+        "input_fingerprint": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$",
+          "description": "SHA-256 fingerprint of the original input text. Format: sha256:<64 lowercase hex chars>."
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 5,
+          "description": "BCP-47 language tag of the input (e.g. 'en', 'es-CL')."
+        },
+        "normalized_text": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Normalized input text (lowercase, accent-stripped, whitespace-collapsed)."
+        }
+      }
+    },
+    "classification": {
+      "type": "object",
+      "required": ["domain", "intent", "confidence", "decision", "slots", "matched_features"],
+      "additionalProperties": false,
+      "properties": {
+        "domain": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Vocabulary domain (e.g. 'synthetic_reports')."
+        },
+        "intent": {
+          "type": "string",
+          "description": "Specific intent within the domain. May be empty for rejected candidates."
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Classification confidence in [0.0, 1.0]."
+        },
+        "decision": {
+          "type": "string",
+          "enum": ["accepted", "clarification_required", "rejected"],
+          "description": "Classification decision."
+        },
+        "slots": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Slot name-value pairs extracted from the input."
+        },
+        "matched_features": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Features that contributed to the classification. Must be non-empty for accepted decisions."
+        }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "required": ["vocabulary_id", "accept_threshold", "clarify_threshold"],
+      "additionalProperties": false,
+      "properties": {
+        "vocabulary_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Vocabulary version identifier. Uses 'external:' prefix for private-domain vocabularies."
+        },
+        "accept_threshold": {
+          "type": "number",
+          "minimum": 0.0,
+          "exclusiveMinimum": 0.0,
+          "maximum": 1.0,
+          "description": "Minimum confidence for accepted decision."
+        },
+        "clarify_threshold": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Minimum confidence for clarification_required decision."
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "required": ["forbidden_patterns_detected", "requires_command_validation"],
+      "additionalProperties": false,
+      "properties": {
+        "forbidden_patterns_detected": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Safety violation codes. Must be empty for accepted decisions."
+        },
+        "requires_command_validation": {
+          "type": "boolean",
+          "const": true,
+          "description": "Must be true. All classification candidates require downstream command_candidate validation."
+        }
+      }
+    }
+  }
+}

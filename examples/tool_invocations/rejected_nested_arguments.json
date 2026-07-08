@@ -1,0 +1,34 @@
+{
+  "schema_version": "core.tool_invocation_proposal.v1",
+  "type": "tool_invocation_proposal",
+  "proposal_id": "tool_invocation_proposal:bad_args.nested.v1",
+  "session_ref": "agent_session:rejected.nested.v1",
+  "plan_step_ref": "agent_plan_step:bad.step0.v1",
+  "tool": {
+    "logical_name": "complex_tool",
+    "version": "1.0.0",
+    "category": "read_only"
+  },
+  "arguments": {
+    "config": {"host": "internal", "port": 5432},
+    "mode": "verbose"
+  },
+  "risk": {
+    "risk_tier": "none",
+    "side_effects": "none",
+    "reversibility": "reversible"
+  },
+  "approval": {
+    "requires_human_approval": true,
+    "approval_reason": "Session policy."
+  },
+  "expected_evidence": {
+    "evidence_type": "output_summary",
+    "description": "Output."
+  },
+  "safety": {
+    "forbids_autonomous_execution": true,
+    "timeout_seconds": 10,
+    "max_retries": 0
+  }
+}

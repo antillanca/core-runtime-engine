@@ -1,0 +1,33 @@
+{
+  "calibration_id": "calibration:privacy_safe_customer_flow:v1",
+  "capture_mode": "offline_fixture",
+  "environment_id": "environment:privacy_example",
+  "expected_event_type": "sensor.privacy_safe_customer_flow.flow_spike",
+  "expected_sensor_id": "sensor:privacy_safe_customer_flow:v1",
+  "expected_trace_id": "trace:privacy_safe_customer_flow:v1",
+  "fixture_id": "privacy_safe_customer_flow_v1",
+  "notes": [
+    "Privacy-safe customer flow example.",
+    "Uses synthetic hashed customer identifiers.",
+    "No raw PII is included.",
+    "Offline-only.",
+    "No runtime authority is granted to adapter data."
+  ],
+  "observation_event_fingerprints": {
+    "event:privacy_safe_customer_flow:flow_spike:v1": "07bdf865f0c92ffd20a639b2d52c0352f635f92bc6d2da1661a8486499711401"
+  },
+  "observation_event_id": "event:privacy_safe_customer_flow:flow_spike:v1",
+  "sample_count": 100,
+  "schema_version": "core.sensor_evidence.v1",
+  "sensor_id": "sensor:privacy_safe_customer_flow:v1",
+  "sensor_type": "privacy_safe_customer_flow",
+  "threshold": 30.0,
+  "trace_fingerprint": "63994f6045ec66d394e1e6b6e4a5d8c150ff3cfadbd5e9c01c0397a7d6bac588",
+  "trace_id": "trace:privacy_safe_customer_flow:v1",
+  "value_key": "flow_count",
+  "value_keys": [
+    "anonymous_customer_hash",
+    "flow_count",
+    "visits_in_window"
+  ]
+}

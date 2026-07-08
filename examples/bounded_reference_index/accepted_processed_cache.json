@@ -1,0 +1,10 @@
+{
+  "schema_version": "core.processed_reference_cache.v1",
+  "type": "processed_reference_cache",
+  "index_id": "synthetic.docs.v1",
+  "ref_id": "chapter_a",
+  "window_fingerprint": "sha256:f499ed739cdc0514ed558dc2c58a556fbc4d2ea64cd4d4eb683a96957207e8d1",
+  "summary_fingerprint": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "classification_candidate_fingerprint": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "cache_status": "fresh"
+}

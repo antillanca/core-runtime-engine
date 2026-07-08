@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Variable Binding v1",
+  "description": "Schema for a variable binding that maps slot names to concrete values, resolving a parametric template into a compilable command_candidate. All bound values must pass slot type validation.",
+  "type": "object",
+  "required": ["schema_version", "type", "template_id", "template_fingerprint", "bindings"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.variable_binding.v1",
+      "description": "Schema version identifier."
+    },
+    "type": {
+      "type": "string",
+      "const": "variable_binding",
+      "description": "Artifact type."
+    },
+    "template_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Reference to the parametric template this binding resolves."
+    },
+    "template_fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "description": "SHA-256 fingerprint of the resolved template. Must match the template's template_fingerprint exactly."
+    },
+    "bindings": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["value"],
+        "additionalProperties": false,
+        "properties": {
+          "value": {
+            "description": "The concrete value bound to this slot."
+          },
+          "source": {
+            "type": "string",
+            "enum": ["explicit", "inferred", "default"],
+            "description": "How the binding was obtained. 'explicit' = user provided, 'inferred' = classifier extracted, 'default' = template default."
+          }
+        }
+      },
+      "description": "Map of slot name to {value, source} binding pairs."
+    }
+  }
+}

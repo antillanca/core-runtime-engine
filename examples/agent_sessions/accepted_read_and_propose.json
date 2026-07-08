@@ -1,0 +1,30 @@
+{
+  "schema_version": "core.agent_session.v1",
+  "type": "agent_session",
+  "session_id": "agent_session:accepted.read_and_propose.v1",
+  "agent": {
+    "agent_id": "synthetic.read_assistant.v1",
+    "agent_kind": "synthetic_assistant"
+  },
+  "task": {
+    "task_ref": "agent_task:accepted.read_and_propose.v1",
+    "classification_ref": "classification_candidate:accepted.read_and_propose.v1",
+    "command_ref": "command_candidate:accepted.read_and_propose.v1"
+  },
+  "context_budget": {
+    "budget_ref": "context_budget:accepted.read_and_propose.v1",
+    "read_policy": "bounded_read_only",
+    "allowed_reference_index": "bounded_reference_index:accepted.read_and_propose.v1"
+  },
+  "safety": {
+    "requires_human_approval": true,
+    "forbids_autonomous_execution": true,
+    "risk_tier": "low"
+  },
+  "trace": {
+    "decision_trace_ref": "decision_trace:accepted.read_and_propose.v1"
+  },
+  "metadata": {
+    "description": "Synthetic fixture: valid agent session performing bounded read and proposal."
+  }
+}

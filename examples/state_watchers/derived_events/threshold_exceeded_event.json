@@ -1,0 +1,12 @@
+{
+  "event_id": "evt_synthetic.threshold_exceeded_obs_002",
+  "event_type": "threshold_exceeded",
+  "source_watcher_id": "synthetic.threshold_exceeded",
+  "timestamp": "2026-06-01T09:00:00Z",
+  "fingerprint": "61b114f988418dccb4ca77f0828529d7e404fa94997d0755cf718561e0185530",
+  "payload": {
+    "operand_value": 120.0,
+    "threshold_value": 100.0,
+    "observation_id": "obs_002"
+  }
+}

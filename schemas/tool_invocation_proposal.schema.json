@@ -1,0 +1,145 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Tool Invocation Proposal v1",
+  "description": "Schema for a domain-neutral agent tool invocation proposal. The agent proposes but never executes; CORE validates structure and safety invariants.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "type",
+    "proposal_id",
+    "session_ref",
+    "plan_step_ref",
+    "tool",
+    "arguments",
+    "risk",
+    "approval",
+    "expected_evidence",
+    "safety"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.tool_invocation_proposal.v1"
+    },
+    "type": {
+      "type": "string",
+      "const": "tool_invocation_proposal"
+    },
+    "proposal_id": {
+      "type": "string",
+      "pattern": "^tool_invocation_proposal:[a-z][a-z0-9_.-]*\\.[a-z][a-z0-9_.-]*\\.v[0-9]+$"
+    },
+    "session_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "plan_step_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tool": {
+      "type": "object",
+      "required": ["logical_name", "version", "category"],
+      "additionalProperties": false,
+      "properties": {
+        "logical_name": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["read_only", "write", "external_call", "approval_gate", "notification"]
+        }
+      }
+    },
+    "arguments": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": ["string", "number", "boolean", "null"]
+      }
+    },
+    "risk": {
+      "type": "object",
+      "required": ["risk_tier", "side_effects", "reversibility"],
+      "additionalProperties": false,
+      "properties": {
+        "risk_tier": {
+          "type": "string",
+          "enum": ["none", "low", "medium", "high"]
+        },
+        "side_effects": {
+          "type": "string",
+          "enum": ["none", "read_only", "writes_state", "external_side_effect"]
+        },
+        "reversibility": {
+          "type": "string",
+          "enum": ["reversible", "partially_reversible", "irreversible"]
+        }
+      }
+    },
+    "approval": {
+      "type": "object",
+      "required": ["requires_human_approval", "approval_reason"],
+      "additionalProperties": false,
+      "properties": {
+        "requires_human_approval": {
+          "type": "boolean"
+        },
+        "approval_reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "escalation_path": {
+          "type": "string"
+        }
+      }
+    },
+    "expected_evidence": {
+      "type": "object",
+      "required": ["evidence_type", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "evidence_type": {
+          "type": "string",
+          "enum": ["output_summary", "confirmation_record", "error_record", "audit_log_entry"]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "required": ["forbids_autonomous_execution", "timeout_seconds", "max_retries"],
+      "additionalProperties": false,
+      "properties": {
+        "forbids_autonomous_execution": {
+          "type": "boolean"
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3600
+        },
+        "max_retries": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

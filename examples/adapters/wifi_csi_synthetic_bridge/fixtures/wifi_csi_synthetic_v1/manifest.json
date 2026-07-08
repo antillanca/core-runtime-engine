@@ -1,0 +1,53 @@
+{
+  "calibration_id": "calibration:wifi_csi_synthetic_bridge:v1",
+  "capture_mode": "offline_fixture",
+  "environment_id": "environment:synthetic_wifi_csi_example",
+  "expected_event_type": "sensor.wifi_csi_synthetic_bridge.motion_spike",
+  "expected_sensor_id": "sensor:wifi_csi_synthetic_bridge:v1",
+  "expected_trace_id": "trace:wifi_csi_synthetic_bridge:v1",
+  "fixture_id": "wifi_csi_synthetic_v1",
+  "notes": [
+    "Synthetic CSI-like bridge example.",
+    "This is not RuView integration.",
+    "This is not real WiFi sensing.",
+    "No WiFi hardware is used.",
+    "No packets are captured.",
+    "No external CSI dataset is used.",
+    "No human detection is performed.",
+    "No localization is performed.",
+    "No presence inference is performed.",
+    "No runtime authority is granted to adapter data."
+  ],
+  "observation_event_fingerprints": {
+    "event:wifi_csi_synthetic_bridge:motion_spike:v1": "cd88f818d4721a953969b7fb6d26ca0760e63ea2e61757fa0204eb24816c73a5"
+  },
+  "observation_event_id": "event:wifi_csi_synthetic_bridge:motion_spike:v1",
+  "sample_count": 100,
+  "schema_version": "core.sensor_evidence.v1",
+  "sensor_id": "sensor:wifi_csi_synthetic_bridge:v1",
+  "sensor_type": "wifi_csi_synthetic_bridge",
+  "synthetic_csi": {
+    "disturbance_window": {
+      "end_frame": 65,
+      "start_frame": 40
+    },
+    "features": [
+      "motion_score",
+      "phase_delta",
+      "subcarrier_amplitude_variance",
+      "subcarrier_mean_amplitude"
+    ],
+    "frame_count": 100,
+    "subcarrier_count": 30
+  },
+  "threshold": 0.65,
+  "trace_fingerprint": "ff7ba925342b7e903e51fef0635d93e9d211664530bda1ebac3e3eb4c23b962a",
+  "trace_id": "trace:wifi_csi_synthetic_bridge:v1",
+  "value_key": "motion_score",
+  "value_keys": [
+    "motion_score",
+    "phase_delta",
+    "subcarrier_amplitude_variance",
+    "subcarrier_mean_amplitude"
+  ]
+}

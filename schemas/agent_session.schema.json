@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Agent Session v1",
+  "description": "Schema for a domain-neutral agent session that binds a task, context budget, safety constraints, and decision trace into a single verifiable unit. CORE validates structure; downstream forks interpret domain-specific intent.",
+  "type": "object",
+  "required": ["schema_version", "type", "session_id", "agent", "task", "context_budget", "safety", "trace"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.agent_session.v1",
+      "description": "Schema version identifier."
+    },
+    "type": {
+      "type": "string",
+      "const": "agent_session",
+      "description": "Artifact type."
+    },
+    "session_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^agent_session:[a-z0-9_:.-]+$",
+      "description": "Unique session identifier. Format: agent_session:<domain-specific-id>."
+    },
+    "agent": {
+      "type": "object",
+      "required": ["agent_id", "agent_kind"],
+      "additionalProperties": false,
+      "properties": {
+        "agent_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Unique agent identifier (e.g. 'synthetic.read_assistant.v1')."
+        },
+        "agent_kind": {
+          "type": "string",
+          "enum": [
+            "synthetic_assistant",
+            "llm_assistant",
+            "human_operator",
+            "hybrid_pipeline"
+          ],
+          "description": "Agent type classification."
+        }
+      }
+    },
+    "task": {
+      "type": "object",
+      "required": ["task_ref"],
+      "additionalProperties": false,
+      "properties": {
+        "task_ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Reference to the agent_task this session serves."
+        },
+        "classification_ref": {
+          "type": "string",
+          "description": "Optional reference to a classification_candidate that produced this task."
+        },
+        "command_ref": {
+          "type": "string",
+          "description": "Optional reference to a command_candidate compiled from this task."
+        }
+      }
+    },
+    "context_budget": {
+      "type": "object",
+      "required": ["budget_ref", "read_policy"],
+      "additionalProperties": false,
+      "properties": {
+        "budget_ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Reference to the agent_context_budget for this session."
+        },
+        "read_policy": {
+          "type": "string",
+          "enum": [
+            "bounded_read_only",
+            "read_write_proposal_only",
+            "no_access"
+          ],
+          "description": "Read access policy for the session."
+        },
+        "allowed_reference_index": {
+          "type": "string",
+          "description": "Optional reference to a bounded_reference_index for read operations."
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "required": ["requires_human_approval", "forbids_autonomous_execution"],
+      "additionalProperties": false,
+      "properties": {
+        "requires_human_approval": {
+          "type": "boolean",
+          "description": "Whether this session requires human approval before any action. Must be true."
+        },
+        "forbids_autonomous_execution": {
+          "type": "boolean",
+          "description": "Whether autonomous execution is forbidden. Must be true."
+        },
+        "approval_ref": {
+          "type": "string",
+          "description": "Optional reference to a human_approval_record."
+        },
+        "risk_tier": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "critical"],
+          "description": "Risk classification for this session."
+        }
+      }
+    },
+    "trace": {
+      "type": "object",
+      "required": ["decision_trace_ref"],
+      "additionalProperties": false,
+      "properties": {
+        "decision_trace_ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Reference to the agent_decision_trace for this session."
+        },
+        "expert_review_refs": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Optional references to expert reviews consulted during this session."
+        },
+        "pre_resolution_ref": {
+          "type": "string",
+          "description": "Optional reference to a pre_resolution_report if conflict resolution occurred."
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Optional extensible metadata."
+    }
+  }
+}

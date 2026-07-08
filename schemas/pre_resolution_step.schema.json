@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://core.nousresearch.com/schemas/pre_resolution_step.v1",
+  "title": "PreResolutionStep",
+  "description": "A single executed pre-resolution protocol result. Records evidence but does not authorize execution.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "conflict_id",
+    "protocol_id",
+    "status"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.pre_resolution_step.v1",
+      "description": "Schema version identifier."
+    },
+    "conflict_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Conflict ID this step addresses."
+    },
+    "protocol_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Protocol ID that was executed."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "resolved_equivalent",
+        "resolved_by_law",
+        "resolved_by_template",
+        "resolved_by_evidence",
+        "clarification_needed",
+        "evidence_missing",
+        "no_resolution",
+        "law_rejection"
+      ],
+      "description": "Outcome of this protocol step."
+    },
+    "evidence": {
+      "type": "object",
+      "description": "Step-specific evidence.",
+      "additionalProperties": true
+    },
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "SHA-256 fingerprint of this step."
+    }
+  },
+  "additionalProperties": false
+}

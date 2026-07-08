@@ -1,0 +1,25 @@
+{
+  "description": "Certified declarative profile for proposals that depend on certified evidence.",
+  "expected_use": "Proposal flows that require certified evidence artifacts before trust is granted.",
+  "notes": [
+    "Static profile fixture only.",
+    "This profile is not executed by CORE.",
+    "Certification requirements are declarative in this sprint."
+  ],
+  "profile_id": "execution_profile:certified:v1",
+  "profile_name": "certified",
+  "profile_schema": "core.execution_profile.v1",
+  "requirements": {
+    "audit_level": "certified",
+    "requires_batch_report": true,
+    "requires_certified_evidence": true,
+    "requires_deterministic_evaluation": true,
+    "requires_explainability": false,
+    "requires_replay_certification": false,
+    "requires_structural_validation": true
+  },
+  "safety": {
+    "allows_runtime_mutation": false,
+    "allows_tool_execution": false
+  }
+}

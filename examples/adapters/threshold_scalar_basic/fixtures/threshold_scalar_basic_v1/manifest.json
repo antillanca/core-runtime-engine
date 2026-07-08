@@ -1,0 +1,30 @@
+{
+  "calibration_id": "calibration:threshold_scalar_basic:v1",
+  "capture_mode": "offline_fixture",
+  "environment_id": "environment:example",
+  "expected_event_type": "sensor.threshold_scalar_basic.threshold_crossing",
+  "expected_sensor_id": "sensor:threshold_scalar_basic:v1",
+  "expected_trace_id": "trace:threshold_scalar_basic:v1",
+  "fixture_id": "threshold_scalar_basic_v1",
+  "notes": [
+    "Basic scalar threshold example.",
+    "Offline-only.",
+    "No hardware dependency.",
+    "No runtime authority is granted to adapter data."
+  ],
+  "observation_event_fingerprints": {
+    "event:threshold_scalar_basic:threshold:v1": "a8f28ef77761455c9fad886e749fcc055fecf9ddfc6a9bad5d52b00fbb9efdf0"
+  },
+  "observation_event_id": "event:threshold_scalar_basic:threshold:v1",
+  "sample_count": 100,
+  "schema_version": "core.sensor_evidence.v1",
+  "sensor_id": "sensor:threshold_scalar_basic:v1",
+  "sensor_type": "threshold_scalar_basic",
+  "threshold": 10.0,
+  "trace_fingerprint": "609581bcb286e3cad583b44b71f24c2df722916be24c6441ca6c077d993198ba",
+  "trace_id": "trace:threshold_scalar_basic:v1",
+  "value_key": "signal",
+  "value_keys": [
+    "signal"
+  ]
+}

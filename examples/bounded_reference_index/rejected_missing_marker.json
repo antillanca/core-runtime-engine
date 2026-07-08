@@ -1,0 +1,16 @@
+{
+  "schema_version": "core.bounded_reference_index.v1",
+  "type": "bounded_reference_index",
+  "index_id": "synthetic.docs.missing_marker.v1",
+  "entries": [
+    {
+      "ref_id": "missing_chapter",
+      "path": "sample_document.md",
+      "start_marker": "<!-- core:index id=\"nonexistent_chapter\" -->",
+      "end_policy": "next_marker",
+      "max_bytes": 12000,
+      "expected_window_fingerprint": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "read_mode": "text"
+    }
+  ]
+}

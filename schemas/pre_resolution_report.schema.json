@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://core.nousresearch.com/schemas/pre_resolution_report.v1",
+  "title": "PreResolutionReport",
+  "description": "Final report after pre-resolution protocols. Records outcomes and preserved claims. Does not authorize execution or bypass human approval.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "conflict_id",
+    "steps",
+    "outcome",
+    "human_required",
+    "preserved_claims"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.pre_resolution_report.v1",
+      "description": "Schema version identifier."
+    },
+    "conflict_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Conflict ID this report covers."
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^sha256:[0-9a-f]{64}$"
+      },
+      "description": "Fingerprints of pre-resolution steps executed."
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "resolved_by_protocol",
+        "clarification_required",
+        "missing_evidence",
+        "human_required",
+        "rejected_by_law",
+        "unresolved"
+      ],
+      "description": "Final pre-resolution outcome."
+    },
+    "human_required": {
+      "type": "boolean",
+      "description": "Whether human review is still required after pre-resolution."
+    },
+    "resolution_summary": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable summary of the resolution."
+    },
+    "preserved_claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^sha256:[0-9a-f]{64}$"
+      },
+      "description": "Fingerprints of all original expert claims, preserved for audit and replay."
+    },
+    "executes_action": {
+      "type": "boolean",
+      "const": false,
+      "description": "Must be false. Pre-resolution reports cannot execute actions."
+    }
+  },
+  "additionalProperties": false
+}

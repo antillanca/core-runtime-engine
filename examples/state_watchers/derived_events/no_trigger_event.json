@@ -1,0 +1,7 @@
+{
+  "observation_id": "obs_003",
+  "value": 95.0,
+  "threshold_value": 100.0,
+  "condition_met": false,
+  "notes": "Value below threshold, no event derived."
+}

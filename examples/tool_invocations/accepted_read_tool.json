@@ -1,0 +1,34 @@
+{
+  "schema_version": "core.tool_invocation_proposal.v1",
+  "type": "tool_invocation_proposal",
+  "proposal_id": "tool_invocation_proposal:read_data.query.v1",
+  "session_ref": "agent_session:accepted.read_and_propose.v1",
+  "plan_step_ref": "agent_plan_step:read_and_propose.step0.v1",
+  "tool": {
+    "logical_name": "data_reader",
+    "version": "1.0.0",
+    "category": "read_only"
+  },
+  "arguments": {
+    "query_type": "summary",
+    "time_range": "last_7d"
+  },
+  "risk": {
+    "risk_tier": "none",
+    "side_effects": "read_only",
+    "reversibility": "reversible"
+  },
+  "approval": {
+    "requires_human_approval": true,
+    "approval_reason": "All tool invocations require human approval per session policy."
+  },
+  "expected_evidence": {
+    "evidence_type": "output_summary",
+    "description": "Summary of queried data within the specified time range."
+  },
+  "safety": {
+    "forbids_autonomous_execution": true,
+    "timeout_seconds": 30,
+    "max_retries": 1
+  }
+}

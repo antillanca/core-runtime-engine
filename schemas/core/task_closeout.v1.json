@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://core-runtime-engine.local/schemas/core/task_closeout.v1.json",
+  "title": "TaskCloseout.v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "status", "source_type", "source_id", "summary"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.task_closeout.v1"
+    },
+    "status": {
+      "type": "string"
+    },
+    "source_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "report_ref": {
+      "type": "string"
+    },
+    "next_context_action": {
+      "type": "string"
+    },
+    "memory_generation_result": {
+      "type": "object"
+    },
+    "context_threshold_result": {
+      "type": "object"
+    },
+    "effect_results": {
+      "type": "array"
+    },
+    "events_ref": {
+      "type": "string"
+    }
+  }
+}

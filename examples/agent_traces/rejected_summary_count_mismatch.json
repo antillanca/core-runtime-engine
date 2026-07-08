@@ -1,0 +1,26 @@
+{
+  "schema_version": "core.agent_decision_trace.v1",
+  "type": "agent_decision_trace",
+  "trace_id": "agent_decision_trace:bad.summary_mismatch.v1",
+  "session_ref": "agent_session:bad.v1",
+  "trace_entries": [
+    {
+      "entry_id": 0,
+      "timestamp_iso": "2025-05-28T16:00:00Z",
+      "entry_type": "observation",
+      "summary": "One entry.",
+      "evidence_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ],
+  "trace_summary": {
+    "total_entries": 5,
+    "entry_type_counts": {"observation": 5},
+    "governance_violations": 0,
+    "requires_review": false
+  },
+  "integrity": {
+    "chain_root_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "entry_count": 1,
+    "immutability_guarantee": true
+  }
+}

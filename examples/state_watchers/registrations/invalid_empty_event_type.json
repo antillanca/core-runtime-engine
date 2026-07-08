@@ -1,0 +1,11 @@
+{
+  "watcher_id": "synthetic.empty_event",
+  "watch_condition": {
+    "operator": "eq",
+    "operand_schema": "scalar_observation.value",
+    "threshold_schema": "scalar_observation.reference"
+  },
+  "event_type": "",
+  "profile_id": "default",
+  "enabled": true
+}

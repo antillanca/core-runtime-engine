@@ -1,0 +1,18 @@
+{
+  "schema_version": "core.multi_expert_review_bundle.v1",
+  "type": "multi_expert_review_bundle",
+  "proposal_id": "synthetic.execution.docs_check.v1",
+  "reviews": [
+    "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  ],
+  "agreement": "partial",
+  "divergence_summary": {
+    "approval_count": 2,
+    "rejection_count": 0,
+    "clarification_count": 1,
+    "primary_disagreement": "whether command is strictly read-only"
+  },
+  "requires_human_review": true
+}

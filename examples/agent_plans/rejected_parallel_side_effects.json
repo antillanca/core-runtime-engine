@@ -1,0 +1,29 @@
+{
+  "schema_version": "core.agent_plan.v1",
+  "type": "agent_plan",
+  "plan_id": "agent_plan:rejected.parallel_sidefx.v1",
+  "session_ref": "agent_session:rejected.parallel.v1",
+  "steps": [
+    {
+      "step_index": 0,
+      "intent": "Write to external system",
+      "tool_proposal_ref": "tool_invocation_proposal:external.write.v1",
+      "depends_on": [],
+      "safety": {
+        "requires_human_approval": true,
+        "risk_tier": "high",
+        "forbids_autonomous_execution": true
+      },
+      "expected_result": {
+        "result_type": "proposal_only",
+        "description": "Write proposal"
+      },
+      "status": "planned"
+    }
+  ],
+  "safety": {
+    "requires_step_approval": true,
+    "forbids_parallel_execution": false,
+    "max_steps": 8
+  }
+}

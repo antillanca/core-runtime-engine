@@ -1,0 +1,9 @@
+{
+  "schema_version": "core.pre_resolution_report.v1",
+  "conflict_id": "synthetic.conflict.missing_claims.v1",
+  "steps": [],
+  "outcome": "resolved_by_protocol",
+  "human_required": false,
+  "resolution_summary": "Conflict resolved without preserved claims.",
+  "preserved_claims": []
+}

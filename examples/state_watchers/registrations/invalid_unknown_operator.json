@@ -1,0 +1,11 @@
+{
+  "watcher_id": "synthetic.bad_operator",
+  "watch_condition": {
+    "operator": "approximately",
+    "operand_schema": "scalar_observation.value",
+    "threshold_schema": "scalar_observation.reference"
+  },
+  "event_type": "bad_event",
+  "profile_id": "default",
+  "enabled": true
+}

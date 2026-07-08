@@ -1,0 +1,7 @@
+{
+  "schema_version": "core.human_escalation_decision.v1",
+  "conflict_id": "synthetic.conflict.command_equivalence.v1",
+  "human_required": true,
+  "reason": "risk_tier_requires_human_approval",
+  "pre_resolution_outcome": "resolved_by_protocol"
+}

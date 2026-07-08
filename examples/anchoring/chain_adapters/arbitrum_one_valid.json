@@ -1,0 +1,15 @@
+{
+  "schema_version": "v9.2.0",
+  "adapter_id": "arbitrum-one",
+  "chain_family": "evm",
+  "chain_name": "arbitrum",
+  "network": "mainnet",
+  "chain_id": 42161,
+  "rpc_endpoint_kind": "infura",
+  "contract_address": "0xc3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2",
+  "contract_version": "v1.0.0",
+  "submission_gas_limit": 200000,
+  "confirmation_blocks": 3,
+  "timeout_ms": 30000,
+  "fingerprint": "sha256:07cafc6ff0833fd9c9243dc7b8cf028eea10289e1b610044fb8be2ab90fb5412"
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": "core.human_approval_record.v1",
+  "type": "human_approval_record",
+  "proposal_id": "synthetic.execution.docs_check.v1",
+  "decision": "approved_for_sandbox_execution",
+  "approver_id": "human.operator.local",
+  "conditions": [
+    "read_only",
+    "no_network",
+    "no_runtime_mutation"
+  ],
+  "approval_fingerprint": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": "v1",
+  "type": "anchoring_submission",
+  "submission_id": "anchor_a1b2c3d4_d37606cbfa0e",
+  "artifact_type": "freeze_artifact",
+  "artifact_fingerprint": "sha256:b24e5e15b87aff20105af15ce8433ddc915f3af07eea35e69facd37606cbfa0e",
+  "anchor_hash": "0xb24e5e15b87aff20105af15ce8433ddc915f3af07eea35e69facd37606cbfa0e",
+  "chain_id": 11155111,
+  "contract_address": "0x1234567890abcdef1234567890abcdef12345678",
+  "submitter": "0xabcdef0123456789abcdef0123456789abcdef01",
+  "submission_timestamp": "2026-05-29T10:00:00+00:00",
+  "eligibility": {
+    "frozen_artifact": true,
+    "hash_matches_fingerprint": true,
+    "no_private_data": true,
+    "no_runtime_authority_change": true
+  },
+  "metadata": {
+    "artifact_path": "examples/freeze/freeze_v8x.json",
+    "release_version": "v8.5.0",
+    "submission_reason": "First production anchoring of the v8.x freeze"
+  }
+}

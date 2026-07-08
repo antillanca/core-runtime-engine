@@ -1,0 +1,30 @@
+{
+  "calibration_id": "calibration:minimal:temperature:v1",
+  "capture_mode": "offline_fixture",
+  "environment_id": "environment:example",
+  "expected_event_type": "sensor.minimal.temperature.threshold_crossing",
+  "expected_sensor_id": "sensor:minimal:temperature:v1",
+  "expected_trace_id": "trace:minimal:temperature:v1",
+  "fixture_id": "minimal_temperature_v1",
+  "notes": [
+    "Minimal adapter example.",
+    "Offline-only.",
+    "No hardware dependency.",
+    "No runtime authority is granted to adapter data."
+  ],
+  "observation_event_fingerprints": {
+    "event:minimal:temperature:threshold:v1": "f0e7bd3fd82e420f4153a70e464ae406844f2ab7aa77099fd8d835fde9945f6a"
+  },
+  "observation_event_id": "event:minimal:temperature:threshold:v1",
+  "sample_count": 100,
+  "schema_version": "core.sensor_evidence.v1",
+  "sensor_id": "sensor:minimal:temperature:v1",
+  "sensor_type": "minimal_temperature",
+  "threshold": 30.0,
+  "trace_fingerprint": "78f8e948e710948191dda49e5e5a231cfb96eb6158c5532e4e488c1f0b889f0a",
+  "trace_id": "trace:minimal:temperature:v1",
+  "value_key": "temperature",
+  "value_keys": [
+    "temperature"
+  ]
+}

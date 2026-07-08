@@ -1,0 +1,43 @@
+{
+  "calibration_id": "calibration:image_brightness_motion:v1",
+  "capture_mode": "offline_fixture",
+  "environment_id": "environment:synthetic_image_example",
+  "expected_event_type": "sensor.image_brightness_motion.motion_spike",
+  "expected_sensor_id": "sensor:image_brightness_motion:v1",
+  "expected_trace_id": "trace:image_brightness_motion:v1",
+  "fixture_id": "image_brightness_motion_v1",
+  "media": {
+    "format": "P5",
+    "frame_count": 10,
+    "frames_dir": "frames",
+    "height": 32,
+    "pixel_max": 255,
+    "type": "pgm_sequence",
+    "width": 32
+  },
+  "notes": [
+    "Synthetic image brightness/motion example.",
+    "PGM frames are generated deterministically with Python stdlib.",
+    "frame_delta is computed as mean absolute pixel difference.",
+    "Offline-only.",
+    "No camera.",
+    "No external image dataset.",
+    "No runtime authority is granted to adapter data."
+  ],
+  "observation_event_fingerprints": {
+    "event:image_brightness_motion:motion_spike:v1": "d73c08c462eee9714af571e4a85d0e670b5d155a7e243dc89ece2645c0d04f5d"
+  },
+  "observation_event_id": "event:image_brightness_motion:motion_spike:v1",
+  "sample_count": 10,
+  "schema_version": "core.sensor_evidence.v1",
+  "sensor_id": "sensor:image_brightness_motion:v1",
+  "sensor_type": "image_brightness_motion",
+  "threshold": 0.25,
+  "trace_fingerprint": "6877b2aa49507a81dc89cd73130f5acb4da1c0b9657330b891972d313cb4355b",
+  "trace_id": "trace:image_brightness_motion:v1",
+  "value_key": "frame_delta",
+  "value_keys": [
+    "frame_delta",
+    "mean_brightness"
+  ]
+}

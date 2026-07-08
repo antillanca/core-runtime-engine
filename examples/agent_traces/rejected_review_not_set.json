@@ -1,0 +1,27 @@
+{
+  "schema_version": "core.agent_decision_trace.v1",
+  "type": "agent_decision_trace",
+  "trace_id": "agent_decision_trace:bad.review_not_set.v1",
+  "session_ref": "agent_session:rejected.v1",
+  "trace_entries": [
+    {
+      "entry_id": 0,
+      "timestamp_iso": "2025-05-28T13:00:00Z",
+      "entry_type": "rejection",
+      "summary": "Governance violation but review not set.",
+      "evidence_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "metadata": {"governance_violation": true, "violation_code": "autonomous_execution"}
+    }
+  ],
+  "trace_summary": {
+    "total_entries": 1,
+    "entry_type_counts": {"rejection": 1},
+    "governance_violations": 1,
+    "requires_review": false
+  },
+  "integrity": {
+    "chain_root_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "entry_count": 1,
+    "immutability_guarantee": true
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "core.agent_plan.v1",
+  "type": "agent_plan",
+  "plan_id": "agent_plan:rejected.circular.v1",
+  "session_ref": "agent_session:rejected.circular.v1",
+  "steps": [
+    {
+      "step_index": 0,
+      "intent": "Step A",
+      "tool_proposal_ref": null,
+      "depends_on": [1],
+      "safety": {
+        "requires_human_approval": true,
+        "risk_tier": "none",
+        "forbids_autonomous_execution": true
+      },
+      "expected_result": {
+        "result_type": "read_result",
+        "description": "Read data A"
+      },
+      "status": "planned"
+    },
+    {
+      "step_index": 1,
+      "intent": "Step B",
+      "tool_proposal_ref": null,
+      "depends_on": [0],
+      "safety": {
+        "requires_human_approval": true,
+        "risk_tier": "none",
+        "forbids_autonomous_execution": true
+      },
+      "expected_result": {
+        "result_type": "read_result",
+        "description": "Read data B"
+      },
+      "status": "planned"
+    }
+  ],
+  "safety": {
+    "requires_step_approval": true,
+    "forbids_parallel_execution": true,
+    "max_steps": 4
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "type": "anchoring_submission",
+  "submission_id": "anchor_bad00002_aabbccddeeff",
+  "artifact_type": "certification_report",
+  "artifact_fingerprint": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "anchor_hash": "0xcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "chain_id": 1,
+  "contract_address": "0x1234567890abcdef1234567890abcdef12345678",
+  "submitter": "0xabcdef0123456789abcdef0123456789abcdef01",
+  "submission_timestamp": "2026-05-29T10:00:00+00:00",
+  "eligibility": {
+    "frozen_artifact": true,
+    "hash_matches_fingerprint": true,
+    "no_private_data": true,
+    "no_runtime_authority_change": true
+  }
+}

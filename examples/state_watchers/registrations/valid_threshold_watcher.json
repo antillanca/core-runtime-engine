@@ -1,0 +1,12 @@
+{
+  "watcher_id": "synthetic.threshold_exceeded",
+  "watch_condition": {
+    "operator": "gt",
+    "operand_schema": "scalar_observation.value",
+    "threshold_schema": "scalar_observation.reference"
+  },
+  "event_type": "threshold_exceeded",
+  "profile_id": "default",
+  "enabled": true,
+  "threshold_value": 100.0
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": "core.agent_plan.v1",
+  "type": "agent_plan",
+  "plan_id": "agent_plan:rejected.private_path.v1",
+  "session_ref": "agent_session:rejected.leak.v1",
+  "steps": [
+    {
+      "step_index": 0,
+      "intent": "Read from /home/user/private_app/.env",
+      "tool_proposal_ref": null,
+      "depends_on": [],
+      "safety": {
+        "requires_human_approval": true,
+        "risk_tier": "none",
+        "forbids_autonomous_execution": true
+      },
+      "expected_result": {
+        "result_type": "read_result",
+        "description": "Private config data"
+      },
+      "status": "planned"
+    }
+  ],
+  "safety": {
+    "requires_step_approval": true,
+    "forbids_parallel_execution": true,
+    "max_steps": 4
+  }
+}

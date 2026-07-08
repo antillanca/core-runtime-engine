@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Ambiguity Resolution Record v1",
+  "description": "Schema for recording an ambiguous but not illegal proposal. If resolved, the interpretation may become a scoped rule or skill version entry. Ambiguity must be resolved before execution.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "type",
+    "proposal_id",
+    "ambiguity_type",
+    "interpretations",
+    "resolved_by"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.ambiguity_resolution_record.v1",
+      "description": "Schema version identifier."
+    },
+    "type": {
+      "type": "string",
+      "const": "ambiguity_resolution_record",
+      "description": "Artifact type."
+    },
+    "proposal_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The proposal this ambiguity record addresses."
+    },
+    "ambiguity_type": {
+      "type": "string",
+      "enum": [
+        "scope_interpretation",
+        "risk_tier_ambiguity",
+        "output_format_ambiguity",
+        "authorization_boundary"
+      ],
+      "description": "Type of ambiguity detected."
+    },
+    "interpretations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 2,
+      "description": "At least two possible interpretations of the proposal."
+    },
+    "resolution": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The selected interpretation, if resolved."
+    },
+    "resolved_by": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Who resolved the ambiguity (e.g. 'human.operator.local')."
+    },
+    "promotes_to_rule": {
+      "type": "boolean",
+      "description": "Whether this resolution should become a scoped rule."
+    },
+    "promotes_to_skill": {
+      "type": "boolean",
+      "description": "Whether this resolution should become a skill version entry."
+    }
+  }
+}

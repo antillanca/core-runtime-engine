@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CORE Agent Plan Result v1",
+  "description": "Schema for the outcome of a completed or rejected agent plan, with per-step result summaries and fingerprints.",
+  "type": "object",
+  "required": ["schema_version", "type", "result_id", "plan_ref", "session_ref", "overall_status", "step_results", "plan_fingerprint", "validation_fingerprint"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.agent_plan_result.v1"
+    },
+    "type": {
+      "type": "string",
+      "const": "agent_plan_result"
+    },
+    "result_id": {
+      "type": "string",
+      "pattern": "^agent_plan_result:[a-z0-9_]+\\.[a-z0-9_]+\\.v1$"
+    },
+    "plan_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "session_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "overall_status": {
+      "type": "string",
+      "enum": ["completed", "partial", "rejected", "escalated"]
+    },
+    "step_results": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["step_index", "status", "outcome_fingerprint"],
+        "additionalProperties": false,
+        "properties": {
+          "step_index": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "status": {
+            "type": "string",
+            "enum": ["approved", "rejected", "skipped", "completed"]
+          },
+          "outcome_fingerprint": {
+            "type": "string",
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "plan_fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "validation_fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

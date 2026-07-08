@@ -1,0 +1,10 @@
+{
+  "schema_version": "core.agent_plan_dependency.v1",
+  "type": "agent_plan_dependency",
+  "dependency_id": "agent_plan_dependency:read_and_propose.step0.step1.v1",
+  "plan_ref": "agent_plan:read_and_propose.linear.v1",
+  "from_step": 0,
+  "to_step": 1,
+  "dependency_type": "sequential",
+  "description": "Must read data before proposing action"
+}

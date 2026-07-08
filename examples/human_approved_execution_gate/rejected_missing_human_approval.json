@@ -1,0 +1,23 @@
+{
+  "schema_version": "core.execution_proposal.v1",
+  "type": "execution_proposal",
+  "proposal_id": "synthetic.execution.skip_approval.v1",
+  "producer": {
+    "id": "synthetic.assistant.v1",
+    "kind": "private_assistant"
+  },
+  "requested_action": {
+    "action_type": "run_script",
+    "command_ref": "scripts/deploy.sh",
+    "sandbox_required": true
+  },
+  "risk_tier": "high",
+  "declared_scope": [
+    "src/",
+    "config/"
+  ],
+  "expected_outputs": [
+    "deploy_log"
+  ],
+  "requires_human_approval": false
+}

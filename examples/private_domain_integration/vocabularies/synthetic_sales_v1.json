@@ -1,0 +1,104 @@
+{
+  "schema": "core.domain_command_vocabulary.v1",
+  "domain_id": "synthetic_sales",
+  "vocabulary_version": "synthetic_sales.commands.v1",
+  "status": "frozen",
+  "allowed_profiles": [
+    "public_synthetic"
+  ],
+  "artifact_types": [
+    "synthetic_sales_fixture_bundle"
+  ],
+  "refusal_codes": [
+    "private_business_data_unsupported",
+    "unknown_command"
+  ],
+  "clarification_codes": [
+    "ambiguous_time_range",
+    "missing_target"
+  ],
+  "commands": [
+    {
+      "name": "sales_summary",
+      "grammar": "sales_summary period <period> target <target>",
+      "required_arguments": [
+        "period",
+        "target"
+      ],
+      "optional_arguments": [],
+      "allowed_artifact_types": [
+        "synthetic_sales_fixture_bundle"
+      ],
+      "allowed_targets": [
+        "all_items",
+        "by_category"
+      ],
+      "allowed_profiles": [
+        "public_synthetic"
+      ],
+      "proposal_type": "report_request",
+      "proposal_schema": "core.command_candidate.v1",
+      "compiler_target": "report_request.synthetic",
+      "effects": [
+        "read_only"
+      ],
+      "requires_frozen_fixture": false
+    },
+    {
+      "name": "sales_trend",
+      "grammar": "sales_trend period <period> granularity <granularity>",
+      "required_arguments": [
+        "period"
+      ],
+      "optional_arguments": [
+        "granularity"
+      ],
+      "allowed_artifact_types": [
+        "synthetic_sales_fixture_bundle"
+      ],
+      "allowed_targets": [
+        "daily",
+        "weekly",
+        "monthly"
+      ],
+      "allowed_profiles": [
+        "public_synthetic"
+      ],
+      "proposal_type": "report_request",
+      "proposal_schema": "core.command_candidate.v1",
+      "compiler_target": "report_request.synthetic",
+      "effects": [
+        "read_only"
+      ],
+      "requires_frozen_fixture": false
+    }
+  ],
+  "examples": [
+    {
+      "example_id": "synthetic_sales.summary.accepted.v1",
+      "split": "train",
+      "expected_output_kind": "command_candidate",
+      "expected_label": "accepted_candidate",
+      "notes": [
+        "Valid synthetic sales summary."
+      ]
+    },
+    {
+      "example_id": "synthetic_sales.private_costs.refusal.v1",
+      "split": "train",
+      "expected_output_kind": "command_not_found",
+      "expected_label": "rejected_candidate",
+      "notes": [
+        "Private cost data must be refused."
+      ]
+    }
+  ],
+  "source_artifacts": [
+    "docs/RFC_CORE_DOMAIN_COMMAND_VOCABULARIES.md",
+    "docs/PRIVATE_DOMAIN_INTEGRATION_PATTERN.md"
+  ],
+  "notes": [
+    "Synthetic sales vocabulary for private-domain integration examples.",
+    "This vocabulary is public and generic. It does not represent any real business."
+  ]
+}

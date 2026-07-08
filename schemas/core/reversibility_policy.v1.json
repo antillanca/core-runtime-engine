@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://core-runtime-engine.local/schemas/core/reversibility_policy.v1.json",
+  "title": "ReversibilityPolicy.v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "type",
+    "policy_id",
+    "action_family",
+    "reversibility_class",
+    "compensation_required",
+    "human_approval_required",
+    "stop_conditions",
+    "evidence_required",
+    "notes",
+    "source_refs",
+    "evidence_refs",
+    "created_at",
+    "fingerprint"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.reversibility_policy.v1"
+    },
+    "type": {
+      "type": "string",
+      "const": "reversibility_policy"
+    },
+    "policy_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "action_family": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reversibility_class": {
+      "type": "string",
+      "enum": ["reversible", "compensable", "irreversible", "unknown"]
+    },
+    "compensation_required": {
+      "type": "boolean"
+    },
+    "human_approval_required": {
+      "type": "boolean"
+    },
+    "stop_conditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evidence_required": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "source_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^(?!/).+"
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^(?!/).+"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fingerprint": {
+      "type": "string",
+      "minLength": 1
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
