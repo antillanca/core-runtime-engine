@@ -149,6 +149,18 @@ V95_CHECKS = {
     "process_attestation_rejected_inactive_status",
 }
 
+V111_CHECKS = {
+    "contract_executability_audit",
+    "frozen_release_manifest_v11_1_accepted",
+    "frozen_rule_set_general_accepted",
+    "frozen_rule_set_personal_commitment_accepted",
+    "physical_safety_assurance_evidence_ready",
+    "physical_safety_assurance_rejects_absolute_claim",
+    "rule_approval_general_signature_accepted",
+    "rule_approval_personal_signature_accepted",
+    "rule_anchor_batch_manifest_accepted",
+}
+
 DOWNSTREAM_BRIDGE_ADAPTER_CHECKS = {
     "downstream_bridge_adapter_accepted_strict": [
         sys.executable,
@@ -286,6 +298,69 @@ MERKLE_BATCH_CHECKS = {
         sys.executable,
         "scripts/verify_merkle_proof.py",
         "examples/merkle_batch/rejected_tampered_path.json",
+    ],
+}
+
+FROZEN_RULE_ANCHOR_CHECKS = {
+    "frozen_rule_set_general_accepted": [
+        sys.executable,
+        "scripts/validate_frozen_rule_set.py",
+        "examples/frozen_rules/general_cooperative_supply.json",
+    ],
+    "frozen_rule_set_personal_commitment_accepted": [
+        sys.executable,
+        "scripts/validate_frozen_rule_set.py",
+        "examples/frozen_rules/personal_commitment.json",
+    ],
+    "rule_approval_general_signature_accepted": [
+        sys.executable,
+        "scripts/validate_rule_approval.py",
+        "examples/rule_approvals/general_cooperative_supply.json",
+    ],
+    "rule_approval_personal_signature_accepted": [
+        sys.executable,
+        "scripts/validate_rule_approval.py",
+        "examples/rule_approvals/personal_commitment.json",
+    ],
+    "rule_anchor_batch_manifest_accepted": [
+        sys.executable,
+        "scripts/validate_rule_anchor_batch.py",
+        "examples/merkle_batch/accepted_batch_manifest.json",
+    ],
+}
+
+FROZEN_RELEASE_MANIFEST_CHECKS = {
+    "frozen_release_manifest_v11_1_accepted": [
+        sys.executable,
+        "scripts/validate_frozen_release_manifest.py",
+        "examples/frozen_release_manifest/accepted_v11_1_0.json",
+    ],
+}
+
+EXECUTABLE_CONTRACT_CHECKS = {
+    "contract_executability_audit": [
+        sys.executable,
+        "scripts/audit_contract_executability.py",
+    ],
+    "physical_safety_assurance_evidence_ready": [
+        sys.executable,
+        "-c",
+        "from core_runtime.core.contract_probes import build_physical_safety_case; "
+        "from core_runtime.core.contract_evaluator import evaluate_contract_payload; "
+        "r=evaluate_contract_payload(build_physical_safety_case(method='hardware_in_loop')); "
+        "assert r['status']=='passed'; "
+        "assert r['details']['achieved_assurance_level']=='evidence_ready'; "
+        "assert r['deployment_authorized'] is False; print('PASS')",
+    ],
+    "physical_safety_assurance_rejects_absolute_claim": [
+        sys.executable,
+        "-c",
+        "from core_runtime.core.contract_probes import build_physical_safety_case; "
+        "from core_runtime.core.contract_evaluator import bind_artifact_fingerprint,evaluate_contract_payload; "
+        "p=build_physical_safety_case(); p['claim']['scope']='Guaranteed safe in all circumstances.'; "
+        "p=bind_artifact_fingerprint(p); r=evaluate_contract_payload(p); "
+        "assert r['status']=='failed'; "
+        "assert 'absolute_safety_claim_forbidden' in {e['code'] for e in r['errors']}; print('PASS')",
     ],
 }
 
@@ -896,6 +971,9 @@ TARGET_ORDER = [
     "v10.3",
     "v10.4",
     "v10.5",
+    "v11.0",
+    "v11.0.1",
+    "v11.1",
 ]
 
 TARGET_RANK = {name: index for index, name in enumerate(TARGET_ORDER)}
@@ -904,7 +982,16 @@ TARGET_RANK = {name: index for index, name in enumerate(TARGET_ORDER)}
 def _target_at_least(target: str | None, floor: str) -> bool:
     if target is None:
         return True
-    return TARGET_RANK.get(target, -1) >= TARGET_RANK[floor]
+    def numeric_version(value: str) -> tuple[int, int, int]:
+        parts = value.removeprefix("v").split(".")
+        if not 2 <= len(parts) <= 3 or not all(part.isdigit() for part in parts):
+            return (-1, -1, -1)
+        numbers = [int(part) for part in parts]
+        while len(numbers) < 3:
+            numbers.append(0)
+        return (numbers[0], numbers[1], numbers[2])
+
+    return numeric_version(target) >= numeric_version(floor)
 
 
 BRIDGES = {
@@ -1680,6 +1767,27 @@ def verify(
         if _target_at_least(target, "v9.3"):
             status, detail = _same_result(command)
             _record_check_result(checks, details, name, status, detail, allow_missing_surface=True)
+        else:
+            checks[name] = "pending_runtime"
+
+    for name, command in FROZEN_RULE_ANCHOR_CHECKS.items():
+        if _target_at_least(target, "v11.1"):
+            status, detail = _same_output(command)
+            _record_check_result(checks, details, name, status, detail)
+        else:
+            checks[name] = "pending_runtime"
+
+    for name, command in FROZEN_RELEASE_MANIFEST_CHECKS.items():
+        if _target_at_least(target, "v11.1"):
+            status, detail = _same_output(command)
+            _record_check_result(checks, details, name, status, detail)
+        else:
+            checks[name] = "pending_runtime"
+
+    for name, command in EXECUTABLE_CONTRACT_CHECKS.items():
+        if _target_at_least(target, "v11.1"):
+            status, detail = _same_output(command)
+            _record_check_result(checks, details, name, status, detail)
         else:
             checks[name] = "pending_runtime"
 
@@ -2684,6 +2792,9 @@ def _catalog_group_checks() -> dict[str, list[str]]:
     release_metadata_checks.extend(_check_name_list(ANCHORING_SUBMISSION_CHECKS))
     release_metadata_checks.extend(_check_name_list(CHAIN_ADAPTER_CHECKS))
     release_metadata_checks.extend(_check_name_list(MERKLE_BATCH_CHECKS))
+    release_metadata_checks.extend(_check_name_list(FROZEN_RULE_ANCHOR_CHECKS))
+    release_metadata_checks.extend(_check_name_list(FROZEN_RELEASE_MANIFEST_CHECKS))
+    release_metadata_checks.extend(_check_name_list(EXECUTABLE_CONTRACT_CHECKS))
     release_metadata_checks.extend(_check_name_list(DOCUMENT_ATTESTATION_CHECKS))
     release_metadata_checks.extend(_check_name_list(PROCESS_ATTESTATION_CHECKS))
     release_metadata_checks.extend(_check_name_list(EXECUTION_PROFILE_CHECKS))

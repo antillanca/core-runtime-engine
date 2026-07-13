@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
-from core_runtime.tooling.diagnostics import DiagnosticCollection, Severity
+from core_runtime.tooling.diagnostics import DiagnosticCollection
 
 
 @dataclass

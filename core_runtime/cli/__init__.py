@@ -2,4 +2,6 @@
 
 from __future__ import annotations
 
-__version__ = "10.5.0"
+from core_runtime.__version__ import __version__
+
+__all__ = ["__version__"]

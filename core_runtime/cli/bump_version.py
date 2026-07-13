@@ -6,7 +6,7 @@ import json
 import sys
 from pathlib import Path
 
-from core_runtime.tooling.bump_version import BumpVersionPlanner, validate_target_version
+from core_runtime.tooling.bump_version import BumpVersionPlanner
 from core_runtime.tooling.diagnostics import DiagnosticCollection, ExitCode
 from core_runtime.tooling.version_inventory import VersionInventory
 

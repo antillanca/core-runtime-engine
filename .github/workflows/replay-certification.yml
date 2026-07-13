@@ -24,7 +24,7 @@ jobs:
         shell: bash
         run: |
           python -m pip install --upgrade pip
-          pip install -e ".[dev]" -r requirements.lock
+          pip install -e ".[anchoring,dev]" -r requirements.lock
           if [ -f requirements-dev.txt ]; then python -m pip install -r requirements-dev.txt; fi
       - name: CORE tooling lint
         shell: bash
@@ -41,161 +41,55 @@ jobs:
         shell: bash
         run: |
           ruff check .
+      - name: Validate FrozenReleaseManifest v11.1.0
+        shell: bash
+        run: |
+          python scripts/validate_frozen_release_manifest.py examples/frozen_release_manifest/accepted_v11_1_0.json
+          pytest -q tests/test_frozen_release_manifest.py
+      - name: Frozen rule and non-custodial anchor tests
+        shell: bash
+        run: |
+          pytest -q \
+            tests/test_frozen_rule_set_validator.py \
+            tests/test_rule_approval_validator.py \
+            tests/test_rule_anchor_batch.py \
+            tests/test_rule_anchor_deployment.py \
+            tests/test_rule_anchor_transaction.py \
+            tests/test_core_rule_anchor_contract.py \
+            tests/test_executable_contracts.py \
+            tests/test_physical_safety_assurance.py
+          python scripts/audit_contract_executability.py
+          python scripts/build_merkle_batch.py examples/merkle_batch/accepted_batch_request.json
+          python scripts/verify_merkle_proof.py examples/merkle_batch/accepted_batch_manifest.json
+      - name: Compile CoreRuleAnchor with pinned solc
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          python scripts/compile_core_rule_anchor.py --output-dir artifacts/solidity
+      - name: Upload CoreRuleAnchor compiler artifacts
+        if: runner.os == 'Linux'
+        uses: actions/upload-artifact@v4
+        with:
+          name: core-rule-anchor-solc-${{ matrix.python-version }}
+          path: artifacts/solidity/*
       - name: Mypy report-only
         continue-on-error: true
         shell: bash
         run: |
           mypy --follow-imports=skip core_runtime/core/sensor_evidence.py core_runtime/core/explainability.py
-      - name: Validate Execution Profile fixtures
+      - name: Full pytest
         shell: bash
         run: |
-          python scripts/validate_execution_profile.py examples/execution_profiles/minimal_profile.json
-          python scripts/validate_execution_profile.py examples/execution_profiles/standard_profile.json
-          python scripts/validate_execution_profile.py examples/execution_profiles/certified_profile.json
-          python scripts/validate_execution_profile.py examples/execution_profiles/explainable_profile.json
-          python scripts/validate_execution_profile.py examples/execution_profiles/audit_profile.json
-          pytest -q tests/test_execution_profile_fixtures.py
-      - name: Validate Expert Proposal fixtures
+          pytest -q
+      - name: CORE v11.1.0 release gate
         shell: bash
         run: |
-          python scripts/validate_expert_proposal.py examples/expert_proposals/accepted_proposal.json
-          python scripts/validate_expert_proposal.py examples/expert_proposals/malicious_proposal.json
-      - name: Validate Expert Router fixtures
-        shell: bash
-        run: |
-          python scripts/validate_expert_router.py examples/expert_router/routing_fixtures/minimal_routing.json
-          python scripts/validate_expert_router.py examples/expert_router/routing_fixtures/standard_routing.json
-          python scripts/validate_expert_router.py examples/expert_router/routing_fixtures/certified_routing.json
-          python scripts/validate_expert_router.py examples/expert_router/routing_fixtures/explainable_routing.json
-          python scripts/validate_expert_router.py examples/expert_router/routing_fixtures/audit_routing.json
-          python scripts/validate_expert_router.py examples/expert_router/routing_fixtures/no_compatible_experts.json
-          python scripts/validate_expert_router.py examples/expert_router/routing_fixtures/multiple_proposals_same_profile.json
-      - name: Evaluate Expert Router fixtures
-        shell: bash
-        run: |
-          python scripts/evaluate_expert_router.py examples/expert_router/routing_fixtures/minimal_routing.json
-          python scripts/evaluate_expert_router.py examples/expert_router/routing_fixtures/standard_routing.json
-          python scripts/evaluate_expert_router.py examples/expert_router/routing_fixtures/certified_routing.json
-          python scripts/evaluate_expert_router.py examples/expert_router/routing_fixtures/explainable_routing.json
-          python scripts/evaluate_expert_router.py examples/expert_router/routing_fixtures/audit_routing.json
-          python scripts/evaluate_expert_router.py examples/expert_router/routing_fixtures/no_compatible_experts.json
-          python scripts/evaluate_expert_router.py examples/expert_router/routing_fixtures/multiple_proposals_same_profile.json
-      - name: Report Expert Router fixtures
-        shell: bash
-        run: |
-          report_1="${RUNNER_TEMP}/expert_router_report_1.json"
-          report_2="${RUNNER_TEMP}/expert_router_report_2.json"
-          python scripts/report_expert_router.py --output "${report_1}"
-          python scripts/report_expert_router.py --output "${report_2}"
-          diff "${report_1}" "${report_2}"
-      - name: Certify Expert Router replay
-        shell: bash
-        run: |
-          cert_1="${RUNNER_TEMP}/expert_router_replay_1.json"
-          cert_2="${RUNNER_TEMP}/expert_router_replay_2.json"
-          python scripts/certify_router_replay.py --all --output "${cert_1}"
-          python scripts/certify_router_replay.py --all --output "${cert_2}"
-          diff "${cert_1}" "${cert_2}"
-      - name: Evaluate Expert Proposal fixtures
-        shell: bash
-        run: |
-          python scripts/evaluate_expert_proposal.py examples/expert_proposals/accepted_proposal.json
-          python scripts/evaluate_expert_proposal.py examples/expert_proposals/malicious_proposal.json
-          python scripts/evaluate_expert_proposal.py examples/expert_proposals/unsupported_proposal.json
-      - name: Report Expert Proposal fixtures
-        shell: bash
-        run: |
-          report_1="${RUNNER_TEMP}/expert_proposal_report_1.json"
-          report_2="${RUNNER_TEMP}/expert_proposal_report_2.json"
-          python scripts/report_expert_proposals.py --output "${report_1}"
-          python scripts/report_expert_proposals.py --output "${report_2}"
-          diff "${report_1}" "${report_2}"
-      - name: Check Expert Proposal / Execution Profile compatibility
-        shell: bash
-        run: |
-          python scripts/check_profile_proposal_compatibility.py \
-            --proposal examples/expert_proposals/accepted_proposal.json \
-            --profile examples/execution_profiles/certified_profile.json
-          if python scripts/check_profile_proposal_compatibility.py \
-            --proposal examples/expert_proposals/malicious_proposal.json \
-            --profile examples/execution_profiles/minimal_profile.json; then
-            echo "Expected malicious proposal compatibility check to fail"
-            exit 1
-          fi
-      - name: Report compatibility matrix
-        shell: bash
-        run: |
-          python scripts/report_compatibility_matrix.py --allow-expected-incompatible > /tmp/compatibility_matrix_1.json
-          python scripts/report_compatibility_matrix.py --allow-expected-incompatible > /tmp/compatibility_matrix_2.json
-          diff /tmp/compatibility_matrix_1.json /tmp/compatibility_matrix_2.json
-      - name: Protocol Model readiness
-        shell: bash
-        run: |
-          report_1="${RUNNER_TEMP}/protocol_model_readiness_1.json"
-          report_2="${RUNNER_TEMP}/protocol_model_readiness_2.json"
-          python scripts/report_protocol_model_readiness.py --output "${report_1}"
-          python scripts/report_protocol_model_readiness.py --output "${report_2}"
-          diff "${report_1}" "${report_2}"
-      - name: Protocol Model artifact readiness
-        shell: bash
-        run: |
-          report_1="${RUNNER_TEMP}/protocol_model_artifact_readiness_1.json"
-          report_2="${RUNNER_TEMP}/protocol_model_artifact_readiness_2.json"
-          python scripts/report_protocol_model_artifact_readiness.py --output "${report_1}"
-          python scripts/report_protocol_model_artifact_readiness.py --output "${report_2}"
-          diff "${report_1}" "${report_2}"
-      - name: Development Audit readiness
-        shell: bash
-        run: |
-          report_1="${RUNNER_TEMP}/development_audit_readiness_1.json"
-          report_2="${RUNNER_TEMP}/development_audit_readiness_2.json"
-          python scripts/report_development_audit_readiness.py --output "${report_1}"
-          python scripts/report_development_audit_readiness.py --output "${report_2}"
-          diff "${report_1}" "${report_2}"
-      - name: Audit trail derivation
-        shell: bash
-        run: |
-          audit_root="${RUNNER_TEMP}/audit_trail"
-          mkdir -p "${audit_root}"
-          report_path="${audit_root}/compatibility_matrix_report.json"
-          manifest_path="${audit_root}/source_manifest.json"
-          python scripts/report_compatibility_matrix.py --allow-expected-incompatible > "${report_path}"
-          REPORT_PATH="${report_path}" MANIFEST_PATH="${manifest_path}" python - <<'PY'
-          from pathlib import Path
-          import json
-          import os
-
-          from core_runtime.core.audit_event import compute_operational_fingerprint
-
-          report_path = Path(os.environ["REPORT_PATH"])
-          manifest_path = Path(os.environ["MANIFEST_PATH"])
-          report = json.loads(report_path.read_text(encoding="utf-8"))
-          manifest = {
-              "schema_version": "4.9.0",
-              "source_artifacts": [
-                  {
-                      "artifact_type": "compatibility_matrix",
-                      "path": report_path.name,
-                      "fingerprint": compute_operational_fingerprint(report),
-                      "stable_name": "compatibility_matrix_report",
-                  }
-              ],
-          }
-          manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-          PY
-          python scripts/derive_audit_trail.py --source-manifest "${manifest_path}" --source-type compatibility_matrix --output-dir "${audit_root}/audit_1"
-          python scripts/derive_audit_trail.py --source-manifest "${manifest_path}" --source-type compatibility_matrix --output-dir "${audit_root}/audit_2"
-          diff "${audit_root}/audit_1/audit_trail.json" "${audit_root}/audit_2/audit_trail.json"
-          diff "${audit_root}/audit_1/audit_manifest.json" "${audit_root}/audit_2/audit_manifest.json"
-          if python scripts/derive_audit_trail.py --source-manifest "${manifest_path}" --source-type unknown_thing --output-dir "${audit_root}/audit_invalid"; then
-            echo "Expected unknown source type to fail"
-            exit 1
-          fi
-      - name: Replay certification
-        shell: bash
-        run: |
-          python scripts/replay_certification.py --reference-dir tests/reference_data --output report.json
-      - name: Compatibility tests
-        shell: bash
-        run: |
-          pytest tests/test_reproducibility_hardening.py tests/test_reference_data_backward_compat.py tests/test_v42_execution_graph.py -q
+          mkdir -p artifacts/release
+          python scripts/verify_release.py --target v11.1.0 --skip-full-pytest --output artifacts/release/core-v11.1.0-release-gate.json
+      - name: Upload CORE v11.1.0 release report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: core-v11.1.0-release-${{ matrix.os }}-py${{ matrix.python-version }}
+          path: artifacts/release/core-v11.1.0-release-gate.json
+          if-no-files-found: ignore

@@ -8,7 +8,6 @@ import json
 import hashlib
 import subprocess
 import sys
-import tempfile
 from pathlib import Path
 
 import pytest
@@ -16,12 +15,10 @@ import pytest
 from scripts.validate_anchoring_event import (
     validate_anchoring_event,
     _compute_event_fingerprint,
-    _fingerprint_to_bytes32,
     _canonical_json,
     _sha256_text,
     KNOWN_CHAIN_IDS,
     VALID_ARTIFACT_TYPES,
-    VALID_VERIFICATION_STATUSES,
     FILE_NOT_FOUND,
     INVALID_JSON,
     INVALID_SCHEMA_VERSION,
@@ -370,7 +367,6 @@ class TestFileErrors:
 class TestDirectoryMode:
     def test_batch_cli_directory(self):
         """Directory batch mode is CLI-only (main()), not in validate_anchoring_event()."""
-        import subprocess
         result = subprocess.run(
             [sys.executable, "scripts/validate_anchoring_event.py", str(EXAMPLES_DIR)],
             capture_output=True, text=True, cwd=str(Path(__file__).resolve().parent.parent),

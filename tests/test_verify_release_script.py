@@ -2,8 +2,6 @@ from __future__ import annotations
 
 import json
 import subprocess
-import sys
-from pathlib import Path
 
 import pytest
 
@@ -64,6 +62,15 @@ V95_CHECKS = {
     "process_attestation_rejected_missing_approval",
     "evidence_bundle_rejected_missing_receipt",
     "process_attestation_rejected_inactive_status",
+}
+
+V111_CHECKS = {
+    "frozen_release_manifest_v11_1_accepted",
+    "frozen_rule_set_general_accepted",
+    "frozen_rule_set_personal_commitment_accepted",
+    "rule_approval_general_signature_accepted",
+    "rule_approval_personal_signature_accepted",
+    "rule_anchor_batch_manifest_accepted",
 }
 
 V104_SLICE2_CHECKS = {
@@ -129,6 +136,20 @@ def test_verify_release_v95_gate_includes_v9x_checks():
     assert V95_CHECKS.issubset(set(payload["checks"]))
     for name in V93_CHECKS | V94_CHECKS | V95_CHECKS:
         assert payload["checks"][name] == "passed", name
+
+
+def test_verify_release_v111_runs_frozen_rule_anchor_checks():
+    payload = _run_release_metadata(target="v11.1")
+
+    assert V111_CHECKS.issubset(set(payload["checks"]))
+    for name in V111_CHECKS:
+        assert payload["checks"][name] == "passed", name
+
+
+def test_target_comparison_does_not_treat_v11_as_older_than_v9() -> None:
+    assert verify_release._target_at_least("v11.0.1", "v9.5")
+    assert verify_release._target_at_least("v11.1.0", "v11.1")
+    assert not verify_release._target_at_least("v11.0.1", "v11.1")
 
 
 def _run_release_metadata(target: str) -> dict:

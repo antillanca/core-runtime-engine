@@ -11,7 +11,6 @@ import subprocess
 import sys
 from pathlib import Path
 
-import pytest
 
 VALIDATOR = Path("scripts/validate_downstream_bridge_adapter.py")
 FIXTURES = Path("examples/bridge_adapters")

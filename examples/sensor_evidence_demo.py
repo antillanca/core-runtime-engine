@@ -8,8 +8,8 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from core_runtime.core.explainability import StaticExplainer
-from core_runtime.core.sensor_evidence import (
+from core_runtime.core.explainability import StaticExplainer  # noqa: E402
+from core_runtime.core.sensor_evidence import (  # noqa: E402
     SensorSource,
     derive_threshold_observation_event,
     load_sensor_fixture_manifest,

@@ -11,7 +11,6 @@ import sys
 import tempfile
 from pathlib import Path
 
-import pytest
 
 VALIDATOR = Path(__file__).resolve().parent.parent / "scripts" / "validate_expert_conflict_pre_resolution.py"
 EXAMPLES = Path(__file__).resolve().parent.parent / "examples" / "expert_conflict_pre_resolution"

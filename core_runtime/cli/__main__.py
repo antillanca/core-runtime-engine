@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import argparse
 import sys
 
 from core_runtime.cli.main import build_parser

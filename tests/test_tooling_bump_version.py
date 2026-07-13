@@ -6,7 +6,6 @@ import json
 import tempfile
 from pathlib import Path
 
-import pytest
 
 from core_runtime.tooling.bump_version import (
     APPROVED_MUTATION_FILES,

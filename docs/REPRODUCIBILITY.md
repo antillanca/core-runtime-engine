@@ -22,7 +22,19 @@ python scripts/generate_requirements_lock.py > requirements.lock
 - Validator scripts are pure functions over their input file plus the
   repository's schemas: no network access, no wall-clock dependence, no
   random seeds.
-- The optional `anchoring` extra (`web3`) is only used by
-  `scripts/submit_anchoring.py` and `scripts/core_anchor.py`; without it,
-  those scripts fall back to dry-run mode and every other script in the
-  repository runs without it installed.
+- Frozen rule validation, SHA-256 commitments, Merkle construction, proof
+  verification, and unsigned calldata construction are offline and
+  deterministic.
+- External EIP-191 signature recovery and RPC-backed chain/balance checks use
+  the optional `anchoring` extra (`web3` and its cryptographic backend).
+- `create_private_rule_commitment.py` intentionally uses operating-system
+  randomness. The resulting commitment is deterministic after it is frozen;
+  generating a second opening must produce a different commitment.
+- RPC fee, nonce, balance, confirmation, and block observations are explicitly
+  non-deterministic evidence. They are fingerprinted after observation and are
+  never part of rule evaluation replay.
+- No command signs or broadcasts. Reproducibility therefore never depends on
+  access to a wallet secret.
+
+See [FROZEN_RULE_ANCHORING.md](FROZEN_RULE_ANCHORING.md) for the exact hash
+domains and trust boundary.

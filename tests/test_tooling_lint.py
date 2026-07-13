@@ -8,7 +8,6 @@ import sys
 import tempfile
 from pathlib import Path
 
-import pytest
 
 from core_runtime.cli.main import check_stale_docs
 from core_runtime.tooling.diagnostics import (

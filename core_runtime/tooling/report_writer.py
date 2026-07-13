@@ -3,11 +3,10 @@
 from __future__ import annotations
 
 import json
-from dataclasses import asdict
 from pathlib import Path
 from typing import Optional
 
-from core_runtime.tooling.diagnostics import Diagnostic, DiagnosticCollection, ExitCode, Severity
+from core_runtime.tooling.diagnostics import DiagnosticCollection, ExitCode
 
 
 class ReportWriter:

@@ -5,7 +5,6 @@ from __future__ import annotations
 import tempfile
 from pathlib import Path
 
-import pytest
 
 from core_runtime.tooling.diagnostics import DiagnosticCollection
 from core_runtime.tooling.version_inventory import VersionInventory
@@ -106,7 +105,7 @@ class TestVersionInventory:
             repo = create_mock_repo(Path(tmp))
             inv = VersionInventory(repo)
             diagnostics = DiagnosticCollection()
-            sources = inv.check_consistency(diagnostics)
+            inv.check_consistency(diagnostics)
 
             # All should be consistent
             assert not diagnostics.has_errors()
@@ -120,7 +119,7 @@ class TestVersionInventory:
 
             inv = VersionInventory(repo)
             diagnostics = DiagnosticCollection()
-            sources = inv.check_consistency(diagnostics)
+            inv.check_consistency(diagnostics)
 
             # Should detect mismatch
             assert diagnostics.has_errors()
@@ -135,7 +134,7 @@ class TestVersionInventory:
 
             inv = VersionInventory(repo)
             diagnostics = DiagnosticCollection()
-            sources = inv.check_consistency(diagnostics)
+            inv.check_consistency(diagnostics)
 
             # Should detect missing
             assert diagnostics.has_errors()
@@ -167,7 +166,6 @@ class TestVersionInventory:
 
             # Should warn or error
             errors = [d for d in diagnostics.diagnostics if d.severity.value == "error"]
-            warnings = [d for d in diagnostics.diagnostics if d.severity.value == "warning"]
             assert any("core.version.changelog_ahead" in d.code for d in errors)
 
     def test_check_release_note_exists(self):

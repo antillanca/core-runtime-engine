@@ -6,13 +6,11 @@ plus schema dispatch, structural validation, and byte-stability.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import subprocess
 import sys
 from pathlib import Path
 
-import pytest
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 FIXTURES_DIR = REPO_ROOT / "examples" / "human_approved_execution_gate"

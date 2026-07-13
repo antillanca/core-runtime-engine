@@ -16,7 +16,6 @@ import json
 from dataclasses import dataclass
 from typing import Any
 
-import pytest
 
 
 # ---------------------------------------------------------------------------
@@ -128,7 +127,7 @@ class TestExplainabilityDeterminism:
             final_residual=1e-7, projection_iterations=5,
             projection_budget=50, topology_family="family_1",
         )
-        e2 = explain_execution(
+        explain_execution(
             task_hash="t1", route="retrieval_warmstart", converged=True,
             final_residual=1e-7, projection_iterations=5,
             projection_budget=50, topology_family="family_1",

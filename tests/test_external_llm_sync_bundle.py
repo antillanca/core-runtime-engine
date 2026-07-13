@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import json
 import sys
 from pathlib import Path
 
@@ -11,7 +10,7 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent.parent / "scripts"
 sys.path.insert(0, str(SCRIPT_DIR))
 
-import validate_external_llm_sync_bundle as validator
+import validate_external_llm_sync_bundle as validator  # noqa: E402
 
 EXAMPLES_DIR = Path(__file__).resolve().parent.parent / "examples" / "external_llm_sync"
 SCHEMA_VERSION = "core.external_llm_sync_bundle.v1"

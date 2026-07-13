@@ -6,9 +6,8 @@ import json
 import tempfile
 from pathlib import Path
 
-import pytest
 
-from core_runtime.tooling.diagnostics import Diagnostic, DiagnosticCollection, ExitCode, Severity
+from core_runtime.tooling.diagnostics import Diagnostic, DiagnosticCollection, Severity
 from core_runtime.tooling.report_writer import ReportWriter
 from core_runtime.tooling.version_inventory import VersionSource
 
@@ -39,7 +38,7 @@ class TestReportWriter:
         diagnostics.add_info("test.info", "Test info")
 
         output_path = self.repo_root / "report.json"
-        report = self.writer.write_json(diagnostics, scope="tooling", output_path=output_path)
+        self.writer.write_json(diagnostics, scope="tooling", output_path=output_path)
 
         assert output_path.exists()
         with output_path.open() as f:
@@ -158,7 +157,7 @@ class TestReportWriter:
         diagnostics.add_info("test.info", "Sample message")
 
         output_path = self.repo_root / "report.md"
-        markdown = self.writer.write_markdown(diagnostics, scope="tooling", output_path=output_path)
+        self.writer.write_markdown(diagnostics, scope="tooling", output_path=output_path)
 
         assert output_path.exists()
         content = output_path.read_text(encoding="utf-8")

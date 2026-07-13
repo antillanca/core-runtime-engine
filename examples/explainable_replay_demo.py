@@ -10,7 +10,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from core_runtime.core.explainability import StaticExplainer
+from core_runtime.core.explainability import StaticExplainer  # noqa: E402
 
 
 DEFAULT_FIXTURE_DIR = Path("tests/fixtures/explainability/v4_2_0_minimal")

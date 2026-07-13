@@ -2,6 +2,61 @@
 
 ## Unreleased
 
+## v11.1.0
+
+### Added
+
+- Added strict executable evaluation for all public generic CORE contracts.
+  Every registered contract now has a coherent positive probe and a
+  schema-valid semantic-negative probe with a deterministic rejection code.
+- Added `PhysicalSafetyAssuranceCase.v1` with bounded knowledge claims,
+  preserved extremes, fail-closed out-of-distribution behavior, mandatory
+  adversarial scenarios, independent physical barriers, epistemic dignity,
+  lifecycle invalidation, and critical-event traceability.
+- Added `audit_contract_executability.py` as a release gate preventing new
+  public schemas from landing without an executable semantic mechanism.
+- Added strict `FrozenRuleSet.v1`, external EIP-191 approval, rule-anchor
+  batch, unsigned transaction, and confirmed chain-evidence contracts.
+- Added blinded personal-rule commitments whose random opening is kept
+  off-chain and cannot be written into the public repository by the creation
+  command.
+- Added deterministic, domain-separated SHA-256 Merkle batching and proof
+  verification so one transaction can cover public and private-commitment
+  rule sets.
+- Added `CoreRuleAnchor.sol`, a one-slot-per-root contract without owner,
+  upgrade, pause, token, custom fee, payable entrypoint, or fund custody.
+- Added reproducible unsigned contract-deployment preparation and independent
+  semantic validation of build hashes, creation bytecode, costs, reserve,
+  readiness, safety warnings, and fingerprint.
+- Added external-wallet transaction preparation, native-wei gas reserve and
+  per-rule upper-bound calculations, plus read-only confirmed event/state
+  verification.
+- Added the projection/evidence-source model for human, nonhuman biological,
+  software, human-directed software, and mixed-ensemble evidence while
+  keeping responsible authorization as a separate signer boundary.
+
+### Changed
+
+- Unsigned rule-anchor gas reserve calculations now apply their declared
+  safety multiplier, bind `rule_set_count`, verify calldata-derived values,
+  and remain blocked until contract code is verified.
+
+### Security
+
+- CORE evaluation outputs explicitly deny execution, deployment, universal
+  truth, and automated moral authority. Simulation remains evidence for
+  hazard discovery only.
+- Removed all private-key ingestion, secret environment variables, local
+  signing, raw-transaction transmission, and implicit broadcast behavior from
+  `scripts/submit_anchoring.py`.
+- Approval signatures bind the exact frozen fingerprint, chain ID, and
+  contract; malformed, duplicate, unauthorized, and high-s signatures fail
+  closed.
+- RPC provider URLs are accepted only through a local file and are never
+  persisted in generated artifacts.
+- Fixed release-version ordering so v11 targets can no longer be treated as
+  older than v9 checks.
+
 ## v11.0.1
 
 ### Changed

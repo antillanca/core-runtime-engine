@@ -122,8 +122,6 @@ def read_bounded_reference(
     except (OSError, UnicodeDecodeError) as exc:
         return _error_result(ref_id, f"Cannot read file: {exc}", "file_read_error")
 
-    file_bytes = file_text.encode("utf-8")
-
     # Find start marker position
     if not start_marker:
         return _error_result(ref_id, "start_marker missing or empty.", "start_marker_not_found")

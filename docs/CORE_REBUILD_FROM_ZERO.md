@@ -89,3 +89,21 @@ de los fixtures publicos.
 CORE v11 queda como motor publico de contratos, schemas, validadores,
 fingerprints, evidencia acotada, replay y tooling de release. No opera ningun
 negocio y no incorpora semantica privada de consumidores downstream.
+
+## Extension publica v11.1
+
+La extension v11.1 conserva esa frontera y agrega un contrato generico para
+reglas congeladas. `CoreRuleAnchor.sol` guarda solamente una raiz Merkle y el
+hash de su manifest. Las reglas personales se representan mediante compromisos
+cegados; no se publican contenido ni apertura. Las firmas se producen fuera de
+CORE y se verifican por su direccion publica. Ningun comando recibe secretos,
+firma, transmite fondos o publica una transaccion.
+
+La evidencia ahora declara su procedencia como humana, biologica no humana,
+software, software dirigido por una persona o conjunto mixto. La autorizacion
+responsable sigue siendo una frontera separada y auditable. La explicacion
+canonica esta en `PROJECTION_AND_RESPONSIBLE_AGENCY.md`.
+
+La base pública del lenguaje genérico —incluida la distinción entre necesidad,
+protección, alimentación y muerte por lujo o exceso— está documentada en
+`CORE_FOUNDATIONAL_LANGUAGE.md`.

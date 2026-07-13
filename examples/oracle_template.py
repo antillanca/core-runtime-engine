@@ -21,8 +21,8 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
-import torch
-from backend.core_runtime.task_runtime import RuntimeTask, RuntimeExecutor, OracleProtocol, SurrogateProtocol
+import torch  # noqa: E402
+from backend.core_runtime.task_runtime import RuntimeTask, RuntimeExecutor  # noqa: E402
 
 
 # ---------------------------------------------------------------------------

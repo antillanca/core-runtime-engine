@@ -12,7 +12,6 @@ import sys
 import tempfile
 from pathlib import Path
 
-import pytest
 
 VALIDATOR = Path(__file__).resolve().parent.parent / "scripts" / "validate_agent_session.py"
 EXAMPLES = Path(__file__).resolve().parent.parent / "examples" / "agent_sessions"

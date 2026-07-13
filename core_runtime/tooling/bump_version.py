@@ -14,15 +14,14 @@ all validation passes, using transactional semantics.
 from __future__ import annotations
 
 import json
-import os
 import re
 import subprocess
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 from typing import Optional
 
-from core_runtime.tooling.diagnostics import DiagnosticCollection, ExitCode, Severity
+from core_runtime.tooling.diagnostics import DiagnosticCollection, ExitCode
 from core_runtime.tooling.version_inventory import VersionInventory
 
 # ---------------------------------------------------------------------------
@@ -401,7 +400,7 @@ class BumpVersionPlanner:
                 full_path.parent.mkdir(parents=True, exist_ok=True)
                 full_path.write_text(new_text, encoding="utf-8")
                 written_files.append(file_rel)
-        except Exception as exc:
+        except Exception:
             # Partial mutation — report blocked and list touched files
             diagnostics.add_blocked(
                 code="core.bump_version.internal_error",
@@ -491,7 +490,6 @@ class BumpVersionPlanner:
             ExitCode.INTERNAL_ERROR: "internal_error",
         }
 
-        change_key = "files_that_would_change" if mode == "dry-run" else "files_changed"
         report = {
             "tool": "core-runtime bump-version",
             "mode": mode,

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import argparse
-import sys
 from pathlib import Path
 
 from core_runtime.cli.bump_version import cmd_bump_version
@@ -15,7 +14,7 @@ from core_runtime.cli.release_check import cmd_release_check
 from core_runtime.cli.repair_artifact_paths import cmd_repair_artifact_paths
 from core_runtime.cli.sync_template import cmd_sync_template
 from core_runtime.cli.validate import cmd_validate
-from core_runtime.tooling.diagnostics import DiagnosticCollection, ExitCode
+from core_runtime.tooling.diagnostics import DiagnosticCollection
 from core_runtime.tooling.file_inventory import FileInventory
 from core_runtime.tooling.json_checks import JSONChecks
 from core_runtime.tooling.report_writer import ReportWriter
@@ -441,7 +440,7 @@ def cmd_lint(args: argparse.Namespace) -> int:
     file_results = file_inv.check_all(diagnostics)
 
     # 3. Script compilation checks
-    script_results = check_script_compilation(repo_root, diagnostics)
+    check_script_compilation(repo_root, diagnostics)
 
     # 4. JSON parse checks
     schema_checked, schema_errors = json_checks.check_schemas(diagnostics)

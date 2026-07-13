@@ -6,7 +6,8 @@ Reference index for the release notes tracked in this repository.
 
 ## Current pointers
 
-- **Latest release**: v11.0.1 (`docs/releases/v11.0.1.md`)
+- **Latest release**: v11.1.0 (`docs/releases/v11.1.0.md`)
+- v11.0.1: clean-rebuild hygiene baseline (`docs/releases/v11.0.1.md`)
 - v11.0.0: withdrawn, superseded by v11.0.1 (`docs/releases/v11.0.0.md`)
 
 Releases before v11.0.0 belong to the pre-rebuild history and are preserved

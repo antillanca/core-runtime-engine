@@ -368,7 +368,7 @@ def test_release_gate_subprocess_fail_maps_to_wrapper_status_error(tmp_path: Pat
 
 
 def test_release_gate_timeout_maps_to_blocked_and_exit_code_two(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
-    repo = _make_repo(tmp_path)
+    _make_repo(tmp_path)
     calls: list[list[str]] = []
 
     def fake_run(cmd, **kwargs):
