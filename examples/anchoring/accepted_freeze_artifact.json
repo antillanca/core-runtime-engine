@@ -16,8 +16,8 @@
     "no_runtime_authority_change": true
   },
   "metadata": {
-    "artifact_path": "examples/freeze/freeze_v8x.json",
+    "artifact_path": "schemas/agent_boundary_freeze.schema.json",
     "release_version": "v8.5.0",
-    "submission_reason": "First production anchoring of the v8.x freeze"
+    "submission_reason": "Synthetic compatibility example for the archived v8.x freeze schema"
   }
 }

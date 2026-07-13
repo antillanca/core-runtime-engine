@@ -1,0 +1,45 @@
+{
+  "batch_id": "rule-anchor-batch:b16cdd9f25b98a07959f3485",
+  "chain_id": 31337,
+  "entries": [
+    {
+      "approval_fingerprints": [
+        "sha256:af24d3278bd83f32ca994586161b9db2f3b7ce55409d3cf7cda3d409df53bcc6"
+      ],
+      "leaf_hash": "sha256:8070e5ffdd7871be0dfa0c8ff8a20872edc68afa02f8820245c8365c894f4aaa",
+      "proof": [
+        {
+          "hash": "sha256:03c9df0745c1b053bac8e2d4b0f929540274371967e90634a7f08f07df63f762",
+          "position": "right"
+        }
+      ],
+      "rule_class": "personal",
+      "rule_set_fingerprint": "sha256:cc02dc661b1735eb85df593870e02028d999951a3c4b902d2c81a6b1ccf14ab2",
+      "visibility": "private_commitment"
+    },
+    {
+      "approval_fingerprints": [
+        "sha256:1dc4b3753ec84ed4a7da959a6f5346a8dc57d89a6f6d7222172d28edace545b1"
+      ],
+      "leaf_hash": "sha256:03c9df0745c1b053bac8e2d4b0f929540274371967e90634a7f08f07df63f762",
+      "proof": [
+        {
+          "hash": "sha256:8070e5ffdd7871be0dfa0c8ff8a20872edc68afa02f8820245c8365c894f4aaa",
+          "position": "left"
+        }
+      ],
+      "rule_class": "general",
+      "rule_set_fingerprint": "sha256:d3877d9022f90434431e5b974be6e8f696ba0c44e66617cff9938093e17576e2",
+      "visibility": "public"
+    }
+  ],
+  "hash_algorithm": "sha256",
+  "manifest_fingerprint": "sha256:bff4cbe93090cc1dbbac1fbcd70b1d64c55851e03e0f9c8a2f31c256ab1b12f6",
+  "merkle_root": "sha256:b16cdd9f25b98a07959f3485f88b1853594218a8564338b4e86974b89b8cb668",
+  "merkle_scheme": "core.sha256_merkle.v1",
+  "rule_set_count": 2,
+  "schema_version": "core.rule_anchor_batch.v1",
+  "type": "rule_anchor_batch",
+  "verifying_contract": "0x1111111111111111111111111111111111111111",
+  "visibility_mask": 3
+}

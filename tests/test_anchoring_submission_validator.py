@@ -10,7 +10,6 @@ import json
 import tempfile
 from pathlib import Path
 
-import pytest
 
 from scripts.validate_anchoring_submission import (
     validate_anchoring_submission,
@@ -150,6 +149,11 @@ class TestFormats:
         assert result["status"] == "failed"
         assert any(e["code"] == "invalid_timestamp" for e in result["errors"])
 
+    def test_timestamp_requires_timezone(self):
+        result = _validate(_valid_submission(submission_timestamp="2026-05-29T10:00:00"))
+        assert result["status"] == "failed"
+        assert any(e["code"] == "invalid_timestamp" for e in result["errors"])
+
 
 # ─── Fingerprint/hash consistency ────────────────────────────────────────
 
@@ -181,15 +185,16 @@ class TestHashConsistency:
 # ─── Chain ID tests ──────────────────────────────────────────────────────
 
 class TestChainId:
-    def test_known_chain_ids(self):
-        for cid in [1, 5, 11155111, 137, 80001, 42161, 421614]:
+    def test_positive_chain_ids(self):
+        for cid in [1, 999, 11155111, 42161]:
             result = _validate(_valid_submission(chain_id=cid))
             assert result["status"] == "passed", f"chain_id={cid} should pass"
 
-    def test_unknown_chain_id(self):
-        result = _validate(_valid_submission(chain_id=999))
-        assert result["status"] == "failed"
-        assert any(e["code"] == "unknown_chain_id" for e in result["errors"])
+    def test_non_positive_or_boolean_chain_id(self):
+        for cid in [0, -1, True]:
+            result = _validate(_valid_submission(chain_id=cid))
+            assert result["status"] == "failed"
+            assert any(e["code"] == "invalid_chain_id" for e in result["errors"])
 
 
 # ─── Eligibility fail-closed tests ───────────────────────────────────────
@@ -251,6 +256,17 @@ class TestMetadata:
         result = _validate(payload)
         assert result["status"] == "failed"
         assert any(e["code"] == "extra_metadata_field" for e in result["errors"])
+
+    def test_artifact_path_must_be_relative_and_bounded(self):
+        for path in ["/private/artifact.json", "../artifact.json", "safe/../artifact.json"]:
+            result = _validate(_valid_submission(metadata={"artifact_path": path}))
+            assert result["status"] == "failed"
+            assert any(e["code"] == "invalid_artifact_path" for e in result["errors"])
+
+    def test_metadata_values_are_typed(self):
+        result = _validate(_valid_submission(metadata={"artifact_path": 7, "submission_reason": ""}))
+        assert result["status"] == "failed"
+        assert any(e["code"] == "invalid_metadata_type" for e in result["errors"])
 
 
 # ─── Fixture file tests ─────────────────────────────────────────────────

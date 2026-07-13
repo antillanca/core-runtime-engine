@@ -1,0 +1,14 @@
+{
+  "approval_request_fingerprint": "sha256:ef289bacdf7d708f93dc6f058c510f44a4ad5e510e628756694631213a8ef157",
+  "chain_id": 31337,
+  "decision": "approve_frozen_rule_set",
+  "fingerprint": "sha256:1dc4b3753ec84ed4a7da959a6f5346a8dc57d89a6f6d7222172d28edace545b1",
+  "message": "CORE FrozenRuleSet Approval v1\nrule_set_fingerprint: sha256:d3877d9022f90434431e5b974be6e8f696ba0c44e66617cff9938093e17576e2\nchain_id: 31337\nverifying_contract: 0x1111111111111111111111111111111111111111\ndecision: approve_frozen_rule_set",
+  "rule_set_fingerprint": "sha256:d3877d9022f90434431e5b974be6e8f696ba0c44e66617cff9938093e17576e2",
+  "schema_version": "core.rule_approval.v1",
+  "signature": "0xe9bcd796952bc2e974caf59274c58cab1056b1ff34fc06b40f928953fa970ff27248b06511f230311d78fd4fc9a3cc45ee638295eadc191ac6f0aad7bbc60d201b",
+  "signature_scheme": "eip191_secp256k1",
+  "signer": "0xa875018ebb58d7832e68401c79b7be0b8acb46a9",
+  "type": "rule_approval",
+  "verifying_contract": "0x1111111111111111111111111111111111111111"
+}

@@ -29,7 +29,7 @@
     },
     "submission_id": {
       "type": "string",
-      "pattern": "^anchor_[a-z0-9]{8}_[a-f0-9]{12}$",
+      "pattern": "^anchor_[a-f0-9]{8}_[a-f0-9]{12}$",
       "description": "Unique identifier: anchor_{random8}_{hash12}"
     },
     "artifact_type": {
@@ -42,6 +42,7 @@
         "frozen_fixture_hash",
         "routing_decision_fingerprint",
         "evidence_bundle_fingerprint",
+        "rule_anchor_batch",
         "freeze_artifact",
         "downstream_bridge_compliance",
         "preintegration_manifest"
@@ -112,6 +113,7 @@
       "properties": {
         "artifact_path": {
           "type": "string",
+          "pattern": "^(?!/)(?![A-Za-z]:\\\\)(?!.*(?:^|/)\\.\\.(?:/|$)).+",
           "description": "Relative path to the artefact within the repository"
         },
         "release_version": {

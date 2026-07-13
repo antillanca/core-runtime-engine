@@ -1,0 +1,32 @@
+{
+  "canonicalization": "core.canonical_json.v1",
+  "content": {
+    "blinding_nonce_published": false,
+    "commitment": "sha256:a4b60a58f2a32e33f3d59f3dbe833127d32642d98d7f9cdc6c799808200fa92c",
+    "commitment_scheme": "core.blinded_commitment.v1",
+    "contains_plaintext_private_data": false,
+    "mode": "private_commitment",
+    "rule_count": 1
+  },
+  "domain": "personal_preferences",
+  "fingerprint": "sha256:cc02dc661b1735eb85df593870e02028d999951a3c4b902d2c81a6b1ccf14ab2",
+  "frozen_at": "2026-07-13T00:00:00Z",
+  "governance": {
+    "accountability": "authorized_signer_set",
+    "amendment_mode": "new_frozen_version_only",
+    "approval_threshold": 1,
+    "authorized_signers": [
+      "0xa875018ebb58d7832e68401c79b7be0b8acb46a9"
+    ],
+    "automated_delegation": "bounded_by_frozen_rule",
+    "signature_scheme": "eip191_secp256k1"
+  },
+  "hash_algorithm": "sha256",
+  "rule_class": "personal",
+  "rule_set_id": "rule-set:personal-commitment-example-v1",
+  "rule_version": "v1.0.0",
+  "schema_version": "core.frozen_rule_set.v1",
+  "status": "frozen",
+  "type": "frozen_rule_set",
+  "visibility": "private_commitment"
+}

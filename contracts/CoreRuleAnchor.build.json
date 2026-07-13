@@ -1,0 +1,20 @@
+{
+  "abi_canonical_sha256": "sha256:65860d8443fad5bf1cf624e1b904864ac5193118507128b1fe72dce516e31c62",
+  "compiler": "solc@0.8.30",
+  "contract": "CoreRuleAnchor",
+  "creation_bytecode_sha256": "sha256:b6a9c27a56587cd02682483f6d3756e37095cd734caf7c65898ea903a3203790",
+  "evm_version": "shanghai",
+  "function_selector": "0x6919e458",
+  "metadata": {
+    "append_cbor": true,
+    "bytecode_hash": "ipfs"
+  },
+  "optimizer": {
+    "enabled": true,
+    "runs": 200
+  },
+  "runtime_bytecode_sha256": "sha256:5515c803ef28904d33ed5a5bca15e4ada38977c80e949261b8233cb264886ddd",
+  "schema_version": "core.solidity_build.v1",
+  "source": "contracts/CoreRuleAnchor.sol",
+  "source_sha256": "sha256:f56416a86f39a156a7c3b38cb4bc30a71624be43b6a7912242f6c369893d8f29"
+}

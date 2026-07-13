@@ -37,6 +37,7 @@ ARTIFACT_TYPES = {
     "certification_report", "replay_certification",
     "frozen_fixture_hash", "routing_decision_fingerprint",
     "evidence_bundle_fingerprint", "freeze_artifact",
+    "rule_anchor_batch",
     "downstream_bridge_compliance", "preintegration_manifest",
 }
 
@@ -46,9 +47,6 @@ ELIGIBILITY_FIELDS = {
 }
 
 METADATA_FIELDS = {"artifact_path", "release_version", "submission_reason"}
-
-KNOWN_CHAIN_IDS = {1, 5, 11155111, 137, 80001, 42161, 421614}
-
 
 def _sha256_text(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
@@ -119,7 +117,7 @@ def validate_anchoring_submission(path: Path) -> dict[str, Any]:
 
     # --- Submission ID format ---
     sid = manifest.get("submission_id", "")
-    if not re.match(r"^anchor_[a-z0-9]{8}_[a-f0-9]{12}$", sid):
+    if not re.match(r"^anchor_[a-f0-9]{8}_[a-f0-9]{12}$", sid):
         errors.append(_error("invalid_submission_id", "submission_id must match pattern anchor_{hex8}_{hex12}.", "submission_id"))
 
     # --- Artifact type ---
@@ -146,8 +144,8 @@ def validate_anchoring_submission(path: Path) -> dict[str, Any]:
 
     # --- Chain ID ---
     chain_id = manifest.get("chain_id", 0)
-    if chain_id not in KNOWN_CHAIN_IDS:
-        errors.append(_error("unknown_chain_id", f"chain_id {chain_id} is not in known chains: {sorted(KNOWN_CHAIN_IDS)}.", "chain_id"))
+    if not isinstance(chain_id, int) or isinstance(chain_id, bool) or chain_id <= 0:
+        errors.append(_error("invalid_chain_id", "chain_id must be a positive EIP-155 integer.", "chain_id"))
 
     # --- Contract address format ---
     ca = manifest.get("contract_address", "")
@@ -163,7 +161,10 @@ def validate_anchoring_submission(path: Path) -> dict[str, Any]:
     ts = manifest.get("submission_timestamp", "")
     if isinstance(ts, str):
         try:
-            datetime.fromisoformat(ts)
+            normalized = ts[:-1] + "+00:00" if ts.endswith("Z") else ts
+            parsed = datetime.fromisoformat(normalized)
+            if parsed.tzinfo is None or parsed.utcoffset() is None:
+                raise ValueError("timezone required")
         except (ValueError, TypeError):
             errors.append(_error("invalid_timestamp", "submission_timestamp must be ISO 8601.", "submission_timestamp"))
 
@@ -202,8 +203,35 @@ def validate_anchoring_submission(path: Path) -> dict[str, Any]:
         if extra_meta:
             errors.append(_error("extra_metadata_field", f"metadata has extra fields: {extra_meta}.", "metadata"))
 
-        if "release_version" in meta and not re.match(r"^v[0-9]+\.[0-9]+\.[0-9]+$", meta["release_version"]):
+        if "release_version" in meta and (
+            not isinstance(meta["release_version"], str)
+            or not re.match(r"^v[0-9]+\.[0-9]+\.[0-9]+$", meta["release_version"])
+        ):
             errors.append(_error("invalid_release_version", "metadata.release_version must match vX.Y.Z.", "metadata.release_version"))
+
+        artifact_path = meta.get("artifact_path")
+        if artifact_path is not None and not isinstance(artifact_path, str):
+            errors.append(_error(
+                "invalid_metadata_type",
+                "metadata.artifact_path must be a string.",
+                "metadata.artifact_path",
+            ))
+        elif isinstance(artifact_path, str):
+            candidate = Path(artifact_path)
+            if candidate.is_absolute() or ".." in candidate.parts:
+                errors.append(_error(
+                    "invalid_artifact_path",
+                    "metadata.artifact_path must be repository-relative and cannot contain '..'.",
+                    "metadata.artifact_path",
+                ))
+
+        reason = meta.get("submission_reason")
+        if reason is not None and (not isinstance(reason, str) or not reason.strip()):
+            errors.append(_error(
+                "invalid_metadata_type",
+                "metadata.submission_reason must be a non-empty string.",
+                "metadata.submission_reason",
+            ))
 
     return _result(manifest, errors)
 

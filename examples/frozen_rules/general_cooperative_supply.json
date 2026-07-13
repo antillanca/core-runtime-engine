@@ -1,0 +1,70 @@
+{
+  "canonicalization": "core.canonical_json.v1",
+  "content": {
+    "mode": "public",
+    "rules": [
+      {
+        "applicability": "A group proposes one aggregate order against a published supplier tier.",
+        "conformance": {
+          "deterministic": true,
+          "evidence_is_projection": true,
+          "evidence_required": true,
+          "fail_closed": true,
+          "replay_required": true
+        },
+        "domain": "cooperative_supply",
+        "final_result_schema": "core.result.cooperative_quote_certification.v1",
+        "purpose": "Require a replayable comparison before certifying a collective wholesale quote.",
+        "rule_id": "rule:transparent-bulk-quote",
+        "source_refs": [
+          "docs/FROZEN_RULE_ANCHORING.md#worked-public-example"
+        ],
+        "steps": [
+          {
+            "accepted_evidence_sources": [
+              "human",
+              "software",
+              "mixed_ensemble"
+            ],
+            "on_failure": "reject",
+            "requirement": "Record the aggregate quantity without publishing participant identities.",
+            "result_schema": "core.result.aggregate_quantity.v1",
+            "step_id": "collect_demand"
+          },
+          {
+            "accepted_evidence_sources": [
+              "human",
+              "software",
+              "mixed_ensemble"
+            ],
+            "on_failure": "responsible_review",
+            "requirement": "Compare the supplier tier, operating cost, and participant unit price with exact arithmetic.",
+            "result_schema": "core.result.wholesale_quote_comparison.v1",
+            "step_id": "compare_quote"
+          }
+        ]
+      }
+    ]
+  },
+  "domain": "cooperative_supply",
+  "fingerprint": "sha256:d3877d9022f90434431e5b974be6e8f696ba0c44e66617cff9938093e17576e2",
+  "frozen_at": "2026-07-13T00:00:00Z",
+  "governance": {
+    "accountability": "authorized_signer_set",
+    "amendment_mode": "new_frozen_version_only",
+    "approval_threshold": 1,
+    "authorized_signers": [
+      "0xa875018ebb58d7832e68401c79b7be0b8acb46a9"
+    ],
+    "automated_delegation": "bounded_by_frozen_rule",
+    "signature_scheme": "eip191_secp256k1"
+  },
+  "hash_algorithm": "sha256",
+  "rule_class": "general",
+  "rule_set_id": "rule-set:cooperative-supply-general-v1",
+  "rule_version": "v1.0.0",
+  "schema_version": "core.frozen_rule_set.v1",
+  "status": "frozen",
+  "type": "frozen_rule_set",
+  "visibility": "public"
+}

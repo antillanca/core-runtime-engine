@@ -1,0 +1,12 @@
+{
+  "approval_paths": [
+    "examples/rule_approvals/general_cooperative_supply.json",
+    "examples/rule_approvals/personal_commitment.json"
+  ],
+  "rule_set_paths": [
+    "examples/frozen_rules/general_cooperative_supply.json",
+    "examples/frozen_rules/personal_commitment.json"
+  ],
+  "schema_version": "core.rule_anchor_batch_build_request.v1",
+  "type": "rule_anchor_batch_build_request"
+}

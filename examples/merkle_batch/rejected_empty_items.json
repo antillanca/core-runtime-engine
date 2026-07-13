@@ -1,0 +1,14 @@
+{
+  "batch_id": "rule-anchor-batch:000000000000000000000000",
+  "chain_id": 31337,
+  "entries": [],
+  "hash_algorithm": "sha256",
+  "manifest_fingerprint": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "merkle_root": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "merkle_scheme": "core.sha256_merkle.v1",
+  "rule_set_count": 0,
+  "schema_version": "core.rule_anchor_batch.v1",
+  "type": "rule_anchor_batch",
+  "verifying_contract": "0x1111111111111111111111111111111111111111",
+  "visibility_mask": 0
+}

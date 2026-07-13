@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://core.antillanca.dev/schemas/core/rule_anchor_chain_evidence.v1.json",
+  "title": "RuleAnchorChainEvidence.v1",
+  "description": "Read-only evidence that an exact frozen-rule batch was confirmed by CoreRuleAnchor.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "type",
+    "batch_manifest_fingerprint",
+    "merkle_root",
+    "chain_id",
+    "contract_address",
+    "transaction_hash",
+    "block_number",
+    "block_hash",
+    "anchorer",
+    "block_timestamp",
+    "confirmations",
+    "required_confirmations",
+    "contract_state_verified",
+    "calldata_verified",
+    "event_verified",
+    "fingerprint"
+  ],
+  "properties": {
+    "schema_version": {"const": "core.rule_anchor_chain_evidence.v1"},
+    "type": {"const": "rule_anchor_chain_evidence"},
+    "batch_manifest_fingerprint": {"$ref": "#/definitions/fingerprint"},
+    "merkle_root": {"$ref": "#/definitions/fingerprint"},
+    "chain_id": {"type": "integer", "minimum": 1},
+    "contract_address": {"$ref": "#/definitions/address"},
+    "transaction_hash": {"type": "string", "pattern": "^0x[a-fA-F0-9]{64}$"},
+    "block_number": {"type": "integer", "minimum": 0},
+    "block_hash": {"type": "string", "pattern": "^0x[a-fA-F0-9]{64}$"},
+    "anchorer": {"$ref": "#/definitions/address"},
+    "block_timestamp": {"type": "integer", "minimum": 1},
+    "confirmations": {"type": "integer", "minimum": 1},
+    "required_confirmations": {"type": "integer", "minimum": 1},
+    "contract_state_verified": {"const": true},
+    "calldata_verified": {"const": true},
+    "event_verified": {"const": true},
+    "fingerprint": {"$ref": "#/definitions/fingerprint"}
+  },
+  "definitions": {
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "address": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "approval_request_fingerprint": "sha256:776f30cd5c1bf92f8bffbd43d3d7c7dbc7ef8d5c2ffa81e4b28a6d87612fb465",
+  "chain_id": 31337,
+  "decision": "approve_frozen_rule_set",
+  "fingerprint": "sha256:af24d3278bd83f32ca994586161b9db2f3b7ce55409d3cf7cda3d409df53bcc6",
+  "message": "CORE FrozenRuleSet Approval v1\nrule_set_fingerprint: sha256:cc02dc661b1735eb85df593870e02028d999951a3c4b902d2c81a6b1ccf14ab2\nchain_id: 31337\nverifying_contract: 0x1111111111111111111111111111111111111111\ndecision: approve_frozen_rule_set",
+  "rule_set_fingerprint": "sha256:cc02dc661b1735eb85df593870e02028d999951a3c4b902d2c81a6b1ccf14ab2",
+  "schema_version": "core.rule_approval.v1",
+  "signature": "0x219db41dba581a63aaa6a9f1f130eccc8df204fd768b0d24d259d9de5ca343c2067ebefd7d35bae1d579f5f7d9f19dbb5149a6eadcfcce55e7187897752a527b1c",
+  "signature_scheme": "eip191_secp256k1",
+  "signer": "0xa875018ebb58d7832e68401c79b7be0b8acb46a9",
+  "type": "rule_approval",
+  "verifying_contract": "0x1111111111111111111111111111111111111111"
+}

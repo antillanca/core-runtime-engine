@@ -1,15 +1,9 @@
 #!/usr/bin/env python3
-"""core-anchor — CLI for CORE v9.1 blockchain anchoring operations.
+"""Read-only/non-custodial CLI for legacy CORE anchor artifacts.
 
-Subcommands:
-    submit   — Validate and prepare an anchoring submission (dry-run by default).
-    verify   — Validate an anchoring event against the schema.
-
-Usage:
-    core-anchor submit --artifact <path> [--chain-id N] [--contract 0x...] [--submitter 0x...] [--dry-run] [--broadcast]
-    core-anchor verify <event_path>
-
-Both commands are deterministic and fail-closed.
+New frozen-rule workflows use the dedicated rule scripts documented in
+``docs/FROZEN_RULE_ANCHORING.md``. This compatibility CLI never signs or
+transmits a transaction.
 """
 
 from __future__ import annotations
@@ -17,88 +11,107 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
-import sys
 from pathlib import Path
+from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 
-def _load_module(name: str, path: Path):
-    """Dynamically load a Python module by path."""
+def _load_module(name: str, path: Path) -> Any:
     spec = importlib.util.spec_from_file_location(name, path)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod
+    if spec is None or spec.loader is None:
+        raise RuntimeError("unable to load validator module")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
-def cmd_submit(args: argparse.Namespace) -> int:
-    """Handle 'submit' subcommand."""
-    submit_mod = _load_module("submit_anchoring", PROJECT_ROOT / "scripts" / "submit_anchoring.py")
-
-    artifact_path = Path(args.artifact)
-    chain_id = args.chain_id or 11155111
-    contract = args.contract or "0x0000000000000000000000000000000000000001"
-    submitter = args.submitter or "0x0000000000000000000000000000000000000002"
-    dry_run = not args.broadcast
-
-    result = submit_mod.build_submission(
-        artifact_path=artifact_path,
-        artifact_type="freeze_artifact",
-        chain_id=chain_id,
-        contract_address=contract,
-        submitter=submitter,
+def cmd_prepare_legacy(args: argparse.Namespace) -> int:
+    submit_module = _load_module(
+        "submit_anchoring", PROJECT_ROOT / "scripts" / "submit_anchoring.py"
     )
-
-    if result.get("status") == "failed":
-        print(json.dumps(result, indent=2, ensure_ascii=False))
+    validator_module = _load_module(
+        "validate_anchoring_submission",
+        PROJECT_ROOT / "scripts" / "validate_anchoring_submission.py",
+    )
+    validation = validator_module.validate_anchoring_submission(args.submission)
+    if validation["status"] != "passed":
+        print(json.dumps(validation, indent=2, ensure_ascii=False, sort_keys=True))
         return 1
 
-    if dry_run:
-        print(json.dumps(result, indent=2, ensure_ascii=False))
-        print("\n[dry-run] Use --broadcast to submit on-chain.", file=sys.stderr)
-        return 0
-    else:
-        # In real implementation, this would call web3.py
-        print(json.dumps(result, indent=2, ensure_ascii=False))
-        print("\n[broadcast] On-chain submission not yet implemented.", file=sys.stderr)
-        return 1
+    submission = json.loads(args.submission.read_text(encoding="utf-8"))
+    request = submit_module.build_unsigned_legacy_request(submission)
+    if args.output.exists():
+        raise ValueError("output already exists; refusing to overwrite")
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(
+        json.dumps(request, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    print(
+        json.dumps(
+            {
+                "schema": "core.legacy_anchor_preparation.v1",
+                "status": "passed",
+                "errors": [],
+                "signing_mode": "external_wallet_only",
+                "transmission": False,
+            },
+            indent=2,
+            sort_keys=True,
+        )
+    )
+    return 0
 
 
-def cmd_verify(args: argparse.Namespace) -> int:
-    """Handle 'verify' subcommand."""
-    verify_mod = _load_module("validate_anchoring_event", PROJECT_ROOT / "scripts" / "validate_anchoring_event.py")
-
-    target = Path(args.event_path)
-    result = verify_mod.validate_anchoring_event(target)
-    print(json.dumps(result, indent=2, ensure_ascii=False))
+def cmd_verify_event(args: argparse.Namespace) -> int:
+    verify_module = _load_module(
+        "validate_anchoring_event",
+        PROJECT_ROOT / "scripts" / "validate_anchoring_event.py",
+    )
+    result = verify_module.validate_anchoring_event(args.event_path)
+    print(json.dumps(result, indent=2, ensure_ascii=False, sort_keys=True))
     return 0 if result["status"] == "passed" else 1
 
 
-def main() -> None:
+def main() -> int:
     parser = argparse.ArgumentParser(
         prog="core-anchor",
-        description="CORE v9.1 blockchain anchoring CLI",
+        description="Prepare unsigned legacy anchors or validate recorded events.",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    # ── submit ──
-    submit_p = subparsers.add_parser("submit", help="Validate and prepare an anchoring submission")
-    submit_p.add_argument("--artifact", required=True, help="Path to artifact JSON to anchor")
-    submit_p.add_argument("--chain-id", type=int, default=None, help="Chain ID (default: 11155111 = Sepolia)")
-    submit_p.add_argument("--contract", default=None, help="Contract address (0x...)")
-    submit_p.add_argument("--submitter", default=None, help="Submitter address (0x...)")
-    submit_p.add_argument("--broadcast", action="store_true", help="Actually broadcast (default: dry-run)")
-    submit_p.set_defaults(func=cmd_submit)
+    prepare_parser = subparsers.add_parser(
+        "prepare-legacy",
+        help="Prepare a validated legacy request for review in an external wallet",
+    )
+    prepare_parser.add_argument("--submission", required=True, type=Path)
+    prepare_parser.add_argument("--output", required=True, type=Path)
+    prepare_parser.set_defaults(func=cmd_prepare_legacy)
 
-    # ── verify ──
-    verify_p = subparsers.add_parser("verify", help="Validate an anchoring event against schema")
-    verify_p.add_argument("event_path", help="Path to anchoring event JSON (or directory)")
-    verify_p.set_defaults(func=cmd_verify)
+    verify_parser = subparsers.add_parser(
+        "verify-event", help="Validate a recorded legacy anchoring event"
+    )
+    verify_parser.add_argument("event_path", type=Path)
+    verify_parser.set_defaults(func=cmd_verify_event)
 
     args = parser.parse_args()
-    exit_code = args.func(args)
-    sys.exit(exit_code)
+    try:
+        return int(args.func(args))
+    except (OSError, ValueError, RuntimeError) as exc:
+        print(
+            json.dumps(
+                {
+                    "schema": "core.anchor_cli.v1",
+                    "status": "failed",
+                    "errors": [{"code": "anchor_cli_failed", "message": str(exc)}],
+                },
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return 1
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

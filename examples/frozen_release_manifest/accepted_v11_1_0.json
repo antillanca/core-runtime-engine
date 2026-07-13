@@ -1,0 +1,713 @@
+{
+  "schema_version": "core.frozen_release_manifest.v1",
+  "type": "frozen_release_manifest",
+  "release_version": "v11.1.0",
+  "status": "frozen",
+  "scope": "blockchain_release_critical_surface",
+  "inventory_profile": "core.blockchain_release.v11_1",
+  "critical_subsystems": [
+    "anchoring",
+    "contract_deployment",
+    "executable_contracts",
+    "physical_safety"
+  ],
+  "self_reference_policy": "manifest_file_excluded_fingerprint_covers_inventory",
+  "canonicalization": "core.canonical_json.v1",
+  "hash_algorithm": "sha256",
+  "frozen_at": "2026-07-13T15:00:00Z",
+  "artifact_count": 138,
+  "artifacts": [
+    {
+      "path": ".github/workflows/replay-certification.yml",
+      "role": "ci",
+      "file_sha256": "sha256:c2468e4fe1986cabc22e63baab302cf8b1d65e04296f57dd3e33f3b369d1c981"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "role": "documentation",
+      "file_sha256": "sha256:cad8586d519e32b893cd52f1bb96926adde9bbad255753ddd9a0a093136aca9b"
+    },
+    {
+      "path": "README.md",
+      "role": "documentation",
+      "file_sha256": "sha256:dcc07f43799767ae06cd5b6dfd40dfcd40b5be6387f54287a72eb3473062b18e"
+    },
+    {
+      "path": "contracts/CoreRuleAnchor.abi.json",
+      "role": "contract",
+      "file_sha256": "sha256:ee6f16b73aa75ae2d34f7925c1f08e9589be9870a1cc6c998b9c3befff953542"
+    },
+    {
+      "path": "contracts/CoreRuleAnchor.bin",
+      "role": "contract",
+      "file_sha256": "sha256:c979e051176e05c75f0d6d280c0bc873b465f9403846e784d2cf3d9df7eabf0b"
+    },
+    {
+      "path": "contracts/CoreRuleAnchor.build.json",
+      "role": "contract",
+      "file_sha256": "sha256:64f79b8de0896671ac0f1dcbea56b858501fb68393641d1af33feb0beb351edb"
+    },
+    {
+      "path": "contracts/CoreRuleAnchor.runtime.bin",
+      "role": "contract",
+      "file_sha256": "sha256:5acb4bd825098ca7133a3867b43263bb8798659114f5bb9b945c623be30f8aae"
+    },
+    {
+      "path": "contracts/CoreRuleAnchor.sol",
+      "role": "contract",
+      "file_sha256": "sha256:f56416a86f39a156a7c3b38cb4bc30a71624be43b6a7912242f6c369893d8f29"
+    },
+    {
+      "path": "core_runtime/__version__.py",
+      "role": "release_metadata",
+      "file_sha256": "sha256:2cca4762e531b3ea0d177fa3f2ca8f8ae56d0e4473c9ee99d707bf0713f4ed27"
+    },
+    {
+      "path": "core_runtime/cli/__init__.py",
+      "role": "release_metadata",
+      "file_sha256": "sha256:da4b0d5d05d13f5f1edf81328e76f9ba4abe4e7b8db062ec4d9ad6fdcdd000c8"
+    },
+    {
+      "path": "core_runtime/core/__init__.py",
+      "role": "runtime",
+      "file_sha256": "sha256:7eb978778dd6deab7a6ee69b97ba11f9107da7496df0f2e3d52b7e5c8232c697"
+    },
+    {
+      "path": "core_runtime/core/canonicalization.py",
+      "role": "runtime",
+      "file_sha256": "sha256:d1869ce432f94dbf18e513d87f62845b9fa4ff3843a6f521782b06bf30beec83"
+    },
+    {
+      "path": "core_runtime/core/contract_evaluator.py",
+      "role": "runtime",
+      "file_sha256": "sha256:240767ae74a77262e114450c99b65086d71ca94aef04a197dfe5976367bae907"
+    },
+    {
+      "path": "core_runtime/core/contract_executability.py",
+      "role": "runtime",
+      "file_sha256": "sha256:b7bb03b24566a416c8d8e9527305c36d83270c2cc367c3e84b153df4057135ac"
+    },
+    {
+      "path": "core_runtime/core/contract_loader.py",
+      "role": "runtime",
+      "file_sha256": "sha256:46fc90bc19e048dc7a454fac1bc8522c4573c787df43599e88554fd5fcc625e4"
+    },
+    {
+      "path": "core_runtime/core/contract_probes.py",
+      "role": "runtime",
+      "file_sha256": "sha256:b1a09c51e65204dbfbf8f8613aed71fe895fa8cccf06be6427ad7224cefa9185"
+    },
+    {
+      "path": "core_runtime/core/rule_anchor.py",
+      "role": "runtime",
+      "file_sha256": "sha256:7bf68afe068641fb522c9e00aa8180d04fcc854805fdcf2242719502046fc4f1"
+    },
+    {
+      "path": "core_runtime/tooling/file_inventory.py",
+      "role": "runtime",
+      "file_sha256": "sha256:49bb2a70d0238c810ac19384d84e8355936464e2cba12a566f8327c797db9d40"
+    },
+    {
+      "path": "docs/CORE_RELEASE_README.md",
+      "role": "documentation",
+      "file_sha256": "sha256:35ec23d98fd995b731bc6d3152bc239327a22939231fdb9d5d7c8f58bfa30550"
+    },
+    {
+      "path": "docs/EXECUTABLE_CONTRACTS_AND_PHYSICAL_SAFETY.md",
+      "role": "documentation",
+      "file_sha256": "sha256:57c0d873b5981cb60e3a8ca719d24e5c2bfbc99172cb946512b113cb732513bf"
+    },
+    {
+      "path": "docs/FROZEN_RULE_ANCHORING.md",
+      "role": "documentation",
+      "file_sha256": "sha256:7f3e37f72b9b6c1c0099a152928477c02952612f35341258ccb65c9855439f55"
+    },
+    {
+      "path": "docs/PROJECTION_AND_RESPONSIBLE_AGENCY.md",
+      "role": "documentation",
+      "file_sha256": "sha256:3ef3f54b29e4938022d10dca8f4e1916ca69557ce5eb45e70bf74d9dcd1d4d93"
+    },
+    {
+      "path": "docs/REPRODUCIBILITY.md",
+      "role": "documentation",
+      "file_sha256": "sha256:e62bd5e70d527c22651cfe1ccc9fac408f323c6782c4d03d96a54e970942bc29"
+    },
+    {
+      "path": "docs/VERSIONING_POLICY.md",
+      "role": "documentation",
+      "file_sha256": "sha256:58d0568eebc7a1e51167f830aa8190fb018c350ea00c80bcfb9471ae781e5d88"
+    },
+    {
+      "path": "docs/releases/README.md",
+      "role": "documentation",
+      "file_sha256": "sha256:cdf0689d33cbfcbd0c5fc470949c855f8262f7741d4fa7182037f76093b25037"
+    },
+    {
+      "path": "docs/releases/v11.1.0.md",
+      "role": "documentation",
+      "file_sha256": "sha256:5e22abbee2872b4ab9051c574b1ab77b4e3d419f28f1aea6c446d572a7c0c9f7"
+    },
+    {
+      "path": "examples/anchoring/accepted_freeze_artifact.json",
+      "role": "example",
+      "file_sha256": "sha256:9425bf666b56bb2602b7fe1f22af31c9b1e18937c41931fbdffd1c99ff004431"
+    },
+    {
+      "path": "examples/anchoring/accepted_release_manifest.json",
+      "role": "example",
+      "file_sha256": "sha256:4bc6c300663ec5ae0397af1c43190ad6490eee0c17b1afa7da230991c11871bf"
+    },
+    {
+      "path": "examples/anchoring/chain_adapters/arbitrum_one_valid.json",
+      "role": "example",
+      "file_sha256": "sha256:b0322a2ce91ee0a73cda3d68b1915d0f30c05304262de4d8bcf7e6c0ecb40021"
+    },
+    {
+      "path": "examples/anchoring/chain_adapters/ethereum_sepolia_valid.json",
+      "role": "example",
+      "file_sha256": "sha256:c8e98ae2d1dc3b2b2e8f5e503d3fd6ffa553c88212347205c23da44232499a3b"
+    },
+    {
+      "path": "examples/anchoring/chain_adapters/local_devnet_valid.json",
+      "role": "example",
+      "file_sha256": "sha256:0676bd552b180ae53f0e843a0c9328c3eb31f3fc92417167e101e545394d4d35"
+    },
+    {
+      "path": "examples/anchoring/chain_adapters/polygon_mainnet_valid.json",
+      "role": "example",
+      "file_sha256": "sha256:64764a39b5bc7c1205b1759640647a9d2c08a25d4dcec823f36d2cf603a33a0d"
+    },
+    {
+      "path": "examples/anchoring/chain_adapters/rejected_fingerprint_mismatch.json",
+      "role": "example",
+      "file_sha256": "sha256:b89c5467e65eeb42fd1bfe235722ea64a630fff7468333c99bbd4e23bd55ca33"
+    },
+    {
+      "path": "examples/anchoring/chain_adapters/rejected_local_rpc_mainnet.json",
+      "role": "example",
+      "file_sha256": "sha256:cd551053a8f377fa9544a92123fcfbd078a91861f06993c2c9878ab95f2ccdd4"
+    },
+    {
+      "path": "examples/anchoring/chain_adapters/rejected_mainnet_low_confirmations.json",
+      "role": "example",
+      "file_sha256": "sha256:1d9b78064733a26556b7d6dcbd305e4d056313a2c118892ae8430013484dadc7"
+    },
+    {
+      "path": "examples/anchoring/chain_adapters/rejected_unsupported_family.json",
+      "role": "example",
+      "file_sha256": "sha256:a6c49e177a85d5c08bb30ad104aae99b67d0c62691c77496a029dc39b24a73e9"
+    },
+    {
+      "path": "examples/anchoring/rejected_hash_mismatch.json",
+      "role": "example",
+      "file_sha256": "sha256:3daed04e153a4d932515fa857abc02b90f1648c0c40d0cc5a6af7e2848611390"
+    },
+    {
+      "path": "examples/anchoring/rejected_not_frozen.json",
+      "role": "example",
+      "file_sha256": "sha256:9f9920d061e4cc92a359950643ba6aa92da7329be9afb40525805819a70fa31c"
+    },
+    {
+      "path": "examples/anchoring/rejected_private_data.json",
+      "role": "example",
+      "file_sha256": "sha256:c42890915d4e8d74d9980d3134a05db6ac80ef5d3ef274e1f6690446c95f948a"
+    },
+    {
+      "path": "examples/anchoring_event/README.md",
+      "role": "documentation",
+      "file_sha256": "sha256:ca65c441bfd9eb84b0d8af5b2dfc60bf64773a6751e50c757aa9dea73a463375"
+    },
+    {
+      "path": "examples/anchoring_event/accepted_freeze_anchor.json",
+      "role": "example",
+      "file_sha256": "sha256:cf6167c3812df4aa4a10f4f001667e5184cbbc5819f8b18696c6ae6512695ac1"
+    },
+    {
+      "path": "examples/anchoring_event/accepted_profile_anchor.json",
+      "role": "example",
+      "file_sha256": "sha256:2b3437d4055ccdaf53f8649c336ed5997a046525d8378ddcf55de617a7a220a1"
+    },
+    {
+      "path": "examples/anchoring_event/rejected_fingerprint_mismatch.json",
+      "role": "example",
+      "file_sha256": "sha256:0c38bec82473d651aa0fbd83aaf1d30c589568c8974720e4e9a2e8997af1702d"
+    },
+    {
+      "path": "examples/anchoring_event/rejected_hash_fp_mismatch.json",
+      "role": "example",
+      "file_sha256": "sha256:8b070d5924124cbd40315a06720c59df43c193bf2b69a3075f07e11e3df212f1"
+    },
+    {
+      "path": "examples/anchoring_event/rejected_unknown_chain.json",
+      "role": "example",
+      "file_sha256": "sha256:a611c8cfa69146765534990e990252d2015f5bc43a0c6ead0e7230a52ee90fc0"
+    },
+    {
+      "path": "examples/core_contracts/causal_trace.v1.json",
+      "role": "example",
+      "file_sha256": "sha256:5db15112ede884610b0784ce32d1932eb43738665967c3620aceafe9c9310127"
+    },
+    {
+      "path": "examples/core_contracts/control_decision.v1.json",
+      "role": "example",
+      "file_sha256": "sha256:1a2b67f5705e6f50a12390afde70cbb590ded153d99b51f144fe125ee9a7eb46"
+    },
+    {
+      "path": "examples/core_contracts/execution_receipt.v1.json",
+      "role": "example",
+      "file_sha256": "sha256:4a93207e88d0c7b8486d3c79781f36b6fbc41968d457fe60eb5d2eb91b2b3ce8"
+    },
+    {
+      "path": "examples/core_contracts/memory_artifact.v1.json",
+      "role": "example",
+      "file_sha256": "sha256:4dd510678fde110f67f87876b169f5e08b51fcede7cedec1c948943ea2d8c9e6"
+    },
+    {
+      "path": "examples/frozen_rules/general_cooperative_supply.json",
+      "role": "example",
+      "file_sha256": "sha256:9b32886744840cfbafe61b972ec4cef2c7db4c21c14e44aaa5b82ee6e18d54c3"
+    },
+    {
+      "path": "examples/frozen_rules/personal_commitment.json",
+      "role": "example",
+      "file_sha256": "sha256:1cc1b1bc6f63af0d30e79a6d38184dbd399f74642a2ab283e2270f8c2da8b513"
+    },
+    {
+      "path": "examples/merkle_batch/accepted_batch_manifest.json",
+      "role": "example",
+      "file_sha256": "sha256:7378a7240a00c131e13fe0b3cfbec2616ce2264209fd757578b80b4f52249746"
+    },
+    {
+      "path": "examples/merkle_batch/accepted_batch_request.json",
+      "role": "example",
+      "file_sha256": "sha256:424c702d242ce9c3da638472f090a950c0546f1f019006a4402cff589ab0711d"
+    },
+    {
+      "path": "examples/merkle_batch/rejected_duplicate_fingerprints.json",
+      "role": "example",
+      "file_sha256": "sha256:61f84339ef903d88db3aac2e26240da09b884bef3cea790912f1bb3ccbef8054"
+    },
+    {
+      "path": "examples/merkle_batch/rejected_empty_items.json",
+      "role": "example",
+      "file_sha256": "sha256:e9d8672754e4afbdbf67e7f20b769ca94d9ae784d8b5d1a6daad6e69ce3b8533"
+    },
+    {
+      "path": "examples/merkle_batch/rejected_tampered_path.json",
+      "role": "example",
+      "file_sha256": "sha256:998a6c6d2e06152ef5cd0cc0a4d4467dbf28a8b26055436196298efce58a1404"
+    },
+    {
+      "path": "examples/merkle_batch/rejected_tampered_root.json",
+      "role": "example",
+      "file_sha256": "sha256:befb56ad3e4d5975e182c14412936eee10e81e94a2f389ae760e634661db89be"
+    },
+    {
+      "path": "examples/rule_approvals/general_cooperative_supply.json",
+      "role": "example",
+      "file_sha256": "sha256:4823b155c5a2b9bcced28f838515845c3a84fb469a41e935a3cc36bcc7a24004"
+    },
+    {
+      "path": "examples/rule_approvals/personal_commitment.json",
+      "role": "example",
+      "file_sha256": "sha256:d9c91c854489fc78f36c7d3ca1679192658a7517d2b61255483bc151e5a0fe6a"
+    },
+    {
+      "path": "pyproject.toml",
+      "role": "release_metadata",
+      "file_sha256": "sha256:ded52950c35d929372e369c13d108eaa2c21baeb37d8d78998060754f19237e1"
+    },
+    {
+      "path": "requirements-dev.txt",
+      "role": "release_metadata",
+      "file_sha256": "sha256:930e9286296464db46c0a5bb0b7873561655d4abfdb2461889c0b8c11c70c31f"
+    },
+    {
+      "path": "requirements.lock",
+      "role": "release_metadata",
+      "file_sha256": "sha256:54bab6f49c6d8b7439e2552b1bc2b98ea50d3c7e0a8525ffea3734d88bbdebc7"
+    },
+    {
+      "path": "schemas/anchoring_event.schema.json",
+      "role": "schema",
+      "file_sha256": "sha256:03d4c7089e773f1cb44f4ade517b858b17f0c2b8d0f62f9d9c17e069bf298903"
+    },
+    {
+      "path": "schemas/anchoring_submission.schema.json",
+      "role": "schema",
+      "file_sha256": "sha256:2b6c856d7279435a44c330b4d852872b590742e521625be4c3b748b8f9506719"
+    },
+    {
+      "path": "schemas/chain_adapter.schema.json",
+      "role": "schema",
+      "file_sha256": "sha256:d8e49d3b62af228c86689a4191a559213015db3b03b6c505950ce07c182910e3"
+    },
+    {
+      "path": "schemas/core/causal_trace.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:fd022798b22cae859d0dbd854d4cc59081194e8ac9f7c26a5d29a58071170edd"
+    },
+    {
+      "path": "schemas/core/context_gate.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:3a7fd8f7ae8127664bba97ab7349a3b002d7488e0a6771667097f21b4e4f6691"
+    },
+    {
+      "path": "schemas/core/context_threshold.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:815950be8410aa6a7381aba0b46e87154455e40bdf5a571f0043c919927e7503"
+    },
+    {
+      "path": "schemas/core/control_decision.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:97873d8fe0049518a52f1adf64ff2da5cf35b0c8d0034fff2997636dd0ff8577"
+    },
+    {
+      "path": "schemas/core/effect_result.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:8054ee3933aa117e2136582026c4a483ed0a3dc2ddb6226b7acd66ee87af40a3"
+    },
+    {
+      "path": "schemas/core/entropy_signal.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:69db4a6037883cfca36c909ef7d72ee5dbb0973b999a056d83dc00a28a72e1f5"
+    },
+    {
+      "path": "schemas/core/execution_receipt.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:ec6d8b7e2112b3eb0bec9493629cd7a26ced8a9c12acf8466465b9e2cddef102"
+    },
+    {
+      "path": "schemas/core/frozen_release_manifest.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:ce9b80b8d9db156bb43ba42caeb068b681113c53d9f524b7708cebee8e7450f6"
+    },
+    {
+      "path": "schemas/core/frozen_rule_set.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:2e4532fcbb2f988e64bc8c52a99010199cbb70366653eead3d41d72328669675"
+    },
+    {
+      "path": "schemas/core/memory_artifact.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:5e89bfd064d1f0c25113bb8e96a1632f55f16b183dffba41f82cdfd4feb2f701"
+    },
+    {
+      "path": "schemas/core/memory_generation_result.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:cd8cf30be17a290a27f082be98cced70c9d84aa7b4f008188c44a51f565df929"
+    },
+    {
+      "path": "schemas/core/operational_learning_event.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:3814d08b5442993c913cf6111827b064686e07796fd0b67b1c0dee5463e170d1"
+    },
+    {
+      "path": "schemas/core/pattern_candidate.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:850f75797e0d95526ac5d08dcdd111e90d3b7db553fb9eb5a82da7489ec5778f"
+    },
+    {
+      "path": "schemas/core/physical_safety_assurance_case.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:838a5296576c329a50893583a98eecc33eb0f05c791c39935dd6e04172345457"
+    },
+    {
+      "path": "schemas/core/policy_lifecycle.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:066c28e8fb55df0740be3abf350c184673d6a95e3b86af211b9757e2355c6a68"
+    },
+    {
+      "path": "schemas/core/retention_manifest.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:e3d3fa899ed336276e985110b85deb354a4e13518a8a9d244cc8798f8b5c569a"
+    },
+    {
+      "path": "schemas/core/reversibility_policy.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:67824e9de4fba0cb7b2036bf16651fb6784e8ddd8a905a61598f92a094a671ee"
+    },
+    {
+      "path": "schemas/core/rule_anchor_batch.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:85d25fb3db1dd71a2ea26eb62ebaf6c84d86997e25dd7cf5901980f4b279b4b8"
+    },
+    {
+      "path": "schemas/core/rule_anchor_chain_evidence.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:40b860048207faa57598d4ba7354366bf3de8875bb8a46c263a3b82be400c88a"
+    },
+    {
+      "path": "schemas/core/rule_approval.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:c1071ea63435d3f5cf47d1cae2603a632f1abac32dbb5029e37668c29214f856"
+    },
+    {
+      "path": "schemas/core/rule_approval_request.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:677e38e95ec5eff0147828894ba920780dad67a28a61545ef9641dd0000ada65"
+    },
+    {
+      "path": "schemas/core/state_transition.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:2aa5c29716ecc341e064b6a11f37aeffe13906c2a0247e3a6fb32d93c9bbe24f"
+    },
+    {
+      "path": "schemas/core/task_closeout.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:03f93754d131a8f6491b1e943d1410ef55e88f050cb98421350f36c765d2de4a"
+    },
+    {
+      "path": "schemas/core/template_promotion_candidate.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:22dba53ce46ce4bcac6bc9a41d6db7a146072e0d5083fe2160434fadd5a72adb"
+    },
+    {
+      "path": "schemas/core/unsigned_rule_anchor_deployment.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:2aedd23a6453d342eb4ae2e57354472093755537880154369254258730422aa3"
+    },
+    {
+      "path": "schemas/core/unsigned_rule_anchor_transaction.v1.json",
+      "role": "schema",
+      "file_sha256": "sha256:e35517db59b6443b06f601106bfbda103cb6c4ea78f45bae551507db37c91858"
+    },
+    {
+      "path": "scripts/audit_contract_executability.py",
+      "role": "script",
+      "file_sha256": "sha256:768967c2d781050b538dfbb89d00ef16e941fdcbfccb89b99a625f7eeb151d5c"
+    },
+    {
+      "path": "scripts/build_frozen_release_manifest.py",
+      "role": "script",
+      "file_sha256": "sha256:191559b3503eb8c18504b73e0e368a2de927b4ed339be06b12250350bb0e1fbc"
+    },
+    {
+      "path": "scripts/build_merkle_batch.py",
+      "role": "script",
+      "file_sha256": "sha256:c3c301b081128ed5cc13b7ca751bdbe435a6c02cc4344033745c866ea5704fbc"
+    },
+    {
+      "path": "scripts/build_rule_anchor_batch.py",
+      "role": "script",
+      "file_sha256": "sha256:0bad0631124bfd0242192cfcc4af82f902c52afdbe8dc2a0f121baa0dc6f4706"
+    },
+    {
+      "path": "scripts/compile_core_rule_anchor.py",
+      "role": "script",
+      "file_sha256": "sha256:569e6b7177cf3ff90e3efa7ca32adcde16ab95ba820e720dd543199547463cac"
+    },
+    {
+      "path": "scripts/core_anchor.py",
+      "role": "script",
+      "file_sha256": "sha256:376d3af70a50630018f9d96b8e1859e10da06fae9230e5d999b2f6f96b61dbf5"
+    },
+    {
+      "path": "scripts/create_private_rule_commitment.py",
+      "role": "script",
+      "file_sha256": "sha256:1ed6abc6cd4f67676d4f2b3f4b5decaa17dad3d0bc6c8b429687a4434b55a86c"
+    },
+    {
+      "path": "scripts/create_rule_approval_request.py",
+      "role": "script",
+      "file_sha256": "sha256:b65a3c698b67d750d95acd1d8a089e64d55e1952dec9e10e3304c394aac0c402"
+    },
+    {
+      "path": "scripts/evaluate_core_contract.py",
+      "role": "script",
+      "file_sha256": "sha256:6b0a14dc08c4f0f0141a23d2a8c159103ca07f2a7a30788399fad5258612fc3a"
+    },
+    {
+      "path": "scripts/finalize_rule_approval.py",
+      "role": "script",
+      "file_sha256": "sha256:ee32ef226fea7770b113319ec1089a194b168fac097f0cf9017d985d0147131b"
+    },
+    {
+      "path": "scripts/prepare_core_rule_anchor_deployment.py",
+      "role": "script",
+      "file_sha256": "sha256:7214fe5bad7e645b4c594e7e06b3428a42e60f0efbe6a1270ad27fdd2d03c7ef"
+    },
+    {
+      "path": "scripts/prepare_rule_anchor_transaction.py",
+      "role": "script",
+      "file_sha256": "sha256:7003cd8ebe1ca544adf3cae6d7b91c71dc78085cad38b9bf038a01417c64687e"
+    },
+    {
+      "path": "scripts/submit_anchoring.py",
+      "role": "script",
+      "file_sha256": "sha256:10abce6643f2c72aeff2aa8e308f527924a7f732f84ec6ce76a995ca69da0986"
+    },
+    {
+      "path": "scripts/validate_anchoring_event.py",
+      "role": "script",
+      "file_sha256": "sha256:4113128ba910f8cd5c3cf6dc68490fada26daeb50dca89d96ad6b70b9601008b"
+    },
+    {
+      "path": "scripts/validate_anchoring_submission.py",
+      "role": "script",
+      "file_sha256": "sha256:6884277c24fdbecf80f71c8f2cc90678452fdd2a7a4d1b9af66e02603f97aa67"
+    },
+    {
+      "path": "scripts/validate_chain_adapter.py",
+      "role": "script",
+      "file_sha256": "sha256:c82497ab020c521c8572034dd4ad041fe82b6ddbb6b6e3b8a467797330b16b9f"
+    },
+    {
+      "path": "scripts/validate_frozen_release_manifest.py",
+      "role": "script",
+      "file_sha256": "sha256:0c479eebd52d6a0572ac1667ddadb36b38e6b5dc930e6bb0beab2bd9b765a21d"
+    },
+    {
+      "path": "scripts/validate_frozen_rule_set.py",
+      "role": "script",
+      "file_sha256": "sha256:93e1d3e53a8e79e8540626786ac1ab86564216385e02ebe75c5a105b0d740233"
+    },
+    {
+      "path": "scripts/validate_rule_anchor_batch.py",
+      "role": "script",
+      "file_sha256": "sha256:3c60e43dd08a2cb46f1e167a453378b4157b20cdc76e65a676b7ac8b8e9bc0f6"
+    },
+    {
+      "path": "scripts/validate_rule_approval.py",
+      "role": "script",
+      "file_sha256": "sha256:667c1033d45499720acac05cce8ce26ed9d0c809035520991d9ac32594ecae8f"
+    },
+    {
+      "path": "scripts/validate_unsigned_rule_anchor_deployment.py",
+      "role": "script",
+      "file_sha256": "sha256:e3a82df1c55418672a331ebaf36e6b117626ff6d01b9a7d18d0424c6cfc7b760"
+    },
+    {
+      "path": "scripts/validate_unsigned_rule_anchor_transaction.py",
+      "role": "script",
+      "file_sha256": "sha256:1c64b0f4d27e029b41495ba4fd77148201f056448fb9f0606d8ce7826848bf72"
+    },
+    {
+      "path": "scripts/verify_merkle_proof.py",
+      "role": "script",
+      "file_sha256": "sha256:d77ddb23ccc50645087b7c3d7e1cb0c6f166caf7cf36f73fe47a5df111f31f1d"
+    },
+    {
+      "path": "scripts/verify_release.py",
+      "role": "script",
+      "file_sha256": "sha256:72f598e66eeb2a784d4a71e4d2e90563ecb39f8cadaf5ecf307a0226a97e6652"
+    },
+    {
+      "path": "scripts/verify_rule_anchor_onchain.py",
+      "role": "script",
+      "file_sha256": "sha256:0945e3d16743aeb6c24adc1a7188457b65c0f357262d7deae6de9074a7248684"
+    },
+    {
+      "path": "tests/test_anchoring_event_validator.py",
+      "role": "test",
+      "file_sha256": "sha256:1f2ae38ae362e047923d9ad55e0c7a5cd44f3e39699df0d377667d334c5bef7f"
+    },
+    {
+      "path": "tests/test_anchoring_submission_validator.py",
+      "role": "test",
+      "file_sha256": "sha256:27f9cff563816b39119540bd694e546bbb18177607a78545064322a94f8a943e"
+    },
+    {
+      "path": "tests/test_causal_entropy_contracts.py",
+      "role": "test",
+      "file_sha256": "sha256:7c39c3883349b2a002a9c04466ce53e497eca6cfd237dc69e749f051ab5fe337"
+    },
+    {
+      "path": "tests/test_chain_adapter_validator.py",
+      "role": "test",
+      "file_sha256": "sha256:0e9678a4a3d2a2e6c880b0cbd1a91262f881bce518623a263b6b24b268884663"
+    },
+    {
+      "path": "tests/test_control_plane_contracts.py",
+      "role": "test",
+      "file_sha256": "sha256:05950f06b0bfa828cf63963b330b35aa416c03723bf4f62ed29955daf238bba6"
+    },
+    {
+      "path": "tests/test_core_contract_examples.py",
+      "role": "test",
+      "file_sha256": "sha256:924266a9e6ee97f874b0824fa1a34418196fb72eea5e5cd7ea96dd674da9de10"
+    },
+    {
+      "path": "tests/test_core_generic_contracts.py",
+      "role": "test",
+      "file_sha256": "sha256:d7e7b4f13a299e40b0843cb51d69f119cb8b19f7177b521b81c38aec15c26e3f"
+    },
+    {
+      "path": "tests/test_core_memory_artifact_contract.py",
+      "role": "test",
+      "file_sha256": "sha256:5dabc5d2defbd7f42077f3554874ed876220b083c52a2375d93fd0fcc00718c2"
+    },
+    {
+      "path": "tests/test_core_rule_anchor_contract.py",
+      "role": "test",
+      "file_sha256": "sha256:717eb43e1b36ac84c1f38316dcdf0e81970f29b3160947446192e66d8609b068"
+    },
+    {
+      "path": "tests/test_executable_contracts.py",
+      "role": "test",
+      "file_sha256": "sha256:a4eba0967632d51e0324953add5b97b136d2db872ec7377c2e2c5dfaaaf34ea1"
+    },
+    {
+      "path": "tests/test_frozen_release_manifest.py",
+      "role": "test",
+      "file_sha256": "sha256:5cffe4363a5dc6089de125d8e0069a64d4b91e39a0d3c2655c1d437b644903cb"
+    },
+    {
+      "path": "tests/test_frozen_rule_set_validator.py",
+      "role": "test",
+      "file_sha256": "sha256:7005a041bcf6f20899f0d0b15390d4081ef7942aa78cb94eb0457b229c14f103"
+    },
+    {
+      "path": "tests/test_operational_learning_contracts.py",
+      "role": "test",
+      "file_sha256": "sha256:09a26506213dbd86e98605ade5e58d2a38c62bb47376166a95c10b48f74c27ad"
+    },
+    {
+      "path": "tests/test_physical_safety_assurance.py",
+      "role": "test",
+      "file_sha256": "sha256:87eb4b35d57513396fac01bee3c6bb339cf635a43f410362fe6acd2c2e800929"
+    },
+    {
+      "path": "tests/test_rule_anchor_batch.py",
+      "role": "test",
+      "file_sha256": "sha256:182b9d89e71b78c9e48cccc2c742b3f6148c9b58b3a8d377fda4d99d6c7ef857"
+    },
+    {
+      "path": "tests/test_rule_anchor_deployment.py",
+      "role": "test",
+      "file_sha256": "sha256:8e0da55756d57b4d5edd843c4d712a9f8e87476a7df44e75400d15e6a573b34b"
+    },
+    {
+      "path": "tests/test_rule_anchor_transaction.py",
+      "role": "test",
+      "file_sha256": "sha256:c475d3ea780125ca877e70c68a2adde838d48d8591166a0026c2e9be94aa6efb"
+    },
+    {
+      "path": "tests/test_rule_approval_validator.py",
+      "role": "test",
+      "file_sha256": "sha256:3b019d6df75c64bf88964ecdc86395691d8a5cf781e567bd270360fc84ed71fd"
+    },
+    {
+      "path": "tests/test_tooling_ci_contract.py",
+      "role": "test",
+      "file_sha256": "sha256:ed85e57521c4b14b110e53d5abf46a2e8e9c5241ec59f050981b54924603952d"
+    },
+    {
+      "path": "tests/test_tooling_contract_preflight.py",
+      "role": "test",
+      "file_sha256": "sha256:f6e72b54f4cd3fa279b0d5d9ad86686cce287992be5ba77d12fd29c13ea02ac6"
+    },
+    {
+      "path": "tests/test_tooling_repository_inventory.py",
+      "role": "test",
+      "file_sha256": "sha256:614dc455f17731811c7052a80980f08b1858415f28a2f8ad0467e08f61fb6494"
+    },
+    {
+      "path": "tests/test_verify_release_script.py",
+      "role": "test",
+      "file_sha256": "sha256:3d94ed91a8d49c597ed4c725327bef9b68115f380f135f4a3935103485616ba4"
+    }
+  ],
+  "fingerprint": "sha256:7311492a995a176d90fd9d66822e99162c0bc057ff34e8a8bfa87a946043f496"
+}
+
