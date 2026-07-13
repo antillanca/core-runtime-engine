@@ -10,9 +10,19 @@ from core_runtime.core.contract_loader import (
     contract_schema_path,
     load_contract_schema,
 )
+from core_runtime.core.contract_evaluator import (
+    bind_artifact_fingerprint,
+    evaluate_contract_file,
+    evaluate_contract_payload,
+    executable_contract_versions,
+)
 
 __all__ = [
     "available_contracts",
+    "bind_artifact_fingerprint",
     "contract_schema_path",
+    "evaluate_contract_file",
+    "evaluate_contract_payload",
+    "executable_contract_versions",
     "load_contract_schema",
 ]

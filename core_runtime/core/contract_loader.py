@@ -19,6 +19,7 @@ CONTRACT_SCHEMAS = {
     "task_closeout.v1": "task_closeout.v1.json",
     "effect_result.v1": "effect_result.v1.json",
     "memory_generation_result.v1": "memory_generation_result.v1.json",
+    "operational_learning_event.v1": "operational_learning_event.v1.json",
     "policy_lifecycle.v1": "policy_lifecycle.v1.json",
     "context_threshold.v1": "context_threshold.v1.json",
     "context_gate.v1": "context_gate.v1.json",
@@ -26,6 +27,7 @@ CONTRACT_SCHEMAS = {
     "reversibility_policy.v1": "reversibility_policy.v1.json",
     "state_transition.v1": "state_transition.v1.json",
     "template_promotion_candidate.v1": "template_promotion_candidate.v1.json",
+    "physical_safety_assurance_case.v1": "physical_safety_assurance_case.v1.json",
 }
 
 

@@ -1,0 +1,676 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://core.antillanca.dev/schemas/core/physical_safety_assurance_case.v1.json",
+  "title": "PhysicalSafetyAssuranceCase.v1",
+  "description": "A bounded, evidence-linked safety case for systems with physical actuation. It cannot claim universal truth, zero risk, or deployment authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "type",
+    "case_id",
+    "system",
+    "claim",
+    "observed_envelope",
+    "authority_boundary",
+    "hazards",
+    "barriers",
+    "verification_tests",
+    "epistemic_dignity",
+    "lifecycle",
+    "evidence",
+    "traceability",
+    "requested_assurance_level",
+    "evaluated_at",
+    "fingerprint"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "core.physical_safety_assurance_case.v1"
+    },
+    "type": {
+      "const": "physical_safety_assurance_case"
+    },
+    "case_id": {
+      "type": "string",
+      "pattern": "^safety-case:[a-z0-9][a-z0-9._-]{2,127}$"
+    },
+    "system": {
+      "$ref": "#/definitions/system"
+    },
+    "claim": {
+      "$ref": "#/definitions/claim"
+    },
+    "observed_envelope": {
+      "$ref": "#/definitions/observed_envelope"
+    },
+    "authority_boundary": {
+      "$ref": "#/definitions/authority_boundary"
+    },
+    "hazards": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/hazard"
+      }
+    },
+    "barriers": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "#/definitions/barrier"
+      }
+    },
+    "verification_tests": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/verification_test"
+      }
+    },
+    "epistemic_dignity": {
+      "$ref": "#/definitions/epistemic_dignity"
+    },
+    "lifecycle": {
+      "$ref": "#/definitions/lifecycle"
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/evidence"
+      }
+    },
+    "traceability": {
+      "$ref": "#/definitions/traceability"
+    },
+    "requested_assurance_level": {
+      "enum": [
+        "simulation_only",
+        "evidence_ready",
+        "independent_evidence_ready"
+      ]
+    },
+    "evaluated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "fingerprint": {
+      "$ref": "#/definitions/fingerprint"
+    }
+  },
+  "definitions": {
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?![A-Za-z]:\\\\).+"
+    },
+    "nonempty_text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "system": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "system_id",
+        "system_version",
+        "release_fingerprint",
+        "deployment_fingerprint",
+        "physical_actuation"
+      ],
+      "properties": {
+        "system_id": {
+          "type": "string",
+          "pattern": "^system:[a-z0-9][a-z0-9._-]{2,127}$"
+        },
+        "system_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "release_fingerprint": {
+          "$ref": "#/definitions/fingerprint"
+        },
+        "deployment_fingerprint": {
+          "$ref": "#/definitions/fingerprint"
+        },
+        "physical_actuation": {
+          "const": true
+        }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_status",
+        "truth_claim",
+        "zero_risk_claim",
+        "scope",
+        "assumptions",
+        "limitations",
+        "reference_classes"
+      ],
+      "properties": {
+        "claim_status": {
+          "enum": [
+            "observed",
+            "inferred",
+            "demonstrated_within_model"
+          ]
+        },
+        "truth_claim": {
+          "const": false
+        },
+        "zero_risk_claim": {
+          "const": false
+        },
+        "scope": {
+          "$ref": "#/definitions/nonempty_text"
+        },
+        "assumptions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/nonempty_text"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/nonempty_text"
+          }
+        },
+        "reference_classes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "simulation",
+              "laboratory",
+              "hardware_in_loop",
+              "field_observation",
+              "independent_assessment",
+              "formal_model"
+            ]
+          }
+        },
+        "proof_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/ref"
+          }
+        }
+      }
+    },
+    "extreme_observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "extreme_id",
+        "direction",
+        "value",
+        "unit",
+        "source_ref",
+        "evidence_ref",
+        "observed_at"
+      ],
+      "properties": {
+        "extreme_id": {
+          "type": "string",
+          "pattern": "^extreme:[a-z0-9][a-z0-9._-]{2,127}$"
+        },
+        "direction": {
+          "enum": ["lower", "upper", "adversarial"]
+        },
+        "value": {
+          "oneOf": [
+            {"type": "number"},
+            {"type": "string", "minLength": 1, "maxLength": 256}
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "source_ref": {
+          "$ref": "#/definitions/ref"
+        },
+        "evidence_ref": {
+          "$ref": "#/definitions/ref"
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "observed_envelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "aggregation",
+        "sample_count",
+        "average_only",
+        "known_extremes",
+        "out_of_distribution_policy",
+        "unknown_extremes_acknowledged",
+        "records_are_observed_bounds_only"
+      ],
+      "properties": {
+        "aggregation": {
+          "enum": ["raw_distribution", "bounded_statistics", "mixed"]
+        },
+        "sample_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "average_only": {
+          "const": false
+        },
+        "known_extremes": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/definitions/extreme_observation"
+          }
+        },
+        "out_of_distribution_policy": {
+          "const": "fail_closed"
+        },
+        "unknown_extremes_acknowledged": {
+          "const": true
+        },
+        "records_are_observed_bounds_only": {
+          "const": true
+        }
+      }
+    },
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "llm_role",
+        "direct_llm_actuation",
+        "general_compute_direct_actuation",
+        "core_role",
+        "core_authorizes_deployment",
+        "responsible_party_ref"
+      ],
+      "properties": {
+        "llm_role": {
+          "const": "advisory_only"
+        },
+        "direct_llm_actuation": {
+          "const": false
+        },
+        "general_compute_direct_actuation": {
+          "const": false
+        },
+        "core_role": {
+          "const": "deterministic_validation_only"
+        },
+        "core_authorizes_deployment": {
+          "const": false
+        },
+        "responsible_party_ref": {
+          "$ref": "#/definitions/ref"
+        }
+      }
+    },
+    "hazard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hazard_id",
+        "severity",
+        "hazardous_action",
+        "safe_state",
+        "barrier_refs",
+        "test_refs"
+      ],
+      "properties": {
+        "hazard_id": {
+          "type": "string",
+          "pattern": "^hazard:[a-z0-9][a-z0-9._-]{2,127}$"
+        },
+        "severity": {
+          "enum": ["minor", "moderate", "major", "catastrophic"]
+        },
+        "hazardous_action": {
+          "$ref": "#/definitions/nonempty_text"
+        },
+        "safe_state": {
+          "$ref": "#/definitions/nonempty_text"
+        },
+        "barrier_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/ref"
+          }
+        },
+        "test_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/ref"
+          }
+        }
+      }
+    },
+    "barrier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "barrier_id",
+        "kind",
+        "enforcement_domain",
+        "independent_from",
+        "fail_closed",
+        "llm_controlled",
+        "bypassable_by_general_compute",
+        "evidence_refs"
+      ],
+      "properties": {
+        "barrier_id": {
+          "type": "string",
+          "pattern": "^barrier:[a-z0-9][a-z0-9._-]{2,127}$"
+        },
+        "kind": {
+          "enum": [
+            "deterministic_policy",
+            "isolated_safety_controller",
+            "physical_energy_isolation",
+            "mechanical_limit",
+            "authenticated_boundary",
+            "responsible_human_stop"
+          ]
+        },
+        "enforcement_domain": {
+          "enum": [
+            "general_compute",
+            "isolated_controller",
+            "electrical_hardware",
+            "mechanical"
+          ]
+        },
+        "independent_from": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/ref"
+          }
+        },
+        "fail_closed": {
+          "const": true
+        },
+        "llm_controlled": {
+          "const": false
+        },
+        "bypassable_by_general_compute": {
+          "type": "boolean"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/ref"
+          }
+        }
+      }
+    },
+    "verification_test": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "test_id",
+        "hazard_refs",
+        "scenario",
+        "method",
+        "result",
+        "expected_safe_state",
+        "observed_safe_state",
+        "hazardous_actuation_observed",
+        "evidence_refs"
+      ],
+      "properties": {
+        "test_id": {
+          "type": "string",
+          "pattern": "^test:[a-z0-9][a-z0-9._-]{2,127}$"
+        },
+        "hazard_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/ref"
+          }
+        },
+        "scenario": {
+          "enum": [
+            "llm_prompt_injection",
+            "network_compromise",
+            "general_compute_compromise",
+            "sensor_fault",
+            "communication_loss",
+            "power_loss",
+            "update_tamper",
+            "replay_attack",
+            "emergency_stop",
+            "out_of_distribution_input"
+          ]
+        },
+        "method": {
+          "enum": [
+            "simulation",
+            "bench",
+            "hardware_in_loop",
+            "field_observation",
+            "independent_assessment"
+          ]
+        },
+        "result": {
+          "enum": ["passed", "failed", "inconclusive"]
+        },
+        "expected_safe_state": {
+          "$ref": "#/definitions/nonempty_text"
+        },
+        "observed_safe_state": {
+          "$ref": "#/definitions/nonempty_text"
+        },
+        "hazardous_actuation_observed": {
+          "type": "boolean"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/ref"
+          }
+        }
+      }
+    },
+    "epistemic_dignity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plain_language_disclosure_ref",
+        "evidence_limitations_ref",
+        "contestability_ref",
+        "local_stop_ref",
+        "technical_expertise_required_to_stop",
+        "uncertainty_disclosed",
+        "challenge_response_policy",
+        "automated_moral_authority"
+      ],
+      "properties": {
+        "plain_language_disclosure_ref": {
+          "$ref": "#/definitions/ref"
+        },
+        "evidence_limitations_ref": {
+          "$ref": "#/definitions/ref"
+        },
+        "contestability_ref": {
+          "$ref": "#/definitions/ref"
+        },
+        "local_stop_ref": {
+          "$ref": "#/definitions/ref"
+        },
+        "technical_expertise_required_to_stop": {
+          "const": false
+        },
+        "uncertainty_disclosed": {
+          "const": true
+        },
+        "challenge_response_policy": {
+          "const": "answer_with_evidence_or_explicit_unknown"
+        },
+        "automated_moral_authority": {
+          "const": false
+        }
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "secure_boot_evidence_ref",
+        "signed_update_evidence_ref",
+        "unique_credentials_evidence_ref",
+        "sbom_evidence_ref",
+        "vulnerability_process_evidence_ref",
+        "safety_policy_fingerprint",
+        "change_invalidates_assurance"
+      ],
+      "properties": {
+        "secure_boot_evidence_ref": {
+          "$ref": "#/definitions/ref"
+        },
+        "signed_update_evidence_ref": {
+          "$ref": "#/definitions/ref"
+        },
+        "unique_credentials_evidence_ref": {
+          "$ref": "#/definitions/ref"
+        },
+        "sbom_evidence_ref": {
+          "$ref": "#/definitions/ref"
+        },
+        "vulnerability_process_evidence_ref": {
+          "$ref": "#/definitions/ref"
+        },
+        "safety_policy_fingerprint": {
+          "$ref": "#/definitions/fingerprint"
+        },
+        "change_invalidates_assurance": {
+          "const": true
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "kind",
+        "fingerprint",
+        "source_kind",
+        "source_ref",
+        "reference_class",
+        "captured_at"
+      ],
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "pattern": "^evidence:[a-z0-9][a-z0-9._-]{2,127}$"
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "fingerprint": {
+          "$ref": "#/definitions/fingerprint"
+        },
+        "source_kind": {
+          "enum": [
+            "human",
+            "nonhuman_biological",
+            "software",
+            "human_directed_software",
+            "mixed_ensemble",
+            "independent_assessor"
+          ]
+        },
+        "source_ref": {
+          "$ref": "#/definitions/ref"
+        },
+        "reference_class": {
+          "enum": [
+            "simulation",
+            "laboratory",
+            "hardware_in_loop",
+            "field_observation",
+            "independent_assessment",
+            "formal_model"
+          ]
+        },
+        "captured_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "traceability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "immutable_event_ledger_ref",
+        "recorded_event_types",
+        "ordinary_telemetry_excluded"
+      ],
+      "properties": {
+        "immutable_event_ledger_ref": {
+          "$ref": "#/definitions/ref"
+        },
+        "recorded_event_types": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "safety_policy_changed",
+              "hazardous_command_rejected",
+              "safety_interlock_activated",
+              "unexpected_physical_outcome",
+              "assurance_invalidated",
+              "emergency_stop_activated",
+              "security_boundary_breached"
+            ]
+          }
+        },
+        "ordinary_telemetry_excluded": {
+          "const": true
+        }
+      }
+    }
+  }
+}
