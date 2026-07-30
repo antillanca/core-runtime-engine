@@ -24,7 +24,7 @@
     {
       "path": "CHANGELOG.md",
       "role": "documentation",
-      "file_sha256": "sha256:c2708c9a5e006de095830b2f4b6101e1c4740e70a4b0f46c01835e92c0132854"
+      "file_sha256": "sha256:49514cbc361eb90c2240119dc376d2eee61869e2aa157dcf814a80e65780c7fb"
     },
     {
       "path": "README.md",
@@ -159,7 +159,7 @@
     {
       "path": "docs/releases/v11.2.1.md",
       "role": "documentation",
-      "file_sha256": "sha256:7395a795b1d34dde1278f60ac17b42a5dbe33d8d37ef8eb2911976dc3cb20351"
+      "file_sha256": "sha256:591ce7da785593933d5f7eaaff1fed05d9868d3715281553c4cab40182609590"
     },
     {
       "path": "examples/anchoring/accepted_freeze_artifact.json",
@@ -279,7 +279,7 @@
     {
       "path": "examples/frozen_release_manifest/accepted_v11_2_1_candidate.json",
       "role": "example",
-      "file_sha256": "sha256:cbf39906dad194d7027e16984725a4fc4ab673a4030b814f7aeefba98dec63a0"
+      "file_sha256": "sha256:6ee2d466d70d88341bf6ebbd9e5cf66b9d1d208441a7150d5e7438cd03bef35c"
     },
     {
       "path": "examples/frozen_rules/general_cooperative_supply.json",
@@ -704,7 +704,7 @@
     {
       "path": "tests/test_frozen_release_manifest.py",
       "role": "test",
-      "file_sha256": "sha256:5cffe4363a5dc6089de125d8e0069a64d4b91e39a0d3c2655c1d437b644903cb"
+      "file_sha256": "sha256:9d72a132c4aa85b85f25b2253565d553775b1c2b5ad46298b5568da760a18034"
     },
     {
       "path": "tests/test_frozen_release_manifest_v11_2.py",
@@ -772,5 +772,5 @@
       "file_sha256": "sha256:5b443fa75f99cc9e1e7ac11467c28da3f613558add2443307a105033fa39e981"
     }
   ],
-  "fingerprint": "sha256:22b14134bc8ee952210620245a0613b020d36fb9a0d479307db653e417155fc4"
+  "fingerprint": "sha256:3388fbc0384e5bf76986791f6d4a1ecf9ae4747e2786830fa462d4008379482a"
 }
