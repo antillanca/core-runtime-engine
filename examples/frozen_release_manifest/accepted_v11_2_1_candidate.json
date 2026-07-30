@@ -24,7 +24,7 @@
     {
       "path": "CHANGELOG.md",
       "role": "documentation",
-      "file_sha256": "sha256:49514cbc361eb90c2240119dc376d2eee61869e2aa157dcf814a80e65780c7fb"
+      "file_sha256": "sha256:feb1c6ecb3f861055bac5510455db802d422b4ea04f7bb8dcb2518c836e9cd9a"
     },
     {
       "path": "README.md",
@@ -679,7 +679,7 @@
     {
       "path": "tests/test_frozen_release_manifest.py",
       "role": "test",
-      "file_sha256": "sha256:9d72a132c4aa85b85f25b2253565d553775b1c2b5ad46298b5568da760a18034"
+      "file_sha256": "sha256:9f9eda8c14867c01cab7816ac4c025ce96e15ba97b311a8e95cc5fa0dcb52544"
     },
     {
       "path": "tests/test_frozen_release_manifest_v11_2.py",
@@ -742,5 +742,5 @@
       "file_sha256": "sha256:5b443fa75f99cc9e1e7ac11467c28da3f613558add2443307a105033fa39e981"
     }
   ],
-  "fingerprint": "sha256:7b47f63f334e1bb453c729f358e3a7cccf130dd7c1893db1e57d8c5964803c18"
+  "fingerprint": "sha256:691695d8a326713354d3821eafa37aae2d07cd97d008b94d922a1025e216ee00"
 }

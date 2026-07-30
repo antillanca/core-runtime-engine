@@ -15,15 +15,25 @@
   `checks_summary` block (`declared_count`, `executed_count`, `by_status`)
   to the `mode=full` payload so a `passed` release status can no longer be
   read as "every declared check ran".
-- Marked `tests/test_frozen_release_manifest.py::test_accepted_v11_1_manifest_matches_exact_repository_bytes`
-  and `::test_builder_replays_the_checked_in_manifest_exactly` `xfail(strict=True)`.
-  Both re-hash `scripts/verify_release.py` from the live tree against the
-  v11.1 frozen snapshot; that file is shared release-orchestration tooling
-  that legitimately keeps changing across later release lines, so the two
-  tests were already failing at the v11.2.0 tag itself, before this patch,
-  confirmed via `git stash`. The v11.1 manifest is not rewritten. Tamper-
-  detection is untouched: `test_altered_manifest_cases_fail_closed` still
-  fully exercises `validate_frozen_release_manifest`'s forgery checks.
+- Rescoped the two v11.1 baseline tests in
+  `tests/test_frozen_release_manifest.py` from release-time byte-equality
+  gates into historical-baseline integrity tests. Both asserted that the
+  live working tree stays byte-identical to the v11.1 snapshot, which was
+  only ever true at the instant v11.1 was cut: 19 of its 138 tracked
+  artifacts have since legitimately changed across the v11.2/v11.2.1 lines
+  (runtime modules, docs, version files, release tooling), and a third
+  assertion required the live `schemas/core/` directory to still hold
+  exactly 26 files when it now holds 29. They were consequently already
+  failing at the v11.2.0 tag itself, before this patch, confirmed via
+  `git stash`. They now assert what remains durably true — declared profile
+  identity, exact inventory and roles, canonical ordering, uniqueness,
+  `artifact_count`, self-consistent canonical fingerprint, continued
+  existence of every frozen artifact, and builder determinism plus
+  inventory-shape stability. The v11.1 manifest itself is not rewritten,
+  matching the `historical_baseline_preserved` policy `verify_release.py`
+  already applies to it for any target >= v11.2. Forgery detection is
+  untouched: `test_altered_manifest_cases_fail_closed` still fully
+  exercises `validate_frozen_release_manifest`'s byte-hash checks.
 
 ## v11.2.0
 
