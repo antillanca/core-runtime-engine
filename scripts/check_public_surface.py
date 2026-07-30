@@ -13,6 +13,13 @@ Pattern file format: one case-insensitive substring or regex per line;
 blank lines and lines starting with '#' are ignored. Lines wrapped as
 /.../ are treated as regex, everything else as a literal substring.
 
+A line that legitimately needs to quote a forbidden term — for example, a
+negative test asserting the term is absent elsewhere, not leaking it here —
+may opt out with a trailing `# privacy-guard:allow` comment. This is an
+explicit, per-line, human-added marker, not a pattern-matching heuristic:
+every other line is still scanned, and adding the marker to hide a real leak
+is exactly as visible in review as any other line of code.
+
 Run before every push of this repository:
 
     python scripts/check_public_surface.py            # working tree
@@ -35,6 +42,8 @@ TEXT_SUFFIXES = {
     ".py", ".md", ".json", ".toml", ".txt", ".yml", ".yaml", ".cfg",
     ".ini", ".sh", ".sol", ".lock",
 }
+
+ALLOW_MARKER = "privacy-guard:allow"
 
 
 def _load_patterns() -> list[re.Pattern[str]]:
@@ -84,6 +93,8 @@ def _scan_tree(patterns: list[re.Pattern[str]]) -> list[str]:
         except (OSError, UnicodeDecodeError):
             continue
         for lineno, line in enumerate(text.splitlines(), start=1):
+            if ALLOW_MARKER in line:
+                continue
             for pat in patterns:
                 if pat.search(line):
                     hits.append(f"content: {rel}:{lineno} ~ /{pat.pattern}/")

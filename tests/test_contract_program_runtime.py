@@ -56,5 +56,5 @@ def test_contract_program_semantics_reject_undeclared_effect_authority() -> None
 
 def test_public_runtime_contains_no_private_consumer_vocabulary() -> None:
     source = (__import__("pathlib").Path(__file__).resolve().parents[1] / "core_runtime" / "core" / "contract_program.py").read_text(encoding="utf-8").lower()
-    for forbidden in ("hermes", "simplerestobar", "domain_scale", "queryspec"):
+    for forbidden in ("hermes", "simplerestobar", "domain_scale", "queryspec"):  # privacy-guard:allow -- asserts these are absent from contract_program.py, does not leak them
         assert forbidden not in source

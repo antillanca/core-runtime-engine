@@ -20,6 +20,15 @@
 - `checks_summary` is now emitted by the `tooling` and `release-metadata`
   payloads too, not only `mode=full`, via a shared `_checks_summary()`
   helper.
+- `scripts/check_public_surface.py` gained an explicit, per-line
+  `# privacy-guard:allow` opt-out. The plain substring/regex scan could not
+  distinguish a real leak from a negative test quoting a forbidden term to
+  assert its absence (`test_public_runtime_contains_no_private_consumer_vocabulary`
+  in `tests/test_contract_program_runtime.py`, unchanged since before
+  v11.2.0 and already present in that published tag). The marker is
+  human-added and per-line; every other line is still scanned, and using it
+  to hide a real leak is exactly as visible in review as any other line of
+  code.
 
 ### Fixed
 

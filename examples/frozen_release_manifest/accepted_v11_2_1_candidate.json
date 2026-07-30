@@ -24,7 +24,7 @@
     {
       "path": "CHANGELOG.md",
       "role": "documentation",
-      "file_sha256": "sha256:9410ca71da81954a95f95d4644039e1c233061313500b8cf29e7af48387157fb"
+      "file_sha256": "sha256:a1432fc39903849e80d34c1c20e288b857250226342564611b65a07c65db1e19"
     },
     {
       "path": "README.md",
@@ -742,5 +742,5 @@
       "file_sha256": "sha256:5b443fa75f99cc9e1e7ac11467c28da3f613558add2443307a105033fa39e981"
     }
   ],
-  "fingerprint": "sha256:bb3ec95987bf18d462e72241c7db0bf36935c6e861be1cf88a4ee5810a7254ae"
+  "fingerprint": "sha256:02d922aa4788b19c1b5205a3d10bc7ede2d8549a8c2c00186e4ec58247a39547"
 }
