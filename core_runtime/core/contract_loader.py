@@ -11,6 +11,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_ROOT = PROJECT_ROOT / "schemas" / "core"
 CONTRACT_SCHEMAS = {
     "causal_trace.v1": "causal_trace.v1.json",
+    "contract_program.v1": "contract_program.v1.json",
     "entropy_signal.v1": "entropy_signal.v1.json",
     "control_decision.v1": "control_decision.v1.json",
     "execution_receipt.v1": "execution_receipt.v1.json",

@@ -73,6 +73,10 @@ V111_CHECKS = {
     "rule_anchor_batch_manifest_accepted",
 }
 
+V112_CHECKS = V111_CHECKS | {
+    "frozen_release_manifest_v11_2_candidate_accepted",
+}
+
 V104_SLICE2_CHECKS = {
     "graph_ir_accepted_linear",
     "graph_ir_accepted_workflow_ref",
@@ -146,9 +150,18 @@ def test_verify_release_v111_runs_frozen_rule_anchor_checks():
         assert payload["checks"][name] == "passed", name
 
 
+def test_verify_release_v112_runs_candidate_manifest_and_preserves_v111_baseline():
+    payload = _run_release_metadata(target="v11.2")
+
+    assert V112_CHECKS.issubset(set(payload["checks"]))
+    assert payload["checks"]["frozen_release_manifest_v11_1_accepted"] == "historical_baseline_preserved"
+    assert payload["checks"]["frozen_release_manifest_v11_2_candidate_accepted"] == "passed"
+
+
 def test_target_comparison_does_not_treat_v11_as_older_than_v9() -> None:
     assert verify_release._target_at_least("v11.0.1", "v9.5")
     assert verify_release._target_at_least("v11.1.0", "v11.1")
+    assert verify_release._target_at_least("v11.2.0", "v11.2")
     assert not verify_release._target_at_least("v11.0.1", "v11.1")
 
 

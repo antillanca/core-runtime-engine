@@ -335,6 +335,11 @@ FROZEN_RELEASE_MANIFEST_CHECKS = {
         "scripts/validate_frozen_release_manifest.py",
         "examples/frozen_release_manifest/accepted_v11_1_0.json",
     ],
+    "frozen_release_manifest_v11_2_candidate_accepted": [
+        sys.executable,
+        "scripts/validate_frozen_release_manifest_v11_2.py",
+        "examples/frozen_release_manifest/accepted_v11_2_0_candidate.json",
+    ],
 }
 
 EXECUTABLE_CONTRACT_CHECKS = {
@@ -974,6 +979,7 @@ TARGET_ORDER = [
     "v11.0",
     "v11.0.1",
     "v11.1",
+    "v11.2",
 ]
 
 TARGET_RANK = {name: index for index, name in enumerate(TARGET_ORDER)}
@@ -1778,6 +1784,14 @@ def verify(
             checks[name] = "pending_runtime"
 
     for name, command in FROZEN_RELEASE_MANIFEST_CHECKS.items():
+        if name == "frozen_release_manifest_v11_1_accepted" and _target_at_least(target, "v11.2"):
+            # v11.1 is a historical immutable baseline. Its byte inventory is
+            # intentionally not re-evaluated against the v11.2 working tree.
+            checks[name] = "historical_baseline_preserved"
+            continue
+        if name == "frozen_release_manifest_v11_2_candidate_accepted" and not _target_at_least(target, "v11.2"):
+            checks[name] = "pending_runtime"
+            continue
         if _target_at_least(target, "v11.1"):
             status, detail = _same_output(command)
             _record_check_result(checks, details, name, status, detail)

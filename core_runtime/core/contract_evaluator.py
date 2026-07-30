@@ -489,6 +489,61 @@ def _validate_state_transition(payload: dict[str, Any]) -> SemanticResult:
     return errors, [], {"execution_authorized": False}
 
 
+def _validate_contract_program(payload: dict[str, Any]) -> SemanticResult:
+    """Validate the closed, effect-free instruction language before replay."""
+
+    errors: list[Error] = []
+    policy = payload.get("effect_policy", {})
+    if not isinstance(policy, dict) or any(
+        policy.get(key) is not False
+        for key in ("external_effects", "network_access", "filesystem_access", "state_apply")
+    ):
+        errors.append(error("effect_policy_forbidden", "Contract programs are validation-only and cannot grant effects, network, filesystem, or state application.", "effect_policy"))
+
+    instructions = payload.get("instructions", [])
+    limits = payload.get("limits", {})
+    capabilities = set(payload.get("capabilities", []))
+    if isinstance(instructions, list) and isinstance(limits, dict):
+        if len(instructions) > limits.get("max_steps", 0):
+            errors.append(error("program_step_limit_exceeded", "Instruction count exceeds max_steps.", "limits.max_steps"))
+        emits = sum(item.get("opcode") == "emit" for item in instructions if isinstance(item, dict))
+        if emits > limits.get("max_emits", 0):
+            errors.append(error("program_emit_limit_exceeded", "Emit count exceeds max_emits.", "limits.max_emits"))
+        halt_positions = [index for index, item in enumerate(instructions) if isinstance(item, dict) and item.get("opcode") == "halt"]
+        if halt_positions != [len(instructions) - 1]:
+            errors.append(error("program_halt_must_be_terminal", "A contract program must have exactly one terminal halt instruction.", "instructions"))
+        required_capabilities = {
+            "load": "read_input",
+            "assert": "assert",
+            "derive": "derive",
+            "transition": "stage_transition",
+            "emit": "emit_result",
+        }
+        produced: set[str] = set()
+        for index, instruction in enumerate(instructions):
+            if not isinstance(instruction, dict):
+                continue
+            opcode = instruction.get("opcode")
+            capability = required_capabilities.get(opcode)
+            if capability and capability not in capabilities:
+                errors.append(error("program_capability_missing", "Instruction requires a declared capability.", f"instructions[{index}].opcode", capability=capability))
+            output = instruction.get("output")
+            if isinstance(output, str):
+                if output in produced:
+                    errors.append(error("program_output_redefined", "Instruction outputs must be unique.", f"instructions[{index}].output"))
+                produced.add(output)
+            if opcode == "transition" and instruction.get("before_ref") == instruction.get("after_ref"):
+                errors.append(error("program_transition_noop", "Staged before_ref and after_ref must differ.", f"instructions[{index}].after_ref"))
+            if opcode == "derive" and instruction.get("operation") == "copy" and len(instruction.get("input_keys", [])) != 1:
+                errors.append(error("program_copy_arity", "copy derivation requires exactly one input key.", f"instructions[{index}].input_keys"))
+
+    return errors, [], {
+        "execution_authorized": False,
+        "state_application_authorized": False,
+        "instruction_count": len(instructions) if isinstance(instructions, list) else 0,
+    }
+
+
 def _validate_template_promotion(payload: dict[str, Any]) -> SemanticResult:
     errors: list[Error] = []
     for key in ("required_inputs", "expected_evidence", "stop_conditions"):
@@ -744,6 +799,7 @@ def _validate_physical_safety_case(payload: dict[str, Any]) -> SemanticResult:
 
 SEMANTIC_VALIDATORS: dict[str, SemanticValidator] = {
     "core.causal_trace.v1": _validate_causal_trace,
+    "core.contract_program.v1": _validate_contract_program,
     "core.context_gate.v1": _validate_context_gate,
     "core.context_threshold.v1": _validate_context_threshold,
     "core.control_decision.v1": _validate_control_decision,
@@ -765,6 +821,7 @@ SEMANTIC_VALIDATORS: dict[str, SemanticValidator] = {
 
 SEMANTIC_RULE_IDS: dict[str, tuple[str, ...]] = {
     "core.causal_trace.v1": ("resolved_graph", "acyclic_graph", "timezone", "fingerprint"),
+    "core.contract_program.v1": ("closed_instruction_language", "bounded_steps", "terminal_halt", "declared_capabilities", "no_effect_authority"),
     "core.context_gate.v1": ("mode_status_consistency", "result_binding"),
     "core.context_threshold.v1": ("bounded_percentages", "derived_threshold_decision"),
     "core.control_decision.v1": ("reversibility_gate", "evidence_binding", "no_execution_authority"),

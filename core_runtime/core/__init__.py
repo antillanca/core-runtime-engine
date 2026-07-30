@@ -16,6 +16,7 @@ from core_runtime.core.contract_evaluator import (
     evaluate_contract_payload,
     executable_contract_versions,
 )
+from core_runtime.core.contract_program import execute_contract_program
 
 __all__ = [
     "available_contracts",
@@ -23,6 +24,7 @@ __all__ = [
     "contract_schema_path",
     "evaluate_contract_file",
     "evaluate_contract_payload",
+    "execute_contract_program",
     "executable_contract_versions",
     "load_contract_schema",
 ]

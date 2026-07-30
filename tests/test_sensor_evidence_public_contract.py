@@ -5,6 +5,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 from core_runtime.core.sensor_evidence import (
     OBSERVATION_EVENT_ENCODING,
     SENSOR_EVIDENCE_SCHEMA_VERSION,
@@ -108,3 +110,21 @@ def test_documented_error_codes_match_negative_tests_expectation() -> None:
         "value_key_missing",
         "threshold_invalid",
     }
+
+
+def test_public_sensor_evidence_rejects_non_finite_values() -> None:
+    with pytest.raises(ValueError, match="finite"):
+        SensorSample(index=0, logical_time="2026-07-22T00:00:00Z", values={"wind": float("nan")})
+
+    with pytest.raises(ValueError, match="finite"):
+        ObservationEvent(
+            event_id="event:fixture",
+            trace_id="trace:fixture",
+            sensor_id="sensor:fixture",
+            event_type="observation",
+            logical_time="2026-07-22T00:00:00Z",
+            evidence_window=(0, 0),
+            input_fingerprint="input",
+            output_fingerprint="output",
+            confidence=float("inf"),
+        )

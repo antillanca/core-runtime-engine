@@ -29,6 +29,7 @@ def test_available_contracts_are_stable():
         "causal_trace.v1",
         "context_gate.v1",
         "context_threshold.v1",
+        "contract_program.v1",
         "control_decision.v1",
         "effect_result.v1",
         "entropy_signal.v1",
@@ -52,6 +53,7 @@ def test_contract_schema_paths_resolve_into_public_schema_tree():
     assert contract_schema_path("pattern_candidate.v1") == SCHEMA_DIR / "pattern_candidate.v1.json"
     assert contract_schema_path("template_promotion_candidate.v1") == SCHEMA_DIR / "template_promotion_candidate.v1.json"
     assert contract_schema_path("causal_trace.v1") == SCHEMA_DIR / "causal_trace.v1.json"
+    assert contract_schema_path("contract_program.v1") == SCHEMA_DIR / "contract_program.v1.json"
     assert contract_schema_path("entropy_signal.v1") == SCHEMA_DIR / "entropy_signal.v1.json"
     assert contract_schema_path("control_decision.v1") == SCHEMA_DIR / "control_decision.v1.json"
     assert contract_schema_path("execution_receipt.v1") == SCHEMA_DIR / "execution_receipt.v1.json"
@@ -66,6 +68,32 @@ def test_contract_loader_reads_generic_schema_objects():
     schema = load_contract_schema("context_gate.v1")
     assert schema["title"] == "ContextGate.v1"
     assert schema["properties"]["mode"]["enum"] == ["dry-run", "apply"]
+
+
+def test_contract_program_schema_is_closed_and_validation_only():
+    schema = _load_schema("contract_program.v1")
+    _assert_schema(
+        schema,
+        title="ContractProgram.v1",
+        schema_version="core.contract_program.v1",
+        required=[
+            "schema_version",
+            "type",
+            "program_id",
+            "program_version",
+            "authority",
+            "effect_policy",
+            "capabilities",
+            "limits",
+            "instructions",
+            "source_refs",
+            "declared_loss",
+            "fingerprint",
+        ],
+    )
+    assert schema["additionalProperties"] is False
+    assert schema["properties"]["authority"]["const"] == "validation_only"
+    assert schema["properties"]["effect_policy"]["additionalProperties"] is False
 
 
 def test_memory_artifact_schema_has_reference_only_authority():

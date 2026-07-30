@@ -78,8 +78,8 @@ def test_executability_audit_covers_every_public_core_schema_and_is_deterministi
     second = audit_contract_executability()
     assert first == second
     assert first["status"] == "passed"
-    assert first["contract_count"] == 18
-    assert first["passed_count"] == 18
+    assert first["contract_count"] == 19
+    assert first["passed_count"] == 19
     assert first["failed_count"] == 0
     assert first["public_schema_count"] == len(list((ROOT / "schemas" / "core").glob("*.json")))
     assert all(row["mechanism"] != "unclassified" for row in first["public_schema_inventory"])

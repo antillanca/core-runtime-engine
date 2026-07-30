@@ -17,6 +17,25 @@ generic contract family. `scripts/audit_contract_executability.py` proves that
 every registered generic contract accepts a coherent probe and rejects an
 incoherent probe that still satisfies its published JSON Schema.
 
+## Closed contract programs
+
+`ContractProgram.v1` is a small, replayable instruction contract for bounded
+validation. It accepts only declared instructions: load a caller-supplied
+sealed input, assert a scalar condition, make a bounded derivation, stage a
+transition candidate, emit a declared result, and halt. Its schema is closed
+at every object boundary and every program carries a canonical fingerprint.
+
+The program itself cannot grant effects. Its effect policy requires external
+effects, network access, filesystem access, and state application to remain
+`false`. `execute_contract_program()` receives inputs directly from its caller;
+it does not read files, clocks, environment variables, random sources, or the
+network. A staged transition is returned as a candidate only and is discarded
+on any blocked, insufficient-data, or rejected result.
+
+This is intentionally a validation and replay foundation, not an automation
+authorization mechanism. A separate system must evaluate any resulting
+transition under its own explicit authority and safety rules.
+
 The distinction matters. Schema validation answers "can this document be
 parsed as this contract?" Executable evaluation answers "do these values form
 a coherent decision under the declared rules?"

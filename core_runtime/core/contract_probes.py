@@ -251,6 +251,32 @@ def accepted_contract_payloads() -> dict[str, dict[str, Any]]:
     """Return one semantically coherent artifact per executable contract."""
 
     payloads: dict[str, dict[str, Any]] = {
+        "core.contract_program.v1": {
+            "schema_version": "core.contract_program.v1",
+            "type": "contract_program",
+            "program_id": "program:bounded-classification",
+            "program_version": "1.0.0",
+            "authority": "validation_only",
+            "effect_policy": {
+                "external_effects": False,
+                "network_access": False,
+                "filesystem_access": False,
+                "state_apply": False,
+            },
+            "capabilities": ["read_input", "assert", "derive", "stage_transition", "emit_result"],
+            "limits": {"max_steps": 6, "max_items": 4, "max_emits": 1},
+            "instructions": [
+                {"opcode": "load", "key": "classification", "output": "classification_value"},
+                {"opcode": "assert", "key": "approved", "equals": True},
+                {"opcode": "derive", "operation": "copy", "input_keys": ["classification_value"], "output": "result_value"},
+                {"opcode": "transition", "transition_id": "transition:reviewed", "before_ref": "state:pending", "after_ref": "state:reviewed", "reversibility_class": "reversible"},
+                {"opcode": "emit", "code": "classification_recorded", "value_key": "result_value"},
+                {"opcode": "halt", "status": "passed"},
+            ],
+            "source_refs": ["source:program:bounded-classification"],
+            "declared_loss": ["The program emits only declared outputs and does not preserve unreferenced input context."],
+            "fingerprint": _fp("placeholder"),
+        },
         "core.causal_trace.v1": {
             "schema_version": "core.causal_trace.v1",
             "type": "causal_trace",
@@ -480,6 +506,7 @@ def accepted_contract_payloads() -> dict[str, dict[str, Any]]:
     }
     for version in (
         "core.causal_trace.v1",
+        "core.contract_program.v1",
         "core.control_decision.v1",
         "core.entropy_signal.v1",
         "core.execution_receipt.v1",
@@ -503,6 +530,10 @@ def executable_contract_probes() -> tuple[ContractProbe, ...]:
 
     def causal(payload: dict[str, Any]) -> None:
         payload["edges"][0]["to_ref"] = "receipt:missing"
+        _rebind(payload)
+
+    def program(payload: dict[str, Any]) -> None:
+        payload["limits"]["max_steps"] = 1
         _rebind(payload)
 
     def context_gate(payload: dict[str, Any]) -> None:
@@ -569,6 +600,7 @@ def executable_contract_probes() -> tuple[ContractProbe, ...]:
 
     specs: tuple[tuple[str, Mutator, str], ...] = (
         ("core.causal_trace.v1", causal, "dangling_edge_ref"),
+        ("core.contract_program.v1", program, "program_step_limit_exceeded"),
         ("core.context_gate.v1", context_gate, "apply_result_required"),
         ("core.context_threshold.v1", context_threshold, "threshold_decision_mismatch"),
         ("core.control_decision.v1", control, "unsafe_allow_decision"),
