@@ -4,6 +4,23 @@
 
 ## v11.2.1
 
+### Changed
+
+- Repointed the CI release gate from v11.1.0 to v11.2.1. Both of its
+  frozen-manifest steps were failing on a green tree: they re-verified
+  v11.1's historical byte inventory against the current working tree, and
+  `verify_release.py --target v11.1.0` does not grant that line the
+  `historical_baseline_preserved` treatment. CI now validates the current
+  line's candidate and frozen manifests and runs all three
+  frozen-manifest test modules.
+- Documented the frozen-manifest lifecycle in
+  [`VERSIONING_POLICY.md`](docs/VERSIONING_POLICY.md) so cutting a release
+  line no longer leaves CI pinned to the previous one, and so byte-equality
+  tests get rescoped rather than left permanently red.
+- `checks_summary` is now emitted by the `tooling` and `release-metadata`
+  payloads too, not only `mode=full`, via a shared `_checks_summary()`
+  helper.
+
 ### Fixed
 
 - Fixed `scripts/verify_release.py` `_same_result` reporting a reproducible
@@ -13,8 +30,13 @@
   `pending_runtime`, matching the `allow_missing_surface` guard the call
   sites already declared but that never fired. Also added a
   `checks_summary` block (`declared_count`, `executed_count`, `by_status`)
-  to the `mode=full` payload so a `passed` release status can no longer be
-  read as "every declared check ran".
+  so a `passed` release status can no longer be read as "every declared
+  check ran".
+- Hardened `_missing_input_fixtures` to skip arguments that follow an output
+  flag (`--output`, `-o`, …). An output path is expected not to exist yet,
+  so treating it as a missing input would mark a working check
+  `pending_runtime` — the same false-status bug in mirror image. No current
+  check declares one; this prevents a future one from silently regressing.
 - Rescoped the two v11.1 baseline tests in
   `tests/test_frozen_release_manifest.py` from release-time byte-equality
   gates into historical-baseline integrity tests. Both asserted that the

@@ -19,12 +19,12 @@
     {
       "path": ".github/workflows/replay-certification.yml",
       "role": "ci",
-      "file_sha256": "sha256:c2468e4fe1986cabc22e63baab302cf8b1d65e04296f57dd3e33f3b369d1c981"
+      "file_sha256": "sha256:f675e541c6b842170ea83a8aad5b68014f3934cbc628193a8d00f10c8a9b1202"
     },
     {
       "path": "CHANGELOG.md",
       "role": "documentation",
-      "file_sha256": "sha256:feb1c6ecb3f861055bac5510455db802d422b4ea04f7bb8dcb2518c836e9cd9a"
+      "file_sha256": "sha256:9410ca71da81954a95f95d4644039e1c233061313500b8cf29e7af48387157fb"
     },
     {
       "path": "README.md",
@@ -139,7 +139,7 @@
     {
       "path": "docs/VERSIONING_POLICY.md",
       "role": "documentation",
-      "file_sha256": "sha256:01b3bfe3e0a5ecabf329ea200d25db77214fdc4a8e280d95ac63a910393e72d6"
+      "file_sha256": "sha256:c4d43ad9252fb6487dddd2803f35f2fcdb815497b24dcb77583fac3c0cb7022e"
     },
     {
       "path": "docs/releases/README.md",
@@ -619,7 +619,7 @@
     {
       "path": "scripts/verify_release.py",
       "role": "script",
-      "file_sha256": "sha256:9674af0f850f4b26ceab87ca5e212b20882ba1aed1a2f664dd920b6d3178d655"
+      "file_sha256": "sha256:ac98296e36e79bf49a5562dfba40de81e808b35e790cbc95909abd5cef1ceaf7"
     },
     {
       "path": "scripts/verify_rule_anchor_onchain.py",
@@ -742,5 +742,5 @@
       "file_sha256": "sha256:5b443fa75f99cc9e1e7ac11467c28da3f613558add2443307a105033fa39e981"
     }
   ],
-  "fingerprint": "sha256:691695d8a326713354d3821eafa37aae2d07cd97d008b94d922a1025e216ee00"
+  "fingerprint": "sha256:bb3ec95987bf18d462e72241c7db0bf36935c6e861be1cf88a4ee5810a7254ae"
 }

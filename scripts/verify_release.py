@@ -1331,12 +1331,49 @@ def _is_missing_runtime_surface(detail: str) -> bool:
     return any(marker in lowered for marker in _MISSING_RUNTIME_SURFACE_MARKERS)
 
 
+_OUTPUT_FLAGS = frozenset({"--output", "--out", "-o", "--output-dir", "--write", "--output-path"})
+
+
 def _missing_input_fixtures(command: list[str]) -> list[str]:
     """A check whose command references a `.json` fixture argument that does
     not exist on disk was never actually exercised, regardless of what the
     subprocess printed. Detecting this structurally (path existence) is more
-    precise than pattern-matching each script's own missing-file wording."""
-    return [arg for arg in command if arg.endswith(".json") and not Path(arg).is_file()]
+    precise than pattern-matching each script's own missing-file wording.
+
+    Arguments that follow an output flag are skipped: an output path is
+    *expected* not to exist yet, so treating it as a missing input would
+    silently mark a working check `pending_runtime` — reintroducing, in
+    mirror image, the false-status bug this whole guard exists to prevent.
+    No current check declares one, but nothing stops a future check from
+    doing so.
+    """
+    missing: list[str] = []
+    for index, arg in enumerate(command):
+        if not arg.endswith(".json") or (index and command[index - 1] in _OUTPUT_FLAGS):
+            continue
+        if not Path(arg).is_file():
+            missing.append(arg)
+    return missing
+
+
+def _checks_summary(checks: dict[str, str]) -> dict[str, Any]:
+    """Report how many declared checks actually ran.
+
+    `status: passed` alone cannot distinguish "every check ran and passed"
+    from "most checks never ran", so every release-verification payload
+    carries this breakdown. Only `passed`, `failed` and `blocked` count as
+    executed; `pending_runtime`, `skipped`, `excluded` and
+    `historical_baseline_preserved` are declared-but-not-run.
+    """
+    by_status: dict[str, int] = {}
+    for status in checks.values():
+        by_status[status] = by_status.get(status, 0) + 1
+    executed = sum(by_status.get(state, 0) for state in ("passed", "failed", "blocked"))
+    return {
+        "declared_count": len(checks),
+        "executed_count": executed,
+        "by_status": dict(sorted(by_status.items())),
+    }
 
 
 def _record_check_result(
@@ -1606,6 +1643,7 @@ def verify(
             "checks": dict(sorted(checks.items())),
             "details": dict(sorted(details.items())),
             "timings": timings,
+            "checks_summary": _checks_summary(checks),
         }
         _write_timing_json(timing_json, payload)
         return (0 if not failed else 1), payload
@@ -1972,6 +2010,7 @@ def verify(
             "checks": dict(sorted(checks.items())),
             "details": dict(sorted(details.items())),
             "timings": timings,
+            "checks_summary": _checks_summary(checks),
         }
         _write_timing_json(timing_json, payload)
         return (0 if not failed else 1), payload
@@ -2416,11 +2455,6 @@ def verify(
                 details.pop(exc_name, None)
         failed = [name for name, status in checks.items() if status == "failed"]
 
-    status_counts: dict[str, int] = {}
-    for check_status in checks.values():
-        status_counts[check_status] = status_counts.get(check_status, 0) + 1
-    executed_count = status_counts.get("passed", 0) + status_counts.get("failed", 0) + status_counts.get("blocked", 0)
-
     payload: dict[str, Any] = {
         "schema": "core.release_verification.v1",
         "mode": "full",
@@ -2430,11 +2464,7 @@ def verify(
         "details": dict(sorted(details.items())),
         "diagnostics": diagnostics,
         "timings": timings,
-        "checks_summary": {
-            "declared_count": len(checks),
-            "executed_count": executed_count,
-            "by_status": dict(sorted(status_counts.items())),
-        },
+        "checks_summary": _checks_summary(checks),
     }
     _write_timing_json(timing_json, payload)
     return (0 if not failed else 1), payload

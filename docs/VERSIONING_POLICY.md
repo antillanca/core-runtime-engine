@@ -11,6 +11,33 @@ CORE follows strict semantic versioning (MAJOR.MINOR.PATCH).
   (additive, non-breaking).
 - **PATCH**: bug fixes, performance improvements, documentation.
 
+## Frozen-manifest lifecycle
+
+A frozen release manifest binds exact repository bytes, so it is only
+byte-verifiable against the working tree while its line is *current*. Once
+a newer line is cut, shared files (release tooling, `CHANGELOG.md`,
+`__version__.py`, runtime modules) legitimately move on and the older
+manifest can never match the live tree again. That is expected, not
+corruption: the manifest stays as the historical record and is never
+rewritten.
+
+When cutting a new release line, do all three:
+
+1. Point `scripts/verify_release.py`'s frozen-manifest checks and the CI
+   release gate at the **new** line. Leaving CI pinned to the previous
+   line makes it fail permanently on a green tree.
+2. Give the superseded line the `historical_baseline_preserved` treatment
+   in `verify_release.py` rather than re-hashing it.
+3. Rescope that line's byte-equality tests into historical-baseline
+   integrity tests — inventory, roles, ordering, uniqueness,
+   `artifact_count`, self-consistent fingerprint and continued existence
+   of every artifact, without live-byte comparison. See
+   `tests/test_frozen_release_manifest.py` for the v11.1 example.
+
+Never assert a fixed count of files in a live directory in these tests
+(`len(glob("schemas/core/*.json")) == 26`); the tree grows, and such an
+assertion fails the moment it does.
+
 ## v11.0.0 — clean rebuild
 
 v11 is a whitelist rebuild of the engine: only public schemas, validators,
