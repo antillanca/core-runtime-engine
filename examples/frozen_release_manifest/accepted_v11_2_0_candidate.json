@@ -24,12 +24,12 @@
     {
       "path": "CHANGELOG.md",
       "role": "documentation",
-      "file_sha256": "sha256:b7f9db0031baed3bd58a0ff3a65316c4eee34ae47259da19e8f697703d8607b6"
+      "file_sha256": "sha256:e57184206242cc3978cc68c68087f78154e80378b24a606bd55d5ae8bbf173b0"
     },
     {
       "path": "README.md",
       "role": "documentation",
-      "file_sha256": "sha256:dcc07f43799767ae06cd5b6dfd40dfcd40b5be6387f54287a72eb3473062b18e"
+      "file_sha256": "sha256:879cc8c11191136455159e58870c50b5a8b5f1fe077d1e4348cbb9a7a6d9392b"
     },
     {
       "path": "contracts/CoreRuleAnchor.abi.json",
@@ -59,7 +59,7 @@
     {
       "path": "core_runtime/__version__.py",
       "role": "release_metadata",
-      "file_sha256": "sha256:2cca4762e531b3ea0d177fa3f2ca8f8ae56d0e4473c9ee99d707bf0713f4ed27"
+      "file_sha256": "sha256:e15d6ad2ffb353f412ef8c9c478454c9690b22efe321a2759d3b429a0bf86d0f"
     },
     {
       "path": "core_runtime/cli/__init__.py",
@@ -114,7 +114,7 @@
     {
       "path": "docs/CORE_RELEASE_README.md",
       "role": "documentation",
-      "file_sha256": "sha256:35ec23d98fd995b731bc6d3152bc239327a22939231fdb9d5d7c8f58bfa30550"
+      "file_sha256": "sha256:3a9a7f925d6082433ee6c867a10375b85fc8800a906af98f40e303d9b79896e6"
     },
     {
       "path": "docs/EXECUTABLE_CONTRACTS_AND_PHYSICAL_SAFETY.md",
@@ -139,12 +139,12 @@
     {
       "path": "docs/VERSIONING_POLICY.md",
       "role": "documentation",
-      "file_sha256": "sha256:58d0568eebc7a1e51167f830aa8190fb018c350ea00c80bcfb9471ae781e5d88"
+      "file_sha256": "sha256:410555d2b1df1a241b7afd5572567fc2af8079d600dade212b0c2f15677ec0dc"
     },
     {
       "path": "docs/releases/README.md",
       "role": "documentation",
-      "file_sha256": "sha256:cdf0689d33cbfcbd0c5fc470949c855f8262f7741d4fa7182037f76093b25037"
+      "file_sha256": "sha256:1e81313483959adeca975f5e7a62cedc7d5a0ee99b39b05d33452f1a2a4a3c55"
     },
     {
       "path": "docs/releases/v11.1.0.md",
@@ -324,7 +324,7 @@
     {
       "path": "pyproject.toml",
       "role": "release_metadata",
-      "file_sha256": "sha256:ded52950c35d929372e369c13d108eaa2c21baeb37d8d78998060754f19237e1"
+      "file_sha256": "sha256:b83aea8119d091c94712a7ad74fecccd784012b2fd875cbb5f91a45d449b3a62"
     },
     {
       "path": "requirements-dev.txt",
@@ -742,5 +742,5 @@
       "file_sha256": "sha256:53e04ddb7011b1d5596c0570b2d7d3e5756096354e2e988f875b94c5a5d28130"
     }
   ],
-  "fingerprint": "sha256:7b7cd1d95d9bbd41234b6e6ae2ed27f04d1d6648821d831ac5ed62ee872342c8"
+  "fingerprint": "sha256:34273a124a1285804f7b70e336f946563c5dd7b1b56412c4b53603cb1c07fe88"
 }

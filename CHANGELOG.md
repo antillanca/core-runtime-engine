@@ -2,10 +2,15 @@
 
 ## Unreleased
 
-## v11.1.0
+## v11.2.0
 
 ### Added
 
+- Added the closed, deterministic `ContractProgram.v1` runtime surface and
+  its executable validator/probe coverage.
+- Added an additive v11.2 candidate release manifest with exact artifact
+  inventory, SHA-256 fingerprints and preservation of the historical v11.1
+  baseline.
 - Added strict executable evaluation for all public generic CORE contracts.
   Every registered contract now has a coherent positive probe and a
   schema-valid semantic-negative probe with a deterministic rejection code.
