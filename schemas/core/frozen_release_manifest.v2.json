@@ -24,7 +24,7 @@
   "properties": {
     "schema_version": {"const": "core.frozen_release_manifest.v2"},
     "type": {"const": "frozen_release_manifest"},
-    "release_version": {"const": "v11.2.0"},
+    "release_version": {"const": "v11.2.1"},
     "status": {"const": "candidate"},
     "scope": {"const": "deterministic_contract_program_surface"},
     "inventory_profile": {"const": "core.contract_program_release.v11_2_candidate"},

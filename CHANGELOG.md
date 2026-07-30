@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+## v11.2.1
+
+### Fixed
+
+- Fixed `scripts/verify_release.py` `_same_result` reporting a reproducible
+  non-zero exit as `passed` even when the underlying validator script or
+  module was absent, silently masking unimplemented checks as green. It now
+  classifies a missing script, module or referenced `.json` input fixture as
+  `pending_runtime`, matching the `allow_missing_surface` guard the call
+  sites already declared but that never fired. Also added a
+  `checks_summary` block (`declared_count`, `executed_count`, `by_status`)
+  to the `mode=full` payload so a `passed` release status can no longer be
+  read as "every declared check ran".
+
 ## v11.2.0
 
 ### Added

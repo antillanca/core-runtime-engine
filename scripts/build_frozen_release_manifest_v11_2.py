@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Materialize the additive CORE v11.2.0 ContractProgram release candidate."""
+"""Materialize the additive CORE v11.2.1 ContractProgram release candidate."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ from scripts.validate_frozen_release_manifest_v11_2 import (  # noqa: E402
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Build the CORE v11.2.0 release candidate manifest.")
+    parser = argparse.ArgumentParser(description="Build the CORE v11.2.1 release candidate manifest.")
     parser.add_argument("--created-at", required=True)
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()

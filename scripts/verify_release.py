@@ -338,12 +338,12 @@ FROZEN_RELEASE_MANIFEST_CHECKS = {
     "frozen_release_manifest_v11_2_candidate_accepted": [
         sys.executable,
         "scripts/validate_frozen_release_manifest_v11_2.py",
-        "examples/frozen_release_manifest/accepted_v11_2_0_candidate.json",
+        "examples/frozen_release_manifest/accepted_v11_2_1_candidate.json",
     ],
     "frozen_release_manifest_v11_2_frozen_accepted": [
         sys.executable,
         "scripts/validate_frozen_release_manifest_v11_2_frozen.py",
-        "examples/frozen_release_manifest/accepted_v11_2_0.json",
+        "examples/frozen_release_manifest/accepted_v11_2_1.json",
     ],
 }
 
@@ -1331,6 +1331,14 @@ def _is_missing_runtime_surface(detail: str) -> bool:
     return any(marker in lowered for marker in _MISSING_RUNTIME_SURFACE_MARKERS)
 
 
+def _missing_input_fixtures(command: list[str]) -> list[str]:
+    """A check whose command references a `.json` fixture argument that does
+    not exist on disk was never actually exercised, regardless of what the
+    subprocess printed. Detecting this structurally (path existence) is more
+    precise than pattern-matching each script's own missing-file wording."""
+    return [arg for arg in command if arg.endswith(".json") and not Path(arg).is_file()]
+
+
 def _record_check_result(
     checks: dict[str, str],
     details: dict[str, str],
@@ -1348,6 +1356,10 @@ def _record_check_result(
 
 
 def _same_output(command: list[str]) -> tuple[str, str]:
+    missing = _missing_input_fixtures(command)
+    if missing:
+        return "pending_runtime", f"input fixture(s) not found: {', '.join(missing)}"
+
     first = _run(command)
     second = _run(command)
 
@@ -1362,6 +1374,17 @@ def _same_output(command: list[str]) -> tuple[str, str]:
 
 
 def _same_result(command: list[str]) -> tuple[str, str]:
+    """Reproducible non-zero exit is the expected outcome for a negative
+    check (the validator correctly rejected its input), so it is normally
+    reported as "passed". But a non-zero exit caused by a missing script,
+    module or input fixture is not a rejection verdict — it is the check
+    never having run at all — so that case must be classified as
+    "pending_runtime" instead, matching the callers' `allow_missing_surface`
+    intent."""
+    missing = _missing_input_fixtures(command)
+    if missing:
+        return "pending_runtime", f"input fixture(s) not found: {', '.join(missing)}"
+
     first = _run(command)
     second = _run(command)
 
@@ -1371,7 +1394,10 @@ def _same_result(command: list[str]) -> tuple[str, str]:
         return "failed", "outputs differ"
 
     if first.returncode != 0:
-        return "passed", _detail(first)
+        detail = _detail(first)
+        if _is_missing_runtime_surface(detail):
+            return "pending_runtime", detail
+        return "passed", detail
 
     return "passed", ""
 
@@ -2390,6 +2416,11 @@ def verify(
                 details.pop(exc_name, None)
         failed = [name for name, status in checks.items() if status == "failed"]
 
+    status_counts: dict[str, int] = {}
+    for check_status in checks.values():
+        status_counts[check_status] = status_counts.get(check_status, 0) + 1
+    executed_count = status_counts.get("passed", 0) + status_counts.get("failed", 0) + status_counts.get("blocked", 0)
+
     payload: dict[str, Any] = {
         "schema": "core.release_verification.v1",
         "mode": "full",
@@ -2399,6 +2430,11 @@ def verify(
         "details": dict(sorted(details.items())),
         "diagnostics": diagnostics,
         "timings": timings,
+        "checks_summary": {
+            "declared_count": len(checks),
+            "executed_count": executed_count,
+            "by_status": dict(sorted(status_counts.items())),
+        },
     }
     _write_timing_json(timing_json, payload)
     return (0 if not failed else 1), payload

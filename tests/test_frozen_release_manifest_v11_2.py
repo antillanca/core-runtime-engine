@@ -16,7 +16,7 @@ from scripts.validate_frozen_release_manifest_v11_2 import (
 
 
 ROOT = Path(__file__).resolve().parent.parent
-ACCEPTED = ROOT / "examples/frozen_release_manifest/accepted_v11_2_0_candidate.json"
+ACCEPTED = ROOT / "examples/frozen_release_manifest/accepted_v11_2_1_candidate.json"
 
 
 def test_candidate_manifest_matches_exact_repository_bytes() -> None:

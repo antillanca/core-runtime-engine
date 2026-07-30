@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the additive CORE v11.2.0 ContractProgram release candidate."""
+"""Validate the additive CORE v11.2.1 ContractProgram release candidate."""
 
 from __future__ import annotations
 
@@ -22,7 +22,7 @@ from scripts.validate_frozen_release_manifest import required_v11_1_artifacts  #
 
 SCHEMA_VERSION = "core.frozen_release_manifest.v2"
 SCHEMA_PATH = PROJECT_ROOT / "schemas" / "core" / "frozen_release_manifest.v2.json"
-RELEASE_VERSION = "v11.2.0"
+RELEASE_VERSION = "v11.2.1"
 INVENTORY_PROFILE = "core.contract_program_release.v11_2_candidate"
 CRITICAL_SUBSYSTEMS = ("contract_program", "executable_contracts", "release_integrity")
 SELF_REFERENCE_POLICY = "manifest_file_excluded_fingerprint_covers_inventory"
@@ -39,7 +39,7 @@ def required_v11_2_candidate_artifacts() -> dict[str, str]:
             "schemas/core/frozen_release_manifest.v2.json": "schema",
             "scripts/build_frozen_release_manifest_v11_2.py": "script",
             "scripts/validate_frozen_release_manifest_v11_2.py": "script",
-            "docs/releases/v11.2.0-candidate.md": "documentation",
+            "docs/releases/v11.2.1-candidate.md": "documentation",
             "tests/test_frozen_release_manifest_v11_2.py": "test",
         }
     )

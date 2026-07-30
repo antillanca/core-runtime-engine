@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the frozen CORE v11.2.0 ContractProgram release surface."""
+"""Validate the frozen CORE v11.2.1 ContractProgram release surface."""
 
 from __future__ import annotations
 
@@ -23,7 +23,7 @@ from scripts.validate_frozen_release_manifest_v11_2 import (  # noqa: E402
 
 SCHEMA_VERSION = "core.frozen_release_manifest.v3"
 SCHEMA_PATH = PROJECT_ROOT / "schemas" / "core" / "frozen_release_manifest.v3.json"
-RELEASE_VERSION = "v11.2.0"
+RELEASE_VERSION = "v11.2.1"
 INVENTORY_PROFILE = "core.contract_program_release.v11_2"
 CRITICAL_SUBSYSTEMS = ("contract_program", "executable_contracts", "release_integrity")
 SELF_REFERENCE_POLICY = "manifest_file_excluded_fingerprint_covers_inventory"
@@ -33,11 +33,11 @@ def required_v11_2_frozen_artifacts() -> dict[str, str]:
     expected = required_v11_2_candidate_artifacts()
     expected.update(
         {
-            "examples/frozen_release_manifest/accepted_v11_2_0_candidate.json": "example",
+            "examples/frozen_release_manifest/accepted_v11_2_1_candidate.json": "example",
             "schemas/core/frozen_release_manifest.v3.json": "schema",
             "scripts/build_frozen_release_manifest_v11_2_frozen.py": "script",
             "scripts/validate_frozen_release_manifest_v11_2_frozen.py": "script",
-            "docs/releases/v11.2.0.md": "documentation",
+            "docs/releases/v11.2.1.md": "documentation",
             "tests/test_frozen_release_manifest_v11_2_frozen.py": "test",
         }
     )
