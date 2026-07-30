@@ -75,6 +75,7 @@ V111_CHECKS = {
 
 V112_CHECKS = V111_CHECKS | {
     "frozen_release_manifest_v11_2_candidate_accepted",
+    "frozen_release_manifest_v11_2_frozen_accepted",
 }
 
 V104_SLICE2_CHECKS = {

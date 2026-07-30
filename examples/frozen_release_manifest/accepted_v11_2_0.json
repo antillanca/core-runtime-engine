@@ -1,10 +1,10 @@
 {
-  "schema_version": "core.frozen_release_manifest.v2",
+  "schema_version": "core.frozen_release_manifest.v3",
   "type": "frozen_release_manifest",
   "release_version": "v11.2.0",
-  "status": "candidate",
+  "status": "frozen",
   "scope": "deterministic_contract_program_surface",
-  "inventory_profile": "core.contract_program_release.v11_2_candidate",
+  "inventory_profile": "core.contract_program_release.v11_2",
   "critical_subsystems": [
     "contract_program",
     "executable_contracts",
@@ -13,8 +13,8 @@
   "self_reference_policy": "manifest_file_excluded_fingerprint_covers_inventory",
   "canonicalization": "core.canonical_json.v1",
   "hash_algorithm": "sha256",
-  "created_at": "2026-07-30T00:00:00Z",
-  "artifact_count": 145,
+  "frozen_at": "2026-07-30T00:00:00Z",
+  "artifact_count": 151,
   "artifacts": [
     {
       "path": ".github/workflows/replay-certification.yml",
@@ -157,6 +157,11 @@
       "file_sha256": "sha256:bb8963ebb7ced931641787b1e09a0308b214b79163ab3eeb16f9a80e07b392e8"
     },
     {
+      "path": "docs/releases/v11.2.0.md",
+      "role": "documentation",
+      "file_sha256": "sha256:6a0519ed40a8fccc399852a9c74254da3d8a8b584f40afbaa011d75526059a3e"
+    },
+    {
       "path": "examples/anchoring/accepted_freeze_artifact.json",
       "role": "example",
       "file_sha256": "sha256:9425bf666b56bb2602b7fe1f22af31c9b1e18937c41931fbdffd1c99ff004431"
@@ -270,6 +275,11 @@
       "path": "examples/core_contracts/memory_artifact.v1.json",
       "role": "example",
       "file_sha256": "sha256:4dd510678fde110f67f87876b169f5e08b51fcede7cedec1c948943ea2d8c9e6"
+    },
+    {
+      "path": "examples/frozen_release_manifest/accepted_v11_2_0_candidate.json",
+      "role": "example",
+      "file_sha256": "sha256:ed3a06e9e495384cd4ac7cf29eb06fc633a4f1914a4be009fc336c14cac886bb"
     },
     {
       "path": "examples/frozen_rules/general_cooperative_supply.json",
@@ -402,6 +412,11 @@
       "file_sha256": "sha256:117280c998408557a265b8ceadf3a5f6b2796fe177e254216336a8ea09c33922"
     },
     {
+      "path": "schemas/core/frozen_release_manifest.v3.json",
+      "role": "schema",
+      "file_sha256": "sha256:95847473adbf75e3bfc7836995242b8a8208ebd5b4f9555cd590c9ddb86ac0e8"
+    },
+    {
       "path": "schemas/core/frozen_rule_set.v1.json",
       "role": "schema",
       "file_sha256": "sha256:2e4532fcbb2f988e64bc8c52a99010199cbb70366653eead3d41d72328669675"
@@ -507,6 +522,11 @@
       "file_sha256": "sha256:d26ed992a482ef6ebaba11d9c1cf07b9d025527ce8093c20f276e66a0efd09cf"
     },
     {
+      "path": "scripts/build_frozen_release_manifest_v11_2_frozen.py",
+      "role": "script",
+      "file_sha256": "sha256:985075b0061f11c94a167cefd29b6ce6e3d279a0e23f58318cf9099d8bbd10ff"
+    },
+    {
       "path": "scripts/build_merkle_batch.py",
       "role": "script",
       "file_sha256": "sha256:c3c301b081128ed5cc13b7ca751bdbe435a6c02cc4344033745c866ea5704fbc"
@@ -585,6 +605,11 @@
       "path": "scripts/validate_frozen_release_manifest_v11_2.py",
       "role": "script",
       "file_sha256": "sha256:2eaadebbec2535a1c5fe525da5f346a7bb6145ef15b661358ed8686b3786a5b5"
+    },
+    {
+      "path": "scripts/validate_frozen_release_manifest_v11_2_frozen.py",
+      "role": "script",
+      "file_sha256": "sha256:ffdf53a5fa5edf4b873253ce2ceb1fd3f8296436f08857c4ffbcb4c1084122a6"
     },
     {
       "path": "scripts/validate_frozen_rule_set.py",
@@ -687,6 +712,11 @@
       "file_sha256": "sha256:3c888ec0148ca62e372627ca2af3fa1f7fc6cf477260423210b444f57242501b"
     },
     {
+      "path": "tests/test_frozen_release_manifest_v11_2_frozen.py",
+      "role": "test",
+      "file_sha256": "sha256:e08e90265d905142c4d028b70d996bc74e872ab1e37275a5212de5d7866b3b28"
+    },
+    {
       "path": "tests/test_frozen_rule_set_validator.py",
       "role": "test",
       "file_sha256": "sha256:7005a041bcf6f20899f0d0b15390d4081ef7942aa78cb94eb0457b229c14f103"
@@ -742,5 +772,5 @@
       "file_sha256": "sha256:5b443fa75f99cc9e1e7ac11467c28da3f613558add2443307a105033fa39e981"
     }
   ],
-  "fingerprint": "sha256:bfe4ed4c9ab7394099d0e3f5c7f3b926c9cf9254741b7cf19de6a1123aac7935"
+  "fingerprint": "sha256:83fb3f71e8e33d25ef1c474c1a4d83f71010099e1a2af0c19eed4be6b370869e"
 }
