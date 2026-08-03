@@ -345,6 +345,16 @@ FROZEN_RELEASE_MANIFEST_CHECKS = {
         "scripts/validate_frozen_release_manifest_v11_2_frozen.py",
         "examples/frozen_release_manifest/accepted_v11_2_1.json",
     ],
+    "frozen_release_manifest_v11_3_candidate_accepted": [
+        sys.executable,
+        "scripts/validate_frozen_release_manifest_v11_3.py",
+        "examples/frozen_release_manifest/accepted_v11_3_0_candidate.json",
+    ],
+    "frozen_release_manifest_v11_3_frozen_accepted": [
+        sys.executable,
+        "scripts/validate_frozen_release_manifest_v11_3_frozen.py",
+        "examples/frozen_release_manifest/accepted_v11_3_0.json",
+    ],
 }
 
 EXECUTABLE_CONTRACT_CHECKS = {
@@ -985,6 +995,7 @@ TARGET_ORDER = [
     "v11.0.1",
     "v11.1",
     "v11.2",
+    "v11.3",
 ]
 
 TARGET_RANK = {name: index for index, name in enumerate(TARGET_ORDER)}
@@ -1859,6 +1870,9 @@ def verify(
             checks[name] = "historical_baseline_preserved"
             continue
         if name == "frozen_release_manifest_v11_2_candidate_accepted" and not _target_at_least(target, "v11.2"):
+            checks[name] = "pending_runtime"
+            continue
+        if name in {"frozen_release_manifest_v11_3_candidate_accepted", "frozen_release_manifest_v11_3_frozen_accepted"} and not _target_at_least(target, "v11.3"):
             checks[name] = "pending_runtime"
             continue
         if _target_at_least(target, "v11.1"):

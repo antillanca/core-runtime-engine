@@ -78,6 +78,11 @@ V112_CHECKS = V111_CHECKS | {
     "frozen_release_manifest_v11_2_frozen_accepted",
 }
 
+V113_CHECKS = V112_CHECKS | {
+    "frozen_release_manifest_v11_3_candidate_accepted",
+    "frozen_release_manifest_v11_3_frozen_accepted",
+}
+
 V104_SLICE2_CHECKS = {
     "graph_ir_accepted_linear",
     "graph_ir_accepted_workflow_ref",
@@ -157,6 +162,14 @@ def test_verify_release_v112_runs_candidate_manifest_and_preserves_v111_baseline
     assert V112_CHECKS.issubset(set(payload["checks"]))
     assert payload["checks"]["frozen_release_manifest_v11_1_accepted"] == "historical_baseline_preserved"
     assert payload["checks"]["frozen_release_manifest_v11_2_candidate_accepted"] == "passed"
+
+
+def test_verify_release_v113_runs_v11_3_manifest_checks_and_preserves_v112_baseline():
+    payload = _run_release_metadata(target="v11.3")
+
+    assert V113_CHECKS.issubset(set(payload["checks"]))
+    assert payload["checks"]["frozen_release_manifest_v11_2_candidate_accepted"] == "passed"
+    assert payload["checks"]["frozen_release_manifest_v11_3_candidate_accepted"] == "passed"
 
 
 def test_target_comparison_does_not_treat_v11_as_older_than_v9() -> None:

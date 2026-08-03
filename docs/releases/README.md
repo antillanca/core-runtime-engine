@@ -6,7 +6,8 @@ Reference index for the release notes tracked in this repository.
 
 ## Current pointers
 
-- **Latest release**: v11.2.0 (`docs/releases/v11.2.0.md`)
+- **Latest release candidate**: v11.3.0 (`docs/releases/v11.3.0-candidate.md`)
+- **Latest frozen release**: v11.2.1 (`docs/releases/v11.2.1.md`)
 - v11.0.1: clean-rebuild hygiene baseline (`docs/releases/v11.0.1.md`)
 - v11.0.0: withdrawn, superseded by v11.0.1 (`docs/releases/v11.0.0.md`)
 

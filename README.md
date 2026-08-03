@@ -1,4 +1,4 @@
-# CORE v11.2.1 — deterministic contract, schema and validation engine
+# CORE v11.3.0 — deterministic contract, schema and validation engine
 
 CORE validates artifacts against public contracts: JSON schemas, fingerprints,
 manifests and bounded evidence windows. It never executes domain business

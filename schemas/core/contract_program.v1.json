@@ -100,21 +100,46 @@
       }
     },
     "derive_instruction": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["opcode", "operation", "input_keys", "output"],
-      "properties": {
-        "opcode": {"const": "derive"},
-        "operation": {"type": "string", "enum": ["copy", "count"]},
-        "input_keys": {
-          "type": "array",
-          "minItems": 1,
-          "maxItems": 128,
-          "uniqueItems": true,
-          "items": {"$ref": "#/$defs/key"}
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["opcode", "operation", "input_keys", "output"],
+          "properties": {
+            "opcode": {"const": "derive"},
+            "operation": {"type": "string", "enum": ["copy", "count"]},
+            "input_keys": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 128,
+              "uniqueItems": true,
+              "items": {"$ref": "#/$defs/key"}
+            },
+            "output": {"$ref": "#/$defs/key"}
+          }
         },
-        "output": {"$ref": "#/$defs/key"}
-      }
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["opcode", "operation", "registry_key", "input_keys", "output"],
+          "properties": {
+            "opcode": {"const": "derive"},
+            "operation": {"const": "registry"},
+            "registry_key": {
+              "type": "string",
+              "enum": ["rank.quantity.v1", "member.scale_adapter.v1", "regex.grammar_context.v1"]
+            },
+            "input_keys": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 128,
+              "uniqueItems": true,
+              "items": {"$ref": "#/$defs/key"}
+            },
+            "output": {"$ref": "#/$defs/key"}
+          }
+        }
+      ]
     },
     "transition_instruction": {
       "type": "object",

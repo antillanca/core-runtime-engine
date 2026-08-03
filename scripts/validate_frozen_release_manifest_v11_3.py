@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the additive CORE v11.2.1 ContractProgram release candidate."""
+"""Validate the additive CORE v11.3.0 ContractProgram release candidate."""
 
 from __future__ import annotations
 
@@ -20,15 +20,15 @@ from core_runtime.core.rule_anchor import artifact_fingerprint, error  # noqa: E
 from scripts.validate_frozen_release_manifest import required_v11_1_artifacts  # noqa: E402
 
 
-SCHEMA_VERSION = "core.frozen_release_manifest.v2"
-SCHEMA_PATH = PROJECT_ROOT / "schemas" / "core" / "frozen_release_manifest.v2.json"
-RELEASE_VERSION = "v11.2.1"
-INVENTORY_PROFILE = "core.contract_program_release.v11_2_candidate"
+SCHEMA_VERSION = "core.frozen_release_manifest.v4"
+SCHEMA_PATH = PROJECT_ROOT / "schemas" / "core" / "frozen_release_manifest.v4.json"
+RELEASE_VERSION = "v11.3.0"
+INVENTORY_PROFILE = "core.contract_program_release.v11_3_candidate"
 CRITICAL_SUBSYSTEMS = ("contract_program", "executable_contracts", "release_integrity")
 SELF_REFERENCE_POLICY = "manifest_file_excluded_fingerprint_covers_inventory"
 
 
-def required_v11_2_candidate_artifacts() -> dict[str, str]:
+def required_v11_3_candidate_artifacts() -> dict[str, str]:
     """Extend the frozen v11.1 surface with the ContractProgram candidate slice."""
 
     expected = required_v11_1_artifacts()
@@ -36,11 +36,11 @@ def required_v11_2_candidate_artifacts() -> dict[str, str]:
         {
             "core_runtime/core/contract_program.py": "runtime",
             "schemas/core/contract_program.v1.json": "schema",
-            "schemas/core/frozen_release_manifest.v2.json": "schema",
-            "scripts/build_frozen_release_manifest_v11_2.py": "script",
-            "scripts/validate_frozen_release_manifest_v11_2.py": "script",
-            "docs/releases/v11.2.1-candidate.md": "documentation",
-            "tests/test_frozen_release_manifest_v11_2.py": "test",
+            "schemas/core/frozen_release_manifest.v4.json": "schema",
+            "scripts/build_frozen_release_manifest_v11_3.py": "script",
+            "scripts/validate_frozen_release_manifest_v11_3.py": "script",
+            "docs/releases/v11.3.0-candidate.md": "documentation",
+            "tests/test_frozen_release_manifest_v11_3.py": "test",
         }
     )
     return expected
@@ -57,12 +57,12 @@ def _timezone_timestamp(value: Any) -> bool:
     return parsed.tzinfo is not None and parsed.utcoffset() is not None
 
 
-def build_v11_2_candidate_manifest(created_at: str) -> dict[str, Any]:
+def build_v11_3_candidate_manifest(created_at: str) -> dict[str, Any]:
     if not _timezone_timestamp(created_at):
         raise ValueError("created_at must include an explicit timezone")
-    expected = required_v11_2_candidate_artifacts()
+    expected = required_v11_3_candidate_artifacts()
     if len(expected) != len(set(expected)):
-        raise ValueError("v11.2 candidate inventory contains duplicate paths")
+        raise ValueError("v11.3 candidate inventory contains duplicate paths")
 
     artifacts = []
     for relative_path, role in sorted(expected.items()):
@@ -96,7 +96,7 @@ def build_v11_2_candidate_manifest(created_at: str) -> dict[str, Any]:
     return payload
 
 
-def validate_v11_2_release_manifest(path: Path, *, verify_live_artifacts: bool = False) -> dict[str, Any]:
+def validate_v11_3_release_manifest(path: Path, *, verify_live_artifacts: bool = False) -> dict[str, Any]:
     """Validate historical evidence, optionally against the live worktree."""
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
@@ -129,7 +129,7 @@ def validate_v11_2_release_manifest(path: Path, *, verify_live_artifacts: bool =
                 if payload.get("artifact_count") != len(artifacts):
                     errors.append(error("artifact_count_mismatch", "artifact_count must equal artifacts length.", "artifact_count"))
 
-                expected = required_v11_2_candidate_artifacts()
+                expected = required_v11_3_candidate_artifacts()
                 actual = {
                     item["path"]: item.get("role")
                     for item in artifacts
@@ -138,7 +138,7 @@ def validate_v11_2_release_manifest(path: Path, *, verify_live_artifacts: bool =
                 missing = sorted(set(expected) - set(actual))
                 unexpected = sorted(set(actual) - set(expected))
                 if missing or unexpected:
-                    errors.append(error("artifact_inventory_mismatch", "Paths must equal the v11.2 candidate inventory.", "artifacts", missing=missing, unexpected=unexpected))
+                    errors.append(error("artifact_inventory_mismatch", "Paths must equal the v11.3 candidate inventory.", "artifacts", missing=missing, unexpected=unexpected))
                 for relative_path in sorted(set(expected) & set(actual)):
                     if actual[relative_path] != expected[relative_path]:
                         errors.append(error("artifact_role_mismatch", "Artifact role differs from candidate inventory.", relative_path, expected=expected[relative_path], actual=actual[relative_path]))
@@ -181,9 +181,9 @@ def validate_v11_2_release_manifest(path: Path, *, verify_live_artifacts: bool =
 
 def main() -> int:
     if len(sys.argv) not in {2, 3} or (len(sys.argv) == 3 and sys.argv[2] != "--verify-live-artifacts"):
-        print("Usage: validate_frozen_release_manifest_v11_2.py <path> [--verify-live-artifacts]", file=sys.stderr)
+        print("Usage: validate_frozen_release_manifest_v11_3.py <path> [--verify-live-artifacts]", file=sys.stderr)
         return 2
-    result = validate_v11_2_release_manifest(Path(sys.argv[1]), verify_live_artifacts=len(sys.argv) == 3)
+    result = validate_v11_3_release_manifest(Path(sys.argv[1]), verify_live_artifacts=len(sys.argv) == 3)
     print(json.dumps(result, indent=2, ensure_ascii=False, sort_keys=True))
     return 0 if result["status"] == "passed" else 1
 

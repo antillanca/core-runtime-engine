@@ -8,6 +8,7 @@ from typing import Any, TypedDict
 
 from core_runtime.core.canonicalization import canonical_json_hash
 from core_runtime.core.contract_evaluator import evaluate_contract_payload, input_fingerprint
+from core_runtime.core.contract_program_registry import execute_registry_operation
 
 
 class ContractProgramExecution(TypedDict):
@@ -86,6 +87,16 @@ def execute_contract_program(program: Mapping[str, Any], sealed_inputs: Mapping[
                     break
                 if instruction["operation"] == "copy":
                     values[instruction["output"]] = copy.deepcopy(values[keys[0]])
+                elif instruction["operation"] == "registry":
+                    try:
+                        values[instruction["output"]] = execute_registry_operation(
+                            instruction["registry_key"],
+                            [values[key] for key in keys],
+                        )
+                    except ValueError as exc:
+                        execution["status"] = "blocked"
+                        execution["errors"].append(_error("registry_operation_failed", str(exc), f"{field}.registry_key"))
+                        break
                 else:
                     values[instruction["output"]] = len(keys)
             elif opcode == "transition":

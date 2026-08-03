@@ -23,6 +23,7 @@ from jsonschema.validators import validator_for
 
 from core_runtime.core.canonicalization import canonical_json_hash
 from core_runtime.core.contract_loader import available_contracts, load_contract_schema
+from core_runtime.core.contract_program_registry import validate_registry_program
 
 
 FINGERPRINT_RE = re.compile(r"^sha256:[a-f0-9]{64}$")
@@ -536,6 +537,12 @@ def _validate_contract_program(payload: dict[str, Any]) -> SemanticResult:
                 errors.append(error("program_transition_noop", "Staged before_ref and after_ref must differ.", f"instructions[{index}].after_ref"))
             if opcode == "derive" and instruction.get("operation") == "copy" and len(instruction.get("input_keys", [])) != 1:
                 errors.append(error("program_copy_arity", "copy derivation requires exactly one input key.", f"instructions[{index}].input_keys"))
+            if opcode == "derive" and instruction.get("operation") == "registry":
+                registry_errors = validate_registry_program({"instructions": [instruction]})
+                errors.extend(
+                    error("registry_instruction_invalid", message, f"instructions[{index}]")
+                    for message in registry_errors
+                )
 
     return errors, [], {
         "execution_authorized": False,

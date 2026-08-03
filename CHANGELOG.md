@@ -2,6 +2,26 @@
 
 ## Unreleased
 
+## v11.3.0
+
+### Added
+
+- Added the generic, finite `core.contract_program.registry.v1` operation
+  surface with deterministic evaluator/runtime parity.
+- Added a new v11.3.0 candidate and frozen release-manifest line.
+
+### Fixed
+
+- Historical frozen-manifest validation now checks the recorded artifact
+  contract by default; live byte comparison is explicit.
+
+### Notes
+
+- Contract programs remain validation-only and non-authorizing.
+- DSK v2 private semantics, fixtures and consumer vocabulary remain outside
+  CORE.
+- Release tag, push, anchoring and promotion require separate approval.
+
 ## v11.2.1
 
 ### Changed

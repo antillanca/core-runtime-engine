@@ -13,7 +13,10 @@ from core_runtime.core.contract_evaluator import (
     executable_contract_versions,
     validate_contract_structure,
 )
-from core_runtime.core.contract_executability import audit_contract_executability
+from core_runtime.core.contract_executability import (
+    STANDALONE_EXECUTABLE_CONTRACTS,
+    audit_contract_executability,
+)
 from core_runtime.core.contract_probes import (
     accepted_contract_payloads,
     executable_contract_probes,
@@ -83,6 +86,17 @@ def test_executability_audit_covers_every_public_core_schema_and_is_deterministi
     assert first["failed_count"] == 0
     assert first["public_schema_count"] == len(list((ROOT / "schemas" / "core").glob("*.json")))
     assert all(row["mechanism"] != "unclassified" for row in first["public_schema_inventory"])
+
+
+def test_v11_3_manifest_contracts_have_exact_standalone_validator_bindings() -> None:
+    assert STANDALONE_EXECUTABLE_CONTRACTS["core.frozen_release_manifest.v4"] == (
+        "scripts.validate_frozen_release_manifest_v11_3",
+        "validate_v11_3_release_manifest",
+    )
+    assert STANDALONE_EXECUTABLE_CONTRACTS["core.frozen_release_manifest.v5"] == (
+        "scripts.validate_frozen_release_manifest_v11_3_frozen",
+        "validate_v11_3_frozen_release_manifest",
+    )
 
 
 def test_contract_evaluator_cli_has_stable_standard_envelope(tmp_path: Path) -> None:
