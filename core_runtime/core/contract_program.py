@@ -90,12 +90,14 @@ def execute_contract_program(program: Mapping[str, Any], sealed_inputs: Mapping[
                 elif instruction["operation"] == "registry":
                     try:
                         values[instruction["output"]] = execute_registry_operation(
-                            instruction["registry_key"],
+                            str(instruction["registry_key"]),
                             [values[key] for key in keys],
                         )
-                    except ValueError as exc:
+                    except (KeyError, TypeError, ValueError) as exc:
                         execution["status"] = "blocked"
-                        execution["errors"].append(_error("registry_operation_failed", str(exc), f"{field}.registry_key"))
+                        execution["errors"].append(
+                            _error("registry_operation_rejected", str(exc), f"{field}.registry_key")
+                        )
                         break
                 else:
                     values[instruction["output"]] = len(keys)
