@@ -1,0 +1,96 @@
+{
+  "schema_version": "core.contract_program.v2",
+  "contract_id": "test.dsk_v3.rejected.authority_violation",
+  "eslabones": [
+    {
+      "name": "PERFIL",
+      "dsk_declaration": {
+        "composition_rule": "rule_perfil",
+        "declared_loss": {
+          "properties": [
+            "x"
+          ],
+          "evidence_refs": [
+            "e"
+          ]
+        },
+        "authority_ceiling": "invalid_ceiling"
+      }
+    },
+    {
+      "name": "VOCABULARIO",
+      "dsk_declaration": {
+        "composition_rule": "rule_vocabulario",
+        "declared_loss": {
+          "properties": [
+            "x"
+          ],
+          "evidence_refs": [
+            "e"
+          ]
+        },
+        "authority_ceiling": "advisory_only"
+      }
+    },
+    {
+      "name": "QUERYSPEC",
+      "dsk_declaration": {
+        "composition_rule": "rule_queryspec",
+        "declared_loss": {
+          "properties": [
+            "x"
+          ],
+          "evidence_refs": [
+            "e"
+          ]
+        },
+        "authority_ceiling": "advisory_only"
+      }
+    },
+    {
+      "name": "RESULTADO",
+      "dsk_declaration": {
+        "composition_rule": "rule_resultado",
+        "declared_loss": {
+          "properties": [
+            "x"
+          ],
+          "evidence_refs": [
+            "e"
+          ]
+        },
+        "authority_ceiling": "advisory_only"
+      }
+    },
+    {
+      "name": "VISTA",
+      "dsk_declaration": {
+        "composition_rule": "rule_vista",
+        "declared_loss": {
+          "properties": [
+            "x"
+          ],
+          "evidence_refs": [
+            "e"
+          ]
+        },
+        "authority_ceiling": "advisory_only"
+      }
+    },
+    {
+      "name": "EVIDENCIA",
+      "dsk_declaration": {
+        "composition_rule": "rule_evidencia",
+        "declared_loss": {
+          "properties": [
+            "x"
+          ],
+          "evidence_refs": [
+            "e"
+          ]
+        },
+        "authority_ceiling": "advisory_only"
+      }
+    }
+  ]
+}

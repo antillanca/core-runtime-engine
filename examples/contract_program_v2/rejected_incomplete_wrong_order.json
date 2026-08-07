@@ -1,0 +1,107 @@
+{
+  "schema_version": "core.contract_program.v2",
+  "contract_id": "test.dsk_v3.rejected.incomplete_wrong_order",
+  "eslabones": [
+    {
+      "name": "EVIDENCIA",
+      "dsk_declaration": {
+        "composition_rule": "linear_first_to_last_evidencia",
+        "declared_loss": {
+          "properties": [
+            "distilled_signature"
+          ],
+          "evidence_refs": [
+            "fixtures/accepted_evidencia.json"
+          ]
+        },
+        "authority_ceiling": "advisory_only"
+      }
+    },
+    {
+      "name": "VOCABULARIO",
+      "dsk_declaration": {
+        "composition_rule": "linear_first_to_last_vocabulario",
+        "declared_loss": {
+          "properties": [
+            "distilled_signature"
+          ],
+          "evidence_refs": [
+            "fixtures/accepted_vocabulario.json"
+          ]
+        },
+        "authority_ceiling": "advisory_only"
+      }
+    },
+    {
+      "name": "QUERYSPEC",
+      "dsk_declaration": {
+        "composition_rule": "linear_first_to_last_queryspec",
+        "declared_loss": {
+          "properties": [
+            "distilled_signature"
+          ],
+          "evidence_refs": [
+            "fixtures/accepted_queryspec.json"
+          ]
+        },
+        "authority_ceiling": "advisory_only"
+      }
+    },
+    {
+      "name": "RESULTADO",
+      "dsk_declaration": {
+        "composition_rule": "linear_first_to_last_resultado",
+        "declared_loss": {
+          "properties": [
+            "distilled_signature"
+          ],
+          "evidence_refs": [
+            "fixtures/accepted_resultado.json"
+          ]
+        },
+        "authority_ceiling": "advisory_only"
+      }
+    },
+    {
+      "name": "VISTA",
+      "dsk_declaration": {
+        "composition_rule": "linear_first_to_last_vista",
+        "declared_loss": {
+          "properties": [
+            "distilled_signature"
+          ],
+          "evidence_refs": [
+            "fixtures/accepted_vista.json"
+          ]
+        },
+        "authority_ceiling": "advisory_only"
+      }
+    },
+    {
+      "name": "PERFIL",
+      "dsk_declaration": {
+        "composition_rule": "linear_first_to_last_perfil",
+        "declared_loss": {
+          "properties": [
+            "distilled_signature"
+          ],
+          "evidence_refs": [
+            "fixtures/accepted_signatures.json"
+          ]
+        },
+        "authority_ceiling": "advisory_only",
+        "temporal_invariant": {
+          "captured_at": "2026-08-07T12:00:00Z",
+          "valid_until": "2026-09-07T12:00:00Z"
+        },
+        "translation_map": {
+          "source_field": "profile_name",
+          "target_field": "profile_label"
+        },
+        "paraphrase_intent": {
+          "confirmed_by": "operator"
+        }
+      }
+    }
+  ]
+}

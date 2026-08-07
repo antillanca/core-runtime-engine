@@ -1,0 +1,32 @@
+{
+  "schema_version": "core.contract_program.v2",
+  "contract_id": "test.dsk_v3.rejected.incomplete_wrong_count",
+  "eslabones": [
+    {
+      "name": "PERFIL",
+      "dsk_declaration": {
+        "composition_rule": "linear_first_to_last_perfil",
+        "declared_loss": {
+          "properties": [
+            "distilled_signature"
+          ],
+          "evidence_refs": [
+            "fixtures/accepted_signatures.json"
+          ]
+        },
+        "authority_ceiling": "advisory_only",
+        "temporal_invariant": {
+          "captured_at": "2026-08-07T12:00:00Z",
+          "valid_until": "2026-09-07T12:00:00Z"
+        },
+        "translation_map": {
+          "source_field": "profile_name",
+          "target_field": "profile_label"
+        },
+        "paraphrase_intent": {
+          "confirmed_by": "operator"
+        }
+      }
+    }
+  ]
+}
