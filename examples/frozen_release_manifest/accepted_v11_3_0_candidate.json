@@ -84,7 +84,7 @@
     {
       "path": "core_runtime/core/contract_executability.py",
       "role": "runtime",
-      "file_sha256": "sha256:cb506bf47e53dbe7141f1ae0ba18d606e5af174fd19147d19d0e1b0259812956"
+      "file_sha256": "sha256:2049aa2443f7f278c19ec8b3d4918d0378bbfa4b9513fce7dcfcb69a8a43a86e"
     },
     {
       "path": "core_runtime/core/contract_loader.py",
@@ -99,7 +99,7 @@
     {
       "path": "core_runtime/core/contract_program.py",
       "role": "runtime",
-      "file_sha256": "sha256:b0f81ac3fd291432be528d6e20c3d0c7c8cec00847d26fec945a12bd0c284a0e"
+      "file_sha256": "sha256:653a4f0a835530cd482b5e25d3f044c3395e97f6c8872c19e2d369f157cc3041"
     },
     {
       "path": "core_runtime/core/rule_anchor.py",
@@ -619,7 +619,7 @@
     {
       "path": "scripts/verify_release.py",
       "role": "script",
-      "file_sha256": "sha256:e06fda94ddb6bb4f9987bc128f812f479d8a345a9fcf2d8835ea890994a1e30a"
+      "file_sha256": "sha256:fbf18168bd6cf1681003a995de7fb37c15c4cc74e68535569048639c0a2d77cd"
     },
     {
       "path": "scripts/verify_rule_anchor_onchain.py",
@@ -742,5 +742,5 @@
       "file_sha256": "sha256:0f04f258a19471076b2e587d7da4dace6c4552e0559df4974d03db07a75e483c"
     }
   ],
-  "fingerprint": "sha256:1fa55b78a90fc25143f0f515d3c2440d15381241cba530c711e0c7c0a7550332"
+  "fingerprint": "sha256:d08fcf76d644e6b6b60a8a8db04c3ccfa948ce9f87bca3de2b3e9572921f36f7"
 }

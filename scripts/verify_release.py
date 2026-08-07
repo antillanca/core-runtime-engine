@@ -355,6 +355,11 @@ FROZEN_RELEASE_MANIFEST_CHECKS = {
         "scripts/validate_frozen_release_manifest_v11_3_frozen.py",
         "examples/frozen_release_manifest/accepted_v11_3_0.json",
     ],
+    "frozen_release_manifest_v11_4_candidate_accepted": [
+        sys.executable,
+        "scripts/validate_frozen_release_manifest_v11_4.py",
+        "examples/frozen_release_manifest/accepted_v11_4_0_candidate.json",
+    ],
 }
 
 EXECUTABLE_CONTRACT_CHECKS = {

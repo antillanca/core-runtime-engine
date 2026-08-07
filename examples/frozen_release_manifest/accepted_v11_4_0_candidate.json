@@ -1,20 +1,21 @@
 {
-  "schema_version": "core.frozen_release_manifest.v5",
+  "schema_version": "core.frozen_release_manifest.v6",
   "type": "frozen_release_manifest",
-  "release_version": "v11.3.0",
-  "status": "frozen",
-  "scope": "deterministic_contract_program_surface",
-  "inventory_profile": "core.contract_program_release.v11_3",
+  "release_version": "v11.4.0",
+  "status": "candidate",
+  "scope": "contractual_reproducible_evaluation_dsk_v3",
+  "inventory_profile": "core.contract_program_v2_release.v11_4_candidate",
   "critical_subsystems": [
     "contract_program",
+    "contract_program_v2",
     "executable_contracts",
     "release_integrity"
   ],
   "self_reference_policy": "manifest_file_excluded_fingerprint_covers_inventory",
   "canonicalization": "core.canonical_json.v1",
   "hash_algorithm": "sha256",
-  "frozen_at": "2026-08-02T21:33:00Z",
-  "artifact_count": 151,
+  "created_at": "2026-08-07T20:16:35Z",
+  "artifact_count": 161,
   "artifacts": [
     {
       "path": ".github/workflows/replay-certification.yml",
@@ -102,6 +103,11 @@
       "file_sha256": "sha256:653a4f0a835530cd482b5e25d3f044c3395e97f6c8872c19e2d369f157cc3041"
     },
     {
+      "path": "core_runtime/core/contract_program_v2.py",
+      "role": "runtime",
+      "file_sha256": "sha256:9902db821a7531b1aa40a41645441b91af0a78dff01b0a2fcb1c7db3b215381b"
+    },
+    {
       "path": "core_runtime/core/rule_anchor.py",
       "role": "runtime",
       "file_sha256": "sha256:7bf68afe068641fb522c9e00aa8180d04fcc854805fdcf2242719502046fc4f1"
@@ -157,9 +163,9 @@
       "file_sha256": "sha256:54359604dd76f08915d1e1062d697de849a08e543ad0b4b5cf91747492cef025"
     },
     {
-      "path": "docs/releases/v11.3.0.md",
+      "path": "docs/releases/v11.4.0-candidate.md",
       "role": "documentation",
-      "file_sha256": "sha256:d099bb06a7535a63963636176dd65abbe6ade224760d002db68e36839b46bf89"
+      "file_sha256": "sha256:02311830374cb54ae499f6638f9dc62f2da0328c94e9602bd16ec5175e68bf8a"
     },
     {
       "path": "examples/anchoring/accepted_freeze_artifact.json",
@@ -257,6 +263,51 @@
       "file_sha256": "sha256:a611c8cfa69146765534990e990252d2015f5bc43a0c6ead0e7230a52ee90fc0"
     },
     {
+      "path": "examples/contract_program_v2/accepted_v1.json",
+      "role": "example",
+      "file_sha256": "sha256:1144e785e4cdf8d6234eb72f6f4127756d5a9814f93bb1253b93decd7c567e2d"
+    },
+    {
+      "path": "examples/contract_program_v2/rejected_authority_violation.json",
+      "role": "example",
+      "file_sha256": "sha256:990d0e70207e5fc1b677b9440aae43dea18bc05f205640d3c1626d03c9415591"
+    },
+    {
+      "path": "examples/contract_program_v2/rejected_incomplete_wrong_count.json",
+      "role": "example",
+      "file_sha256": "sha256:66a9b7b9c53c8414ef91ad08fe2fa7bc4a0a5a541aa6801174f557647919c4f9"
+    },
+    {
+      "path": "examples/contract_program_v2/rejected_incomplete_wrong_order.json",
+      "role": "example",
+      "file_sha256": "sha256:dd07875666b931ac4dbdc06ff2029f6be8d33f726aebcc2547eac4f5526ae88a"
+    },
+    {
+      "path": "examples/contract_program_v2/rejected_intent_unconfirmed.json",
+      "role": "example",
+      "file_sha256": "sha256:05192eacc57473fb677907ee016048aa3dfcfbcb4dcfd05035a0e8f68bb1ac30"
+    },
+    {
+      "path": "examples/contract_program_v2/rejected_loss_undeclared.json",
+      "role": "example",
+      "file_sha256": "sha256:88cca88c6584c41107f788552318123f8ce6eedcaaf880b268c2e09b0fde8f88"
+    },
+    {
+      "path": "examples/contract_program_v2/rejected_scale_violation.json",
+      "role": "example",
+      "file_sha256": "sha256:0e87dfd1a917916738dd135d5a3bcfb1f52a6647f12929d2d7f47673bf6a0a49"
+    },
+    {
+      "path": "examples/contract_program_v2/rejected_temporal_violation.json",
+      "role": "example",
+      "file_sha256": "sha256:203626fc05885012d205d8b2027d1cb517521f1c60a59c05bbb3cef0e32f6020"
+    },
+    {
+      "path": "examples/contract_program_v2/rejected_translation_missing.json",
+      "role": "example",
+      "file_sha256": "sha256:b99a630e1277d527df6ae694436c2fa8f41d9d2235e30a83e4588dfa0515fdda"
+    },
+    {
       "path": "examples/core_contracts/causal_trace.v1.json",
       "role": "example",
       "file_sha256": "sha256:5db15112ede884610b0784ce32d1932eb43738665967c3620aceafe9c9310127"
@@ -275,11 +326,6 @@
       "path": "examples/core_contracts/memory_artifact.v1.json",
       "role": "example",
       "file_sha256": "sha256:4dd510678fde110f67f87876b169f5e08b51fcede7cedec1c948943ea2d8c9e6"
-    },
-    {
-      "path": "examples/frozen_release_manifest/accepted_v11_3_0_candidate.json",
-      "role": "example",
-      "file_sha256": "sha256:d478f01e46d68a852d49e1da9319aec268e19c97fad35b8cfe782c375d66ccee"
     },
     {
       "path": "examples/frozen_rules/general_cooperative_supply.json",
@@ -382,6 +428,11 @@
       "file_sha256": "sha256:ffa63f894b27b97b56507ecb8a32e28d67446da8b9ac9331780872e5e2fd8932"
     },
     {
+      "path": "schemas/core/contract_program.v2.json",
+      "role": "schema",
+      "file_sha256": "sha256:62e7fbdee08c8ca2a8ad8f12c5b1d11daecaf956ef53d9c7ed326b117fd7699b"
+    },
+    {
       "path": "schemas/core/control_decision.v1.json",
       "role": "schema",
       "file_sha256": "sha256:97873d8fe0049518a52f1adf64ff2da5cf35b0c8d0034fff2997636dd0ff8577"
@@ -410,11 +461,6 @@
       "path": "schemas/core/frozen_release_manifest.v4.json",
       "role": "schema",
       "file_sha256": "sha256:d55269d7f5569a0cc355481c4d0c045fb9688dbbd6ae40254bc1911f83089590"
-    },
-    {
-      "path": "schemas/core/frozen_release_manifest.v5.json",
-      "role": "schema",
-      "file_sha256": "sha256:0740ec3a43aee134f73fb25533bd20a57f6b13be4869e640bb3cb9fd68e77dce"
     },
     {
       "path": "schemas/core/frozen_rule_set.v1.json",
@@ -522,9 +568,9 @@
       "file_sha256": "sha256:18f8ede5f4b6a7fffae25919472aa3ef983bdd259fd7a7e5f73ac15448c4ac01"
     },
     {
-      "path": "scripts/build_frozen_release_manifest_v11_3_frozen.py",
+      "path": "scripts/build_frozen_release_manifest_v11_4.py",
       "role": "script",
-      "file_sha256": "sha256:5e694928a12d8a202f31db6f586d21178d2b4f4f26aaf7b6696c43cd8684fd9e"
+      "file_sha256": "sha256:2649339e7c9c9f3d3f32fa31902eda3a92c2ba2b25751427f26df8d8611c6f1e"
     },
     {
       "path": "scripts/build_merkle_batch.py",
@@ -607,9 +653,9 @@
       "file_sha256": "sha256:7618b50aff508a2749cde8a6545ae2257877c21042f389d8bdd9cb01a301bbca"
     },
     {
-      "path": "scripts/validate_frozen_release_manifest_v11_3_frozen.py",
+      "path": "scripts/validate_frozen_release_manifest_v11_4.py",
       "role": "script",
-      "file_sha256": "sha256:cbd5570356a3d7b5e2ac73577d27930264c89a556ce3bad81c3251dbd7bc895a"
+      "file_sha256": "sha256:fa70e49c4345dcf804d21cf43e3761852c26abe084e0d9b7e9eef4dda3b78352"
     },
     {
       "path": "scripts/validate_frozen_rule_set.py",
@@ -672,6 +718,11 @@
       "file_sha256": "sha256:0e9678a4a3d2a2e6c880b0cbd1a91262f881bce518623a263b6b24b268884663"
     },
     {
+      "path": "tests/test_contract_program_v2.py",
+      "role": "test",
+      "file_sha256": "sha256:8dacd9984cc03a9bd8f22d7e161f5d8caff0a401b1e74e79508bc771a54433c5"
+    },
+    {
       "path": "tests/test_control_plane_contracts.py",
       "role": "test",
       "file_sha256": "sha256:05950f06b0bfa828cf63963b330b35aa416c03723bf4f62ed29955daf238bba6"
@@ -712,9 +763,9 @@
       "file_sha256": "sha256:245e0f5d8339f9e34032418e36dc1de9ac0f82254e82f2f007cb76300a1f8eef"
     },
     {
-      "path": "tests/test_frozen_release_manifest_v11_3_frozen.py",
+      "path": "tests/test_frozen_release_manifest_v11_4.py",
       "role": "test",
-      "file_sha256": "sha256:d980782ada8d7f98c61adafe50d4e57701b514e26a5ace695011d2dbd8881afe"
+      "file_sha256": "sha256:63b8910c06ec061caa9ef94bc3af07c9052b0ac29587f1a659cdaf2eeb9b70f3"
     },
     {
       "path": "tests/test_frozen_rule_set_validator.py",
@@ -772,5 +823,5 @@
       "file_sha256": "sha256:0f04f258a19471076b2e587d7da4dace6c4552e0559df4974d03db07a75e483c"
     }
   ],
-  "fingerprint": "sha256:f283c7fda04a2fd97e8e8421b3bb51013a4896bdcf15d494a39906be5cc9b899"
+  "fingerprint": "sha256:c0b1aa29ee981cf977adfbfc6825a679da9aa7301987b562ed300d2c50f7702b"
 }
