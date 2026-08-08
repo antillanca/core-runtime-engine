@@ -14,7 +14,7 @@
   "self_reference_policy": "manifest_file_excluded_fingerprint_covers_inventory",
   "canonicalization": "core.canonical_json.v1",
   "hash_algorithm": "sha256",
-  "created_at": "2026-08-07T20:16:35Z",
+  "created_at": "2026-08-08T01:07:06Z",
   "artifact_count": 161,
   "artifacts": [
     {
@@ -690,7 +690,7 @@
     {
       "path": "scripts/verify_release.py",
       "role": "script",
-      "file_sha256": "sha256:fbf18168bd6cf1681003a995de7fb37c15c4cc74e68535569048639c0a2d77cd"
+      "file_sha256": "sha256:f946582f1c1ef3cd0613fbc268f9e5109aa4d31b10fa5122e83540d95eadbc6d"
     },
     {
       "path": "scripts/verify_rule_anchor_onchain.py",
@@ -720,7 +720,7 @@
     {
       "path": "tests/test_contract_program_v2.py",
       "role": "test",
-      "file_sha256": "sha256:8dacd9984cc03a9bd8f22d7e161f5d8caff0a401b1e74e79508bc771a54433c5"
+      "file_sha256": "sha256:2751526592456b18ae1d9fd1c28d3c33bf02a0420dae385a3c855542061bb9f7"
     },
     {
       "path": "tests/test_control_plane_contracts.py",
@@ -760,7 +760,7 @@
     {
       "path": "tests/test_frozen_release_manifest_v11_3.py",
       "role": "test",
-      "file_sha256": "sha256:245e0f5d8339f9e34032418e36dc1de9ac0f82254e82f2f007cb76300a1f8eef"
+      "file_sha256": "sha256:49f5c03f7266564a3cedf0612188daeb60964c6db925788b266f1c068072eb99"
     },
     {
       "path": "tests/test_frozen_release_manifest_v11_4.py",
@@ -823,5 +823,5 @@
       "file_sha256": "sha256:0f04f258a19471076b2e587d7da4dace6c4552e0559df4974d03db07a75e483c"
     }
   ],
-  "fingerprint": "sha256:9ad1a1452ecce7741e4c12a10c7ee118714bf47fe055b01f567db1907c87ed4d"
+  "fingerprint": "sha256:45c8f1afcf3882eb5b540d8128c56ab468ce99eef6f4e62ce5d8d10a3cf7e6ad"
 }

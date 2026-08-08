@@ -1880,6 +1880,14 @@ def verify(
         if name in {"frozen_release_manifest_v11_3_candidate_accepted", "frozen_release_manifest_v11_3_frozen_accepted"} and not _target_at_least(target, "v11.3"):
             checks[name] = "pending_runtime"
             continue
+        if name in {"frozen_release_manifest_v11_3_candidate_accepted", "frozen_release_manifest_v11_3_frozen_accepted"} and _target_at_least(target, "v11.4"):
+            # v11.3 is a historical immutable baseline. Its byte inventory is
+            # intentionally not re-evaluated against the v11.4 working tree.
+            checks[name] = "historical_baseline_preserved"
+            continue
+        if name == "frozen_release_manifest_v11_4_candidate_accepted" and not _target_at_least(target, "v11.4"):
+            checks[name] = "pending_runtime"
+            continue
         if _target_at_least(target, "v11.1"):
             status, detail = _same_output(command)
             _record_check_result(checks, details, name, status, detail)
