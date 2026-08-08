@@ -25,12 +25,12 @@
     {
       "path": "CHANGELOG.md",
       "role": "documentation",
-      "file_sha256": "sha256:a4c23b9e9ad6bc6defa0e75a468bc5e8f9636ff06c5b167e0932ee20b552f2f2"
+      "file_sha256": "sha256:f20a6e32ed6fe08f7ae1c6c2bed64650b6256321b2e2b4ff930493c52ad6db87"
     },
     {
       "path": "README.md",
       "role": "documentation",
-      "file_sha256": "sha256:8d8ce6bc7f2b7b0122e7d7cf6760e0556d8f94bb6b35ef5c6c1fb12cbcd08029"
+      "file_sha256": "sha256:995948fb5ae709bca103d631a3df269f6ea2a7832464e0b91aba22884224bf6e"
     },
     {
       "path": "contracts/CoreRuleAnchor.abi.json",
@@ -60,7 +60,7 @@
     {
       "path": "core_runtime/__version__.py",
       "role": "release_metadata",
-      "file_sha256": "sha256:de92710930c4dcfbda56e86b5e5fde430d00107457da79a336f20664e161b189"
+      "file_sha256": "sha256:36a216a75a64596a8e0f7e83f231181efd9a4f842ed3cac84327c0188aa73e5b"
     },
     {
       "path": "core_runtime/cli/__init__.py",
@@ -70,7 +70,7 @@
     {
       "path": "core_runtime/core/__init__.py",
       "role": "runtime",
-      "file_sha256": "sha256:04c87494794ae7a92b97b9951867e0874a77edade4ce3d54cfa50a250e81c433"
+      "file_sha256": "sha256:8822a7991e61d2d0fe84a139b610ae7edaa60c4cee28ef714cded8062d90cf7d"
     },
     {
       "path": "core_runtime/core/canonicalization.py",
@@ -120,7 +120,7 @@
     {
       "path": "docs/CORE_RELEASE_README.md",
       "role": "documentation",
-      "file_sha256": "sha256:244438bbe311c17929ed71744d04b65e4014fa457bce3765f672a1c0912d74aa"
+      "file_sha256": "sha256:f43feccc0ec48f59bd3c7ee068a0d0263e30671489ec109d8889d72c65812437"
     },
     {
       "path": "docs/EXECUTABLE_CONTRACTS_AND_PHYSICAL_SAFETY.md",
@@ -145,7 +145,7 @@
     {
       "path": "docs/VERSIONING_POLICY.md",
       "role": "documentation",
-      "file_sha256": "sha256:f8c5db5677d0dda002ece74b1e8bfbb4e1b0480b58210db0f444b2d40c850c16"
+      "file_sha256": "sha256:ea676b9538b8c8fbf6364f9d413df3f3369d93b19cdd32da5e5bb9b01ab0e3f2"
     },
     {
       "path": "docs/releases/README.md",
@@ -380,7 +380,7 @@
     {
       "path": "pyproject.toml",
       "role": "release_metadata",
-      "file_sha256": "sha256:1d647720930b2b01abc8208246677e2541b8fa6d84e9e176ccb417438cc938d3"
+      "file_sha256": "sha256:ee195e0a932d4744b370513c6809290786c6084bd7166695334ed3b85cb7632b"
     },
     {
       "path": "requirements-dev.txt",
@@ -823,5 +823,5 @@
       "file_sha256": "sha256:0f04f258a19471076b2e587d7da4dace6c4552e0559df4974d03db07a75e483c"
     }
   ],
-  "fingerprint": "sha256:c0b1aa29ee981cf977adfbfc6825a679da9aa7301987b562ed300d2c50f7702b"
+  "fingerprint": "sha256:9ad1a1452ecce7741e4c12a10c7ee118714bf47fe055b01f567db1907c87ed4d"
 }

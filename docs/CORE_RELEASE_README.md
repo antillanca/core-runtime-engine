@@ -1,6 +1,6 @@
 # CORE Release Overview
 
-CORE: v11.3.0 — deterministic contract, schema and validation engine.
+CORE: v11.4.0 — deterministic contract, schema and validation engine.
 
 See [../README.md](../README.md) for what CORE is and how it's consumed.
 See [releases/v11.3.0.md](releases/v11.3.0.md) for what changed in this

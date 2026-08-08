@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-## v11.3.0
+## v11.4.0
 
 ### Added
 

@@ -142,5 +142,5 @@ def test_contract_id_is_preserved_in_result() -> None:
 def test_public_runtime_contains_no_private_vocabulary() -> None:
     source = (ROOT / "core_runtime" / "core" / "contract_program_v2.py").read_text(encoding="utf-8").lower()
     # privacy-guard:allow -- asserts these are absent, does not leak them
-    for forbidden in ("hermes", "simplerestobar", "srb", "private"):
+    for forbidden in ("hermes", "simplerestobar", "srb", "private"):  # privacy-guard:allow -- asserts absence, does not leak
         assert forbidden not in source
