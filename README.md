@@ -1,4 +1,4 @@
-# CORE v11.4.0 — Contract-Oriented Reproducible Evaluation
+# CORE v11.5.0 — Contract-Oriented Reproducible Evaluation
 
 CORE validates artifacts against public contracts: JSON schemas, fingerprints,
 manifests and bounded evidence windows. It never executes domain business

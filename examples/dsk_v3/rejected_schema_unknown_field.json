@@ -1,0 +1,15 @@
+{
+  "schema_version": "core.dsk.v3",
+  "dsk_id": "invalid-extra-field",
+  "crossing": {
+    "source": {"resource": "mass", "unit": "gram", "value": 1},
+    "target": {"resource": "mass", "unit": "kilogram"},
+    "conversion": {"source_unit": "gram", "target_unit": "kilogram", "numerator": 1, "denominator": 1000},
+    "composition_rule": "single rational conversion",
+    "declared_loss": ["none declared"],
+    "evidence_refs": ["fixture:invalid-extra-field"],
+    "unexpected": true
+  },
+  "authority": {"ceiling": "advisory_only", "source": "source_declaration"},
+  "captured_at": "2026-08-08T00:00:00Z"
+}

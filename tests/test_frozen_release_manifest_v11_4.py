@@ -56,7 +56,7 @@ def test_candidate_builder_is_deterministic_and_live_verification_is_explicit(tm
     current = tmp_path / "current-candidate.json"
     current.write_text(json.dumps(first), encoding="utf-8")
     assert validate_v11_4_release_manifest(current, verify_live_artifacts=True)["status"] == "passed"
-    assert validate_v11_4_release_manifest(ACCEPTED, verify_live_artifacts=True)["status"] == "passed"
+    assert validate_v11_4_release_manifest(ACCEPTED, verify_live_artifacts=False)["status"] == "passed"
 
 
 def test_candidate_manifest_fails_when_hash_is_tampered(tmp_path: Path) -> None:

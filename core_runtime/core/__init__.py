@@ -18,6 +18,7 @@ from core_runtime.core.contract_evaluator import (
 )
 from core_runtime.core.contract_program import execute_contract_program
 from core_runtime.core.contract_program_v2 import evaluate_contract_v2
+from core_runtime.core.dsk_v3 import evaluate_dsk_v3
 
 __all__ = [
     "available_contracts",
@@ -26,6 +27,7 @@ __all__ = [
     "evaluate_contract_file",
     "evaluate_contract_payload",
     "evaluate_contract_v2",
+    "evaluate_dsk_v3",
     "execute_contract_program",
     "executable_contract_versions",
     "load_contract_schema",

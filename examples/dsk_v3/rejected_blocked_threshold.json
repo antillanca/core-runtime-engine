@@ -1,0 +1,15 @@
+{
+  "schema_version": "core.dsk.v3",
+  "dsk_id": "threshold-blocked",
+  "crossing": {
+    "source": {"resource": "signal", "unit": "unit", "value": 2},
+    "target": {"resource": "signal", "unit": "unit"},
+    "conversion": {"source_unit": "unit", "target_unit": "unit", "numerator": 1, "denominator": 1},
+    "composition_rule": "identity crossing",
+    "declared_loss": ["none declared"],
+    "evidence_refs": ["fixture:threshold-blocked"]
+  },
+  "authority": {"ceiling": "advisory_only", "source": "source_declaration"},
+  "captured_at": "2026-08-08T00:00:00Z",
+  "policies": {"threshold": {"minimum_value": 3}}
+}

@@ -360,6 +360,12 @@ FROZEN_RELEASE_MANIFEST_CHECKS = {
         "scripts/validate_frozen_release_manifest_v11_4.py",
         "examples/frozen_release_manifest/accepted_v11_4_0_candidate.json",
     ],
+    "frozen_release_manifest_v11_5_candidate_accepted": [
+        sys.executable,
+        "scripts/validate_frozen_release_manifest_v11_5.py",
+        "examples/frozen_release_manifest/accepted_v11_5_0_candidate.json",
+        "--verify-live-artifacts",
+    ],
 }
 
 EXECUTABLE_CONTRACT_CHECKS = {
@@ -1886,6 +1892,9 @@ def verify(
             checks[name] = "historical_baseline_preserved"
             continue
         if name == "frozen_release_manifest_v11_4_candidate_accepted" and not _target_at_least(target, "v11.4"):
+            checks[name] = "pending_runtime"
+            continue
+        if name == "frozen_release_manifest_v11_5_candidate_accepted" and not _target_at_least(target, "v11.5"):
             checks[name] = "pending_runtime"
             continue
         if _target_at_least(target, "v11.1"):

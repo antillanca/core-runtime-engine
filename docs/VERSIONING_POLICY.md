@@ -4,7 +4,7 @@
 
 CORE follows strict semantic versioning (MAJOR.MINOR.PATCH).
 
-- **Current**: v11.4.0
+- **Current**: v11.5.0
 - **MAJOR**: breaking changes to public schemas, validator CLI contracts,
   or frozen fingerprint/canonicalization semantics.
 - **MINOR**: new schemas, new validator scripts, new CLI subcommands

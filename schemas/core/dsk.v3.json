@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://core-runtime-engine.local/schemas/core/dsk.v3.json",
+  "title": "Deterministic Scale Kernel v3",
+  "description": "One explicit, typed and reproducible scale crossing.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "dsk_id", "crossing", "authority", "captured_at"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "core.dsk.v3"},
+    "dsk_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "crossing": {"$ref": "#/$defs/crossing"},
+    "authority": {"$ref": "#/$defs/authority"},
+    "captured_at": {"type": "string", "minLength": 1, "maxLength": 64},
+    "policies": {"$ref": "#/$defs/policies"}
+  },
+  "$defs": {
+    "quantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resource", "unit"],
+      "properties": {
+        "resource": {"type": "string", "minLength": 1, "maxLength": 128},
+        "unit": {"type": "string", "minLength": 1, "maxLength": 128},
+        "value": {"type": "number"}
+      }
+    },
+    "conversion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_unit", "target_unit", "numerator", "denominator"],
+      "properties": {
+        "source_unit": {"type": "string", "minLength": 1, "maxLength": 128},
+        "target_unit": {"type": "string", "minLength": 1, "maxLength": 128},
+        "numerator": {"type": "integer", "minimum": 1},
+        "denominator": {"type": "integer", "minimum": 1}
+      }
+    },
+    "crossing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "target", "conversion", "composition_rule", "declared_loss", "evidence_refs"],
+      "properties": {
+        "source": {"$ref": "#/$defs/quantity"},
+        "target": {"$ref": "#/$defs/quantity"},
+        "conversion": {"$ref": "#/$defs/conversion"},
+        "composition_rule": {"type": "string", "minLength": 1, "maxLength": 256},
+        "declared_loss": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1, "maxLength": 256}
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1, "maxLength": 256}
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ceiling", "source"],
+      "properties": {
+        "ceiling": {
+          "type": "string",
+          "enum": ["reference_only", "advisory_only", "domain_authoritative", "externally_validated"]
+        },
+        "source": {"type": "string", "enum": ["source_declaration", "external_validator"]}
+      }
+    },
+    "policies": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "discrete_multiple": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["multiple"],
+          "properties": {
+            "multiple": {"type": "integer", "minimum": 1}
+          }
+        },
+        "resolution": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["max_decimal_places"],
+          "properties": {
+            "max_decimal_places": {"type": "integer", "minimum": 0, "maximum": 18}
+          }
+        },
+        "threshold": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["minimum_value"],
+          "properties": {
+            "minimum_value": {"type": "number"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -46,6 +46,18 @@ STANDALONE_EXECUTABLE_CONTRACTS: dict[str, tuple[str, str]] = {
         "scripts.validate_frozen_release_manifest_v11_4",
         "validate_v11_4_release_manifest",
     ),
+    "core.frozen_release_manifest.v7": (
+        "scripts.validate_frozen_release_manifest_v11_5",
+        "validate_v11_5_release_manifest",
+    ),
+    "core.dsk.v3": (
+        "core_runtime.core.dsk_v3",
+        "evaluate_dsk_v3",
+    ),
+    "core.dsk.v3": (
+        "core_runtime.core.dsk_v3",
+        "evaluate_dsk_v3",
+    ),
     "core.contract_program.v2": (
         "core_runtime.core.contract_program_v2",
         "evaluate_contract_v2",

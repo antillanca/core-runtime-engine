@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+## v11.5.0
+
+### Added
+
+- Public deterministic Scale Kernel v3 (`core.dsk.v3`) with typed resources,
+  rational scale crossing, declared loss, policy gates and non-amplifying
+  authority semantics.
+- Closed draft-07 schema, validator CLI, canonical fingerprints, replay tests,
+  negative fixtures and frozen candidate manifest v7.
+- ContractProgram v2 remains compatible and `core.dsk.v3` is registered in the
+  executable public contract audit.
+
 ## v11.4.0
 
 ### Added
