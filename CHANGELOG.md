@@ -6,21 +6,37 @@
 
 ### Added
 
-- Added the generic, finite `core.contract_program.registry.v1` operation
-  surface with deterministic evaluator/runtime parity.
-- Added a new v11.3.0 candidate and frozen release-manifest line.
+- ContractProgram v2 — Contractual Reproducible Evaluation.
+  6 eslabones (PERFIL→VOCABULARIO→QUERYSPEC→RESULTADO→VISTA→EVIDENCIA),
+  9 verdicts (pass, incomplete, scale_violation, authority_violation,
+  loss_undeclared, temporal_violation, translation_missing,
+  intent_unconfirmed, aborted). DSK v3 declarations at each crossing.
+- `evaluate_contract_v2` exported from the public surface
+  (`core_runtime.core.evaluate_contract_v2`).
+- `schemas/core/contract_program.v2.json` — closed schema
+  (additionalProperties: false).
+- `schemas/core/frozen_release_manifest.v6.json` — v11.4.0 frozen manifest.
+- 9 example fixtures (1 accepted, 8 rejected per verdict).
+- 16 runtime tests + 4 manifest tests.
+- `scripts/validate_frozen_release_manifest_v11_4.py` +
+  `scripts/build_frozen_release_manifest_v11_4.py`.
+- `core.contract_program.v2` and `core.frozen_release_manifest.v6`
+  registered in `STANDALONE_EXECUTABLE_CONTRACTS`.
 
 ### Fixed
 
-- Historical frozen-manifest validation now checks the recorded artifact
-  contract by default; live byte comparison is explicit.
+- `contract_program.py` registry operation hardening: `registry_key`
+  coerced to `str`, exception handler catches `KeyError` and `TypeError`
+  in addition to `ValueError`. Defense-in-depth, no test changes.
+- v11.3 historical baseline preserved (not re-freezed) per
+  VERSIONING_POLICY when target >= v11.4.
 
 ### Notes
 
-- Contract programs remain validation-only and non-authorizing.
-- DSK v2 private semantics, fixtures and consumer vocabulary remain outside
-  CORE.
-- Release tag, push, anchoring and promotion require separate approval.
+- v1 (`execute_contract_program`) unchanged. 3-release migration window:
+  v11.4, v11.5, v11.6.
+- DSK v3 declarations validated at each eslabon crossing. Deterministic,
+  no LLM, same input → same verdict.
 
 ## v11.2.1
 

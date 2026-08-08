@@ -14,7 +14,7 @@
   "self_reference_policy": "manifest_file_excluded_fingerprint_covers_inventory",
   "canonicalization": "core.canonical_json.v1",
   "hash_algorithm": "sha256",
-  "created_at": "2026-08-08T01:07:06Z",
+  "created_at": "2026-08-08T03:11:36Z",
   "artifact_count": 161,
   "artifacts": [
     {
@@ -25,7 +25,7 @@
     {
       "path": "CHANGELOG.md",
       "role": "documentation",
-      "file_sha256": "sha256:f20a6e32ed6fe08f7ae1c6c2bed64650b6256321b2e2b4ff930493c52ad6db87"
+      "file_sha256": "sha256:6816255afce6b89cce2a9958384098c1811a45119dd8167260044364388cbdfc"
     },
     {
       "path": "README.md",
@@ -120,7 +120,7 @@
     {
       "path": "docs/CORE_RELEASE_README.md",
       "role": "documentation",
-      "file_sha256": "sha256:f43feccc0ec48f59bd3c7ee068a0d0263e30671489ec109d8889d72c65812437"
+      "file_sha256": "sha256:267d072e10221c405cde38edf7656ba5ad6dfb2cb5e9d70041b231e8ff834c1c"
     },
     {
       "path": "docs/EXECUTABLE_CONTRACTS_AND_PHYSICAL_SAFETY.md",
@@ -150,7 +150,7 @@
     {
       "path": "docs/releases/README.md",
       "role": "documentation",
-      "file_sha256": "sha256:e91c395bf9cb469fd922250913d4b15c24a3707e894cee6d0a9317e24d501119"
+      "file_sha256": "sha256:829e476468402c23a310ecacaadc64e29ee4794bdf96a2999bd65362503a8194"
     },
     {
       "path": "docs/releases/v11.1.0.md",
@@ -823,5 +823,5 @@
       "file_sha256": "sha256:0f04f258a19471076b2e587d7da4dace6c4552e0559df4974d03db07a75e483c"
     }
   ],
-  "fingerprint": "sha256:45c8f1afcf3882eb5b540d8128c56ab468ce99eef6f4e62ce5d8d10a3cf7e6ad"
+  "fingerprint": "sha256:f7da35e290a7b9b9c7915165523a68f55e7ab3325ab27be94aab23e31c75bd33"
 }
