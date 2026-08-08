@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""ContractProgram v2 — Contractual Reproducible Evaluation.
+"""ContractProgram v2 — Contract-Oriented Reproducible Evaluation.
 
 Traverses 6 eslabones (PERFIL→VOCABULARIO→QUERYSPEC→RESULTADO→VISTA→EVIDENCIA),
 validates DSK declarations at each crossing, emits one of 9 verdicts.

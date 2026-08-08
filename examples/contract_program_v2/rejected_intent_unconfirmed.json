@@ -1,6 +1,6 @@
 {
   "schema_version": "core.contract_program.v2",
-  "contract_id": "test.dsk_v3.rejected.intent_unconfirmed",
+  "contract_id": "test.dsk_v2.rejected.intent_unconfirmed",
   "eslabones": [
     {
       "name": "PERFIL",

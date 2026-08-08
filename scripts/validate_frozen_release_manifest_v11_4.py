@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the additive CORE v11.4.0 ContractProgram v2 + DSK v3 release candidate."""
+"""Validate the additive CORE v11.4.0 ContractProgram v2 + DSK v2 release candidate."""
 
 from __future__ import annotations
 
@@ -29,7 +29,7 @@ SELF_REFERENCE_POLICY = "manifest_file_excluded_fingerprint_covers_inventory"
 
 
 def required_v11_4_candidate_artifacts() -> dict[str, str]:
-    """Extend the v11.3 candidate surface with ContractProgram v2 + DSK v3."""
+    """Extend the v11.3 candidate surface with ContractProgram v2 + DSK v2."""
 
     expected = required_v11_3_candidate_artifacts()
     expected.update(
@@ -91,7 +91,7 @@ def build_v11_4_candidate_manifest(created_at: str) -> dict[str, Any]:
         "type": "frozen_release_manifest",
         "release_version": RELEASE_VERSION,
         "status": "candidate",
-        "scope": "contractual_reproducible_evaluation_dsk_v3",
+        "scope": "contract_oriented_reproducible_evaluation_dsk_v2",
         "inventory_profile": INVENTORY_PROFILE,
         "critical_subsystems": list(CRITICAL_SUBSYSTEMS),
         "self_reference_policy": SELF_REFERENCE_POLICY,

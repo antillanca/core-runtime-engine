@@ -6,11 +6,11 @@
 
 ### Added
 
-- ContractProgram v2 — Contractual Reproducible Evaluation.
+- ContractProgram v2 — Contract-Oriented Reproducible Evaluation.
   6 eslabones (PERFIL→VOCABULARIO→QUERYSPEC→RESULTADO→VISTA→EVIDENCIA),
   9 verdicts (pass, incomplete, scale_violation, authority_violation,
   loss_undeclared, temporal_violation, translation_missing,
-  intent_unconfirmed, aborted). DSK v3 declarations at each crossing.
+  intent_unconfirmed, aborted). DSK v2 declarations at each crossing.
 - `evaluate_contract_v2` exported from the public surface
   (`core_runtime.core.evaluate_contract_v2`).
 - `schemas/core/contract_program.v2.json` — closed schema
@@ -35,7 +35,7 @@
 
 - v1 (`execute_contract_program`) unchanged. 3-release migration window:
   v11.4, v11.5, v11.6.
-- DSK v3 declarations validated at each eslabon crossing. Deterministic,
+- DSK v2 declarations validated at each eslabon crossing. Deterministic,
   no LLM, same input → same verdict.
 
 ## v11.2.1

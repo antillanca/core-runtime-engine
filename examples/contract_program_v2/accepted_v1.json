@@ -1,6 +1,6 @@
 {
   "schema_version": "core.contract_program.v2",
-  "contract_id": "test.dsk_v3.accepted.v1",
+  "contract_id": "test.dsk_v2.accepted.v1",
   "eslabones": [
     {
       "name": "PERFIL",

@@ -1,6 +1,6 @@
 {
   "schema_version": "core.contract_program.v2",
-  "contract_id": "test.dsk_v3.rejected.loss_undeclared",
+  "contract_id": "test.dsk_v2.rejected.loss_undeclared",
   "eslabones": [
     {
       "name": "PERFIL",
