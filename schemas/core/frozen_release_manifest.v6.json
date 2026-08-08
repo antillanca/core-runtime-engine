@@ -35,7 +35,7 @@
       "const": "candidate"
     },
     "scope": {
-      "const": "contract_oriented_reproducible_evaluation_dsk_v2"
+      "const": "contract_oriented_reproducible_evaluation_dsk_v3"
     },
     "inventory_profile": {
       "const": "core.contract_program_v2_release.v11_4_candidate"

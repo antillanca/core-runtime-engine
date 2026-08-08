@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://core-runtime-engine.local/schemas/core/contract_program.v2.json",
   "title": "ContractProgram.v2",
-  "description": "Contract-Oriented Reproducible Evaluation: 6 eslabones, 9 verdicts, DSK v2 declarations.",
+  "description": "Contract-Oriented Reproducible Evaluation: 6 eslabones, 9 verdicts, DSK v3 declarations.",
   "type": "object",
   "additionalProperties": false,
   "required": [
