@@ -88,6 +88,13 @@ def test_executability_audit_covers_every_public_core_schema_and_is_deterministi
     assert all(row["mechanism"] != "unclassified" for row in first["public_schema_inventory"])
 
 
+def test_v11_5_1_manifest_contract_has_exact_standalone_validator_binding() -> None:
+    assert STANDALONE_EXECUTABLE_CONTRACTS["core.frozen_release_manifest.v8"] == (
+        "scripts.validate_frozen_release_manifest_v11_5_1",
+        "validate_v11_5_1_release_manifest",
+    )
+
+
 def test_v11_3_manifest_contracts_have_exact_standalone_validator_bindings() -> None:
     assert STANDALONE_EXECUTABLE_CONTRACTS["core.frozen_release_manifest.v4"] == (
         "scripts.validate_frozen_release_manifest_v11_3",

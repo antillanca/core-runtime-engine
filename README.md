@@ -1,4 +1,4 @@
-# CORE v11.5.0 — Contract-Oriented Reproducible Evaluation
+# CORE v11.5.1 — Contract-Oriented Reproducible Evaluation
 
 CORE validates artifacts against public contracts: JSON schemas, fingerprints,
 manifests and bounded evidence windows. It never executes domain business
@@ -10,6 +10,21 @@ CORE is a local checker for structured evidence packages. Give it a JSON
 artifact plus public rules, and it returns reproducible pass/fail results.
 It does not run your business logic, call a server, or decide legal,
 fiscal, or economic truth.
+
+## Release status
+
+The current working candidate is CORE `v11.5.1`. The `v11.5.0`
+tag remains a historical candidate and its manifest is preserved unchanged.
+This candidate is not a GitHub release, package publication or release
+endorsement until the v11.5.1 gate and publication plans complete.
+
+## DSK v3
+
+CORE v11.5.1 carries the public deterministic Scale Kernel v3
+(`core.dsk.v3`) and the corrected frozen-manifest lifecycle. It validates typed
+scale crossings with rational conversion, declared loss, evidence references,
+policy gates and a non-amplifying authority ceiling. DSK v3 remains a public
+contract surface; it does not grant publication authority by itself.
 
 ## Try it
 

@@ -2,7 +2,25 @@
 
 ## Unreleased
 
+## v11.5.1
+
+### Release status
+
+- Corrected the public release documentation and candidate-manifest lifecycle.
+- Preserved the v11.5.0 manifest as historical evidence; it is not re-frozen.
+- Added a live v11.5.1 candidate manifest and release-gate check.
+- This candidate is not published by this plan.
+
+
 ## v11.5.0
+
+### Release status
+
+- The `v11.5.0` Git tag exists at commit
+  `8f83697eaa7aed61ed28e0620362213fb07e78d6`.
+- Formal release status remains blocked because the `tests-integration`
+  subgroup exceeded its 120-second release-gate timeout.
+- This entry does not claim GitHub release assets or package publication.
 
 ### Added
 

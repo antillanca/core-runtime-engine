@@ -1,6 +1,6 @@
 [project]
 name = "core-runtime-engine"
-version = "11.5.0"
+version = "11.5.1"
 description = "CORE - deterministic contract, schema and validation engine"
 readme = "docs/CORE_RELEASE_README.md"
 license = {text = "MIT"}

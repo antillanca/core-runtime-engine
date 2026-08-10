@@ -190,3 +190,10 @@ def _run_release_metadata(target: str) -> dict:
         return normalized
     finally:
         monkeypatch.undo()
+
+
+def test_verify_release_v1151_promotes_new_manifest_and_preserves_v1150() -> None:
+    payload = _run_release_metadata(target="v11.5.1")
+
+    assert payload["checks"]["frozen_release_manifest_v11_5_candidate_accepted"] == "historical_baseline_preserved"
+    assert payload["checks"]["frozen_release_manifest_v11_5_1_candidate_accepted"] == "passed"

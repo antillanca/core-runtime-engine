@@ -14,9 +14,9 @@ ROOT = Path(__file__).resolve().parent.parent
 MANIFEST = ROOT / "examples/frozen_release_manifest/accepted_v11_5_0_candidate.json"
 
 
-def test_v11_5_candidate_manifest_is_exact_and_live() -> None:
+def test_v11_5_candidate_manifest_is_historical() -> None:
     payload = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    report = validate_v11_5_release_manifest(MANIFEST, verify_live_artifacts=True)
+    report = validate_v11_5_release_manifest(MANIFEST, verify_live_artifacts=False)
     assert report["status"] == "passed", report["errors"]
     assert payload["release_version"] == RELEASE_VERSION
     assert payload["inventory_profile"] == INVENTORY_PROFILE
