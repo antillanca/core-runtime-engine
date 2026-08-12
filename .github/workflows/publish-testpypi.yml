@@ -1,0 +1,77 @@
+name: Publish CORE to TestPyPI (Trusted Publishing)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Immutable tag version to publish"
+        required: true
+        default: "11.5.1"
+        type: string
+      confirmation:
+        description: "Type PUBLISH-CORE-11.5.1-TESTPYPI to enable the publish job"
+        required: true
+        type: string
+
+jobs:
+  build:
+    if: inputs.version == '11.5.1' && inputs.confirmation == 'PUBLISH-CORE-11.5.1-TESTPYPI'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out the immutable release tag
+        uses: actions/checkout@v4
+        with:
+          ref: refs/tags/v${{ inputs.version }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build one wheel and sdist pair
+        run: |
+          python -m pip install --upgrade build twine
+          mkdir -p dist/pypi-v11_5_1
+          python -m build --outdir dist/pypi-v11_5_1
+          python -m twine check dist/pypi-v11_5_1/*
+          sha256sum dist/pypi-v11_5_1/* > dist/pypi-v11_5_1/SHA256SUMS
+
+      - name: Upload the immutable distributions
+        uses: actions/upload-artifact@v4
+        with:
+          name: core-runtime-engine-11.5.1-testpypi-distributions
+          path: dist/pypi-v11_5_1
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    if: inputs.version == '11.5.1' && inputs.confirmation == 'PUBLISH-CORE-11.5.1-TESTPYPI'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Download the exact built distributions
+        uses: actions/download-artifact@v4
+        with:
+          name: core-runtime-engine-11.5.1-testpypi-distributions
+          path: dist/pypi-v11_5_1
+
+      - name: Verify the downloaded artifact hashes
+        run: |
+          sha256sum --check dist/pypi-v11_5_1/SHA256SUMS
+          mkdir -p publish
+          cp dist/pypi-v11_5_1/*.whl publish/
+          cp dist/pypi-v11_5_1/*.tar.gz publish/
+
+      - name: Publish with TestPyPI Trusted Publishing
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          packages-dir: publish
+          attestations: true
