@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://core-runtime-engine.local/schemas/core/effect_result.v1.json",
+  "title": "EffectResult.v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "status", "effect_type", "dry_run", "reason"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.effect_result.v1"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["dry_run", "sent", "skipped", "applied", "failed"]
+    },
+    "effect_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dry_run": {
+      "type": "boolean"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "string"
+    },
+    "target_ref": {
+      "type": "string"
+    },
+    "payload": {},
+    "response": {},
+    "error": {
+      "type": "string"
+    }
+  }
+}

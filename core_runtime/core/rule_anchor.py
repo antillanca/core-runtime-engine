@@ -13,7 +13,7 @@ import json
 import re
 from collections.abc import Iterable, Mapping, Sequence
 from datetime import datetime
-from pathlib import Path
+from importlib.resources import files
 from typing import Any
 
 from jsonschema import Draft7Validator
@@ -21,9 +21,8 @@ from jsonschema import Draft7Validator
 from core_runtime.core.canonicalization import canonical_json_dumps
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-SCHEMA_ROOT = PROJECT_ROOT / "schemas" / "core"
-CONTRACT_ROOT = PROJECT_ROOT / "contracts"
+SCHEMA_ROOT = files("core_runtime").joinpath("data", "schemas", "core")
+CONTRACT_ROOT = files("core_runtime").joinpath("data", "contracts")
 
 FROZEN_RULE_SET_SCHEMA = "core.frozen_rule_set.v1"
 APPROVAL_REQUEST_SCHEMA = "core.rule_approval_request.v1"

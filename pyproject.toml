@@ -28,3 +28,15 @@ build-backend = "setuptools.build_meta"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+[tool.setuptools.packages.find]
+include = ["core_runtime*"]
+
+[project.scripts]
+core-runtime = "core_runtime.cli.__main__:main"
+
+[tool.setuptools.package-data]
+core_runtime = [
+    "data/package_data_manifest.v1.json",
+    "data/schemas/core/*.json",
+    "data/contracts/Core*",
+]

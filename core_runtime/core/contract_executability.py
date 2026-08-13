@@ -5,7 +5,7 @@ from __future__ import annotations
 import copy
 import importlib
 import json
-from pathlib import Path
+from importlib.resources import files
 from typing import Any
 
 from core_runtime.core.canonicalization import canonical_json_hash
@@ -19,7 +19,6 @@ from core_runtime.core.contract_loader import SCHEMA_ROOT, available_contracts, 
 from core_runtime.core.contract_probes import executable_contract_probes
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 STANDALONE_EXECUTABLE_CONTRACTS: dict[str, tuple[str, str]] = {
     "core.frozen_release_manifest.v1": (
@@ -49,6 +48,10 @@ STANDALONE_EXECUTABLE_CONTRACTS: dict[str, tuple[str, str]] = {
     "core.frozen_release_manifest.v7": (
         "scripts.validate_frozen_release_manifest_v11_5",
         "validate_v11_5_release_manifest",
+    ),
+    "core.frozen_release_manifest.v8": (
+        "scripts.validate_frozen_release_manifest_v11_5_1",
+        "validate_v11_5_1_release_manifest",
     ),
     "core.frozen_release_manifest.v8": (
         "scripts.validate_frozen_release_manifest_v11_5_1",
@@ -138,11 +141,11 @@ def _public_schema_inventory() -> tuple[list[dict[str, Any]], list[dict[str, Any
     rows: list[dict[str, Any]] = []
     errors: list[dict[str, Any]] = []
     generic_versions = set(executable_contract_versions())
-    for path in sorted(SCHEMA_ROOT.glob("*.json")):
+    for path in sorted((item for item in SCHEMA_ROOT.iterdir() if item.name.endswith(".json")), key=lambda item: item.name):
         try:
             schema = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as exc:
-            errors.append(_entry("schema_unreadable", exc.__class__.__name__, str(path.relative_to(PROJECT_ROOT))))
+            errors.append(_entry("schema_unreadable", exc.__class__.__name__, f"core_runtime/data/schemas/core/{path.name}"))
             continue
         version = _schema_version(schema)
         if version in generic_versions:
@@ -155,7 +158,7 @@ def _public_schema_inventory() -> tuple[list[dict[str, Any]], list[dict[str, Any
                 _entry(
                     "unclassified_public_contract",
                     "Every public schema requires an executable semantic mechanism.",
-                    str(path.relative_to(PROJECT_ROOT)),
+                    f"core_runtime/data/schemas/core/{path.name}",
                     schema_version=version,
                 )
             )
@@ -163,7 +166,7 @@ def _public_schema_inventory() -> tuple[list[dict[str, Any]], list[dict[str, Any
         rows.append(
             {
                 "schema_version": version,
-                "schema_path": str(path.relative_to(PROJECT_ROOT)),
+                "schema_path": f"core_runtime/data/schemas/core/{path.name}",
                 "mechanism": mechanism,
                 "shape_profile": "closed_native" if not open_paths else "legacy_open_closed_by_strict_evaluator",
                 "open_object_count": len(open_paths),

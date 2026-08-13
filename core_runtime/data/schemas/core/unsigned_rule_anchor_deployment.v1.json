@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://core.antillanca.dev/schemas/core/unsigned_rule_anchor_deployment.v1.json",
+  "title": "UnsignedRuleAnchorDeployment.v1",
+  "description": "An unsigned CoreRuleAnchor deployment request for external-wallet review.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "type",
+    "signing_mode",
+    "broadcast",
+    "contract_build_fingerprint",
+    "expected_runtime_bytecode_sha256",
+    "transaction",
+    "gas_reserve",
+    "readiness",
+    "warnings",
+    "fingerprint"
+  ],
+  "properties": {
+    "schema_version": {"const": "core.unsigned_rule_anchor_deployment.v1"},
+    "type": {"const": "unsigned_rule_anchor_deployment"},
+    "signing_mode": {"const": "external_wallet_only"},
+    "broadcast": {"const": false},
+    "contract_build_fingerprint": {"$ref": "#/definitions/fingerprint"},
+    "expected_runtime_bytecode_sha256": {"$ref": "#/definitions/fingerprint"},
+    "transaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "from",
+        "to",
+        "chain_id",
+        "value_wei",
+        "data",
+        "nonce",
+        "gas_limit",
+        "max_fee_per_gas_wei",
+        "max_priority_fee_per_gas_wei",
+        "gas_price_wei"
+      ],
+      "properties": {
+        "from": {"$ref": "#/definitions/address"},
+        "to": {"type": "null"},
+        "chain_id": {"type": "integer", "minimum": 1},
+        "value_wei": {"const": 0},
+        "data": {"type": "string", "pattern": "^0x[a-f0-9]+$"},
+        "nonce": {"$ref": "#/definitions/nullable_integer"},
+        "gas_limit": {"$ref": "#/definitions/nullable_positive_integer"},
+        "max_fee_per_gas_wei": {"$ref": "#/definitions/nullable_integer"},
+        "max_priority_fee_per_gas_wei": {"$ref": "#/definitions/nullable_integer"},
+        "gas_price_wei": {"$ref": "#/definitions/nullable_integer"}
+      }
+    },
+    "gas_reserve": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit",
+        "deployment_max_cost_wei",
+        "post_deployment_reserve_wei",
+        "required_balance_wei",
+        "observed_balance_wei",
+        "shortfall_wei",
+        "sufficient"
+      ],
+      "properties": {
+        "unit": {"const": "native_wei"},
+        "deployment_max_cost_wei": {"$ref": "#/definitions/nullable_integer"},
+        "post_deployment_reserve_wei": {"type": "integer", "minimum": 0},
+        "required_balance_wei": {"$ref": "#/definitions/nullable_integer"},
+        "observed_balance_wei": {"$ref": "#/definitions/nullable_integer"},
+        "shortfall_wei": {"$ref": "#/definitions/nullable_integer"},
+        "sufficient": {"type": ["boolean", "null"]}
+      }
+    },
+    "readiness": {
+      "enum": ["ready", "insufficient_balance", "offline_unpriced", "balance_unobserved"]
+    },
+    "warnings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "fingerprint": {"$ref": "#/definitions/fingerprint"}
+  },
+  "definitions": {
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "address": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$"
+    },
+    "nullable_integer": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "nullable_positive_integer": {
+      "type": ["integer", "null"],
+      "minimum": 1
+    }
+  }
+}

@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 from decimal import Decimal, InvalidOperation
+from importlib.resources import files
 from pathlib import Path
 from typing import Any
 
@@ -16,7 +17,7 @@ from jsonschema import Draft7Validator
 from core_runtime.core.rule_anchor import canonical_fingerprint
 
 SCHEMA_VERSION = "core.dsk.v3"
-SCHEMA_PATH = Path(__file__).resolve().parents[2] / "schemas" / "core" / "dsk.v3.json"
+SCHEMA_PATH = files("core_runtime").joinpath("data", "schemas", "core", "dsk.v3.json")
 STATUSES = ("pass", "invalid", "insufficient_data", "blocked")
 
 

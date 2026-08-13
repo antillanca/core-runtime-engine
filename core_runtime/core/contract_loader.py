@@ -3,12 +3,11 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
+from importlib.resources import files
 from typing import Any
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-SCHEMA_ROOT = PROJECT_ROOT / "schemas" / "core"
+SCHEMA_ROOT = files("core_runtime").joinpath("data", "schemas", "core")
 CONTRACT_SCHEMAS = {
     "causal_trace.v1": "causal_trace.v1.json",
     "contract_program.v1": "contract_program.v1.json",
@@ -38,7 +37,7 @@ def available_contracts() -> tuple[str, ...]:
     return tuple(sorted(CONTRACT_SCHEMAS))
 
 
-def contract_schema_path(contract_name: str) -> Path:
+def contract_schema_path(contract_name: str) -> Any:
     """Resolve the schema file for a known contract name."""
 
     filename = CONTRACT_SCHEMAS.get(contract_name)
