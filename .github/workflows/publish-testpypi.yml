@@ -8,6 +8,11 @@ on:
         required: true
         default: "11.5.1"
         type: string
+      source_ref:
+        description: "Immutable packaging-fix ref to build"
+        required: true
+        default: "v11.5.1-pkgfix1"
+        type: string
       confirmation:
         description: "Type PUBLISH-CORE-11.5.1-TESTPYPI to enable the publish job"
         required: true
@@ -15,7 +20,7 @@ on:
 
 jobs:
   build:
-    if: inputs.version == '11.5.1' && inputs.confirmation == 'PUBLISH-CORE-11.5.1-TESTPYPI'
+    if: inputs.version == '11.5.1' && inputs.source_ref == 'v11.5.1-pkgfix1' && inputs.confirmation == 'PUBLISH-CORE-11.5.1-TESTPYPI'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -23,7 +28,7 @@ jobs:
       - name: Check out the immutable release tag
         uses: actions/checkout@v4
         with:
-          ref: refs/tags/v${{ inputs.version }}
+          ref: refs/tags/${{ inputs.source_ref }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -47,7 +52,7 @@ jobs:
           retention-days: 7
 
   publish:
-    if: inputs.version == '11.5.1' && inputs.confirmation == 'PUBLISH-CORE-11.5.1-TESTPYPI'
+    if: inputs.version == '11.5.1' && inputs.source_ref == 'v11.5.1-pkgfix1' && inputs.confirmation == 'PUBLISH-CORE-11.5.1-TESTPYPI'
     needs: build
     runs-on: ubuntu-latest
     environment:
