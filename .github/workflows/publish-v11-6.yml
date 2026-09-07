@@ -1,0 +1,122 @@
+name: Publish CORE v11.6.0 (exact artifacts)
+
+on:
+  workflow_dispatch:
+    inputs:
+      destination:
+        description: "Registry sequence to run"
+        required: true
+        default: "testpypi"
+        type: choice
+        options:
+          - testpypi
+          - pypi
+          - both
+      confirmation:
+        description: "Type PUBLISH-CORE-11.6.0-EXACT to enable publication"
+        required: true
+        type: string
+
+jobs:
+  build:
+    if: inputs.confirmation == 'PUBLISH-CORE-11.6.0-EXACT'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out the immutable v11.6.0 tag
+        uses: actions/checkout@v4
+        with:
+          ref: refs/tags/v11.6.0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Build one immutable wheel and sdist pair
+        run: |
+          python -m pip install --upgrade build twine
+          mkdir -p dist/core-runtime-engine-11_6_0
+          python -m build --outdir dist/core-runtime-engine-11_6_0
+          python -m twine check dist/core-runtime-engine-11_6_0/*
+          sha256sum dist/core-runtime-engine-11_6_0/* > dist/core-runtime-engine-11_6_0/SHA256SUMS
+      - name: Upload the exact distributions
+        uses: actions/upload-artifact@v4
+        with:
+          name: core-runtime-engine-11.6.0-exact-distributions
+          path: dist/core-runtime-engine-11_6_0
+          if-no-files-found: error
+          retention-days: 7
+
+  publish-testpypi:
+    if: inputs.confirmation == 'PUBLISH-CORE-11.6.0-EXACT' && (inputs.destination == 'testpypi' || inputs.destination == 'both')
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/tags/v11.6.0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check TestPyPI collision before upload
+        run: python scripts/pypi_preflight.py --version 11.6.0 --index-url https://test.pypi.org/pypi
+      - uses: actions/download-artifact@v4
+        with:
+          name: core-runtime-engine-11.6.0-exact-distributions
+          path: dist/core-runtime-engine-11_6_0
+      - name: Verify exact artifact hashes
+        run: |
+          sha256sum --check dist/core-runtime-engine-11_6_0/SHA256SUMS
+          mkdir -p publish
+          cp dist/core-runtime-engine-11_6_0/*.whl publish/
+          cp dist/core-runtime-engine-11_6_0/*.tar.gz publish/
+      - name: Publish exact artifacts to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          packages-dir: publish
+          attestations: true
+
+  publish-pypi:
+    if: >-
+      always() &&
+      inputs.confirmation == 'PUBLISH-CORE-11.6.0-EXACT' &&
+      needs.build.result == 'success' &&
+      (inputs.destination == 'pypi' || (inputs.destination == 'both' && needs.publish-testpypi.result == 'success'))
+    needs: [build, publish-testpypi]
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/tags/v11.6.0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check PyPI collision before upload
+        run: python scripts/pypi_preflight.py --version 11.6.0 --index-url https://pypi.org/pypi
+      - uses: actions/download-artifact@v4
+        with:
+          name: core-runtime-engine-11.6.0-exact-distributions
+          path: dist/core-runtime-engine-11_6_0
+      - name: Verify exact artifact hashes
+        run: |
+          sha256sum --check dist/core-runtime-engine-11_6_0/SHA256SUMS
+          mkdir -p publish
+          cp dist/core-runtime-engine-11_6_0/*.whl publish/
+          cp dist/core-runtime-engine-11_6_0/*.tar.gz publish/
+      - name: Publish exact artifacts to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://upload.pypi.org/legacy/
+          packages-dir: publish
+          attestations: true

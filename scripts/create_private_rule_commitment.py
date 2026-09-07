@@ -19,7 +19,6 @@ if str(PROJECT_ROOT_PATH) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT_PATH))
 
 from core_runtime.core.rule_anchor import (  # noqa: E402
-    PROJECT_ROOT,
     artifact_fingerprint,
     private_content_fingerprint,
     private_rule_commitment,
@@ -42,7 +41,7 @@ def _write_new_json(path: Path, payload: Any, mode: int = 0o644) -> None:
 
 def _inside_public_repository(path: Path) -> bool:
     try:
-        path.resolve().relative_to(PROJECT_ROOT.resolve())
+        path.resolve().relative_to(PROJECT_ROOT_PATH.resolve())
     except ValueError:
         return False
     return True

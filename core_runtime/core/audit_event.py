@@ -186,6 +186,11 @@ class AuditEvent:
     schema_version: str = AUDIT_SCHEMA_VERSION
 
     def __post_init__(self) -> None:
+        if self.schema_version != AUDIT_SCHEMA_VERSION:
+            raise ValueError(
+                f"schema_version must be {AUDIT_SCHEMA_VERSION!r}; "
+                f"got {self.schema_version!r}"
+            )
         if not isinstance(self.logical_tick, int):
             raise TypeError(f"Expected int logical_tick, got {type(self.logical_tick).__name__}")
         if self.logical_tick < 0:

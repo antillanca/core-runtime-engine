@@ -2,14 +2,41 @@
 
 ## Unreleased
 
-## v11.5.1
+## v11.6.0
 
 ### Release status
 
-- Corrected the public release documentation and candidate-manifest lifecycle.
-- Preserved the v11.5.0 manifest as historical evidence; it is not re-frozen.
-- Added a live v11.5.1 candidate manifest and release-gate check.
-- This candidate is not published by this plan.
+- Stabilization line before CORE-Interop; the v11.5.1 manifest remains
+  immutable historical evidence.
+- Publication is controlled by the v11.6.0 release workflow and is not
+  implied by a local tag or a passing unit test.
+
+### Fixed
+
+- Reject non-finite DSK numeric inputs, classification confidences and
+  thresholds instead of allowing NaN/Infinity to enter deterministic results.
+- Bind audit events to the single supported audit schema version.
+- Prevent vocabulary identifiers and symlinks from escaping the supplied
+  vocabulary directory.
+- Repair the public rule-anchor helper scripts so they no longer import a
+  repository-root symbol from the installed runtime.
+- Restore the deterministic reference replay certifier and the documented
+  offline Expert Router validator/evaluator/report/replay surfaces so the
+  v11.6 gate executes those checks instead of classifying them as missing
+  runtime.
+- Make replay certification a blocker for v11.6.0 when its runtime surface is
+  absent, and make the version-bump transaction roll back after post-write
+  consistency failure.
+
+### Packaging and terminology
+
+- Add the global `core-runtime --version` command and prepare a new v11.6.0
+  frozen-manifest line.
+- Document DSK as **Domain-Scale Kernel** in HDEV while retaining
+  **Deterministic Scale Kernel v3** as the public `core.dsk.v3` compatibility
+  label.
+- Reserve v12.0.0 for the separately documented canonicalization and envelope
+  migration.
 
 
 ## v11.5.0

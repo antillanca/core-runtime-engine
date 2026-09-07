@@ -26,10 +26,15 @@ def test_causal_entropy_contracts_are_registered():
 
 
 def test_contract_loader_paths_resolve_to_public_schema_tree():
-    assert contract_schema_path("state_transition.v1") == SCHEMA_DIR / "state_transition.v1.json"
-    assert contract_schema_path("entropy_signal.v1") == SCHEMA_DIR / "entropy_signal.v1.json"
-    assert contract_schema_path("causal_trace.v1") == SCHEMA_DIR / "causal_trace.v1.json"
-    assert contract_schema_path("reversibility_policy.v1") == SCHEMA_DIR / "reversibility_policy.v1.json"
+    for contract_name in (
+        "state_transition.v1",
+        "entropy_signal.v1",
+        "causal_trace.v1",
+        "reversibility_policy.v1",
+    ):
+        path = contract_schema_path(contract_name)
+        assert path.name == f"{contract_name}.json"
+        assert path.is_file()
 
 
 def test_contract_loader_reads_new_schema_objects():

@@ -197,3 +197,10 @@ def test_verify_release_v1151_promotes_new_manifest_and_preserves_v1150() -> Non
 
     assert payload["checks"]["frozen_release_manifest_v11_5_candidate_accepted"] == "historical_baseline_preserved"
     assert payload["checks"]["frozen_release_manifest_v11_5_1_candidate_accepted"] == "passed"
+
+
+def test_verify_release_v116_promotes_stabilization_manifest_and_preserves_v1151() -> None:
+    payload = _run_release_metadata(target="v11.6.0")
+
+    assert payload["checks"]["frozen_release_manifest_v11_5_1_candidate_accepted"] == "historical_baseline_preserved"
+    assert payload["checks"]["frozen_release_manifest_v11_6_candidate_accepted"] == "passed"

@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import sys
 from pathlib import Path
 from typing import Any
@@ -61,6 +62,14 @@ def _error(code: str, message: str, field: str | None = None) -> dict[str, Any]:
     return payload
 
 
+def _is_finite_number(value: Any) -> bool:
+    """Return true only for JSON-compatible finite numeric scalars."""
+
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return False
+    return not isinstance(value, float) or math.isfinite(value)
+
+
 def _validate_one(candidate: dict[str, Any], source: str) -> dict[str, Any]:
     errors: list[dict[str, Any]] = []
 
@@ -90,7 +99,7 @@ def _validate_one(candidate: dict[str, Any], source: str) -> dict[str, Any]:
     # 5. confidence
     classification = candidate.get("classification", {})
     confidence = classification.get("confidence")
-    if not isinstance(confidence, (int, float)) or confidence < 0.0 or confidence > 1.0:
+    if not _is_finite_number(confidence) or confidence < 0.0 or confidence > 1.0:
         errors.append(_error(INVALID_CONFIDENCE, "confidence must be a number in [0.0, 1.0].", "classification.confidence"))
 
     # 6. decision
@@ -107,13 +116,10 @@ def _validate_one(candidate: dict[str, Any], source: str) -> dict[str, Any]:
     policy = candidate.get("policy", {})
     accept_th = policy.get("accept_threshold")
     clarify_th = policy.get("clarify_threshold")
-    if isinstance(accept_th, (int, float)) and isinstance(clarify_th, (int, float)):
-        if accept_th <= clarify_th:
-            errors.append(_error(INVALID_THRESHOLDS, "accept_threshold must be greater than clarify_threshold.", "policy"))
-    else:
-        # If we can't compare, still check they exist
-        if accept_th is None or clarify_th is None:
-            errors.append(_error(INVALID_THRESHOLDS, "accept_threshold and clarify_threshold are required.", "policy"))
+    if not _is_finite_number(accept_th) or not _is_finite_number(clarify_th):
+        errors.append(_error(INVALID_THRESHOLDS, "accept_threshold and clarify_threshold must be finite numbers.", "policy"))
+    elif accept_th <= clarify_th:
+        errors.append(_error(INVALID_THRESHOLDS, "accept_threshold must be greater than clarify_threshold.", "policy"))
 
     # 9. vocabulary_id
     vocab_id = policy.get("vocabulary_id")
@@ -126,16 +132,16 @@ def _validate_one(candidate: dict[str, Any], source: str) -> dict[str, Any]:
         errors.append(_error(COMMAND_VALIDATION_NOT_REQUIRED, "requires_command_validation must be true.", "safety.requires_command_validation"))
 
     # Cross-field validations (only if basics are present)
-    if isinstance(confidence, (int, float)) and decision in VALID_DECISIONS:
+    if _is_finite_number(confidence) and decision in VALID_DECISIONS:
         # 11. decision_confidence_mismatch
-        if decision == "accepted" and isinstance(accept_th, (int, float)):
+        if decision == "accepted" and _is_finite_number(accept_th):
             if confidence < accept_th:
                 errors.append(_error(
                     DECISION_CONFIDENCE_MISMATCH,
                     f"decision is 'accepted' but confidence {confidence} < accept_threshold {accept_th}.",
                     "classification.confidence",
                 ))
-        if decision == "clarification_required" and isinstance(accept_th, (int, float)) and isinstance(clarify_th, (int, float)):
+        if decision == "clarification_required" and _is_finite_number(accept_th) and _is_finite_number(clarify_th):
             if confidence < clarify_th or confidence >= accept_th:
                 errors.append(_error(
                     DECISION_CONFIDENCE_MISMATCH,

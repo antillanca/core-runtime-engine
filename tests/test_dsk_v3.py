@@ -67,6 +67,20 @@ def test_unit_mismatch_is_blocked() -> None:
     assert result["errors"][0]["code"] == "scale_violation"
 
 
+def test_nonfinite_numeric_values_fail_closed() -> None:
+    payload = load("accepted_basic.json")
+    payload["crossing"]["source"]["value"] = float("nan")
+    result = evaluate_dsk_v3(payload)
+    assert result["status"] == "invalid"
+    assert result["errors"][0]["code"] == "numeric_value_invalid"
+
+    payload = load("accepted_basic.json")
+    payload["crossing"]["conversion"]["numerator"] = float("inf")
+    result = evaluate_dsk_v3(payload)
+    assert result["status"] == "invalid"
+    assert result["errors"][0]["code"] in {"numeric_value_invalid", "schema_validation_error"}
+
+
 def test_public_runtime_contains_no_private_vocabulary() -> None:
     source = (ROOT / "core_runtime" / "core" / "dsk_v3.py").read_text(encoding="utf-8").lower()
     # privacy-guard:allow -- asserts these are absent, does not leak them

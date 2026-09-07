@@ -49,6 +49,19 @@ def test_audit_event_requires_semantic_correlation_namespace():
         )
 
 
+def test_audit_event_rejects_unknown_schema_version():
+    with pytest.raises(ValueError, match="schema_version"):
+        AuditEvent(
+            event_id="",
+            event_type="CompatibilityAccepted",
+            authority=EventAuthority.DERIVED,
+            logical_tick=0,
+            correlation_id="pair::accepted_standard",
+            payload={},
+            schema_version="4.10.0",
+        )
+
+
 def test_audit_trail_index_groups_events():
     events = [
         AuditEvent(

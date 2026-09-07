@@ -4,12 +4,40 @@
 
 CORE follows strict semantic versioning (MAJOR.MINOR.PATCH).
 
-- **Current**: v11.5.1
+- **Current**: v11.6.0
 - **MAJOR**: breaking changes to public schemas, validator CLI contracts,
   or frozen fingerprint/canonicalization semantics.
 - **MINOR**: new schemas, new validator scripts, new CLI subcommands
   (additive, non-breaking).
 - **PATCH**: bug fixes, performance improvements, documentation.
+
+### v11.6.0 stabilization boundary
+
+v11.6.0 is the additive stabilization line before CORE-Interop. It may repair
+determinism, fail-closed validation, package metadata, release tooling, replay
+gates and documentation without changing the meaning of an existing frozen
+fingerprint or public schema. The public `core.dsk.v3` label remains the
+compatibility name **Deterministic Scale Kernel v3**; HDEV uses the canonical
+expansion **Domain-Scale Kernel**.
+
+### Planned v12.0.0 boundary
+
+v12.0.0 is reserved for a separately approved breaking migration. Its design
+record must cover, at minimum:
+
+- an interoperable canonicalization profile (preferably RFC 8785/JCS or an
+  explicitly versioned equivalent) and a migration for existing fingerprints;
+- strict I-JSON/non-finite-number rejection and removal of implicit
+  `default=str` coercion from public hashing paths;
+- closed, versioned result envelopes and schema references across all public
+  validators and runtimes;
+- a compatibility matrix for the CLI, package resources, Engine/Runtime and
+  CORE-Interop consumers; and
+- dual-read/replay evidence proving that v11 artifacts remain verifiable
+  without silently treating them as v12 artifacts.
+
+No v12 behavior is enabled by the v11.6.0 release. A v12 implementation must
+introduce new fingerprints and manifests rather than rewriting v11 history.
 
 ## Frozen-manifest lifecycle
 

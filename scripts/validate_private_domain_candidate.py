@@ -187,8 +187,15 @@ def _load_vocabulary(vocab_id: str, vocab_dirs: list[Path]) -> dict[str, Any] | 
         filename = vocab_id.replace(".", "_") + ".json"
 
     for vocab_dir in vocab_dirs:
-        candidate_path = vocab_dir / filename
-        if candidate_path.exists():
+        root = vocab_dir.resolve()
+        candidate_path = (root / filename).resolve()
+        try:
+            candidate_path.relative_to(root)
+        except ValueError:
+            # A vocabulary id is data, not a path expression.  Refuse both
+            # traversal and symlink escapes before opening a file.
+            continue
+        if candidate_path.is_file():
             return _load_json(candidate_path)
 
     return None

@@ -1,0 +1,19 @@
+{
+  "schema": "core.expert_router_fixture.v1",
+  "routing_id": "minimal-routing",
+  "profile_id": "offline-minimal",
+  "proposals": [
+    {
+      "expert_id": "deterministic-rule-expert",
+      "proposal_id": "proposal-allowlisted",
+      "eligible": true,
+      "priority": 10
+    },
+    {
+      "expert_id": "unavailable-provider",
+      "proposal_id": "proposal-blocked",
+      "eligible": false,
+      "priority": 1
+    }
+  ]
+}

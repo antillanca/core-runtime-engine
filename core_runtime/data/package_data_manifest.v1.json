@@ -97,6 +97,10 @@
       "sha256": "37ab6ad858b4641d8e5d20dbe7d4045252a2e355b6715bdee7cf93e7f799a19a"
     },
     {
+      "path": "schemas/core/frozen_release_manifest.v9.json",
+      "sha256": "73e4332e148a75d3c2b3b1942a08583dcab6b3dc486dba6605d2499a9570e987"
+    },
+    {
       "path": "schemas/core/frozen_rule_set.v1.json",
       "sha256": "2e4532fcbb2f988e64bc8c52a99010199cbb70366653eead3d41d72328669675"
     },

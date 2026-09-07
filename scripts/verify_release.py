@@ -372,6 +372,12 @@ FROZEN_RELEASE_MANIFEST_CHECKS = {
         "examples/frozen_release_manifest/accepted_v11_5_1_candidate.json",
         "--verify-live-artifacts",
     ],
+    "frozen_release_manifest_v11_6_candidate_accepted": [
+        sys.executable,
+        "scripts/validate_frozen_release_manifest_v11_6.py",
+        "examples/frozen_release_manifest/accepted_v11_6_0_candidate.json",
+        "--verify-live-artifacts",
+    ],
 }
 
 EXECUTABLE_CONTRACT_CHECKS = {
@@ -1420,6 +1426,19 @@ def _record_check_result(
         details[name] = detail
 
 
+def _strict_replay_status(target: str | None, status: str) -> str:
+    """Turn an unimplemented replay surface into a release blocker.
+
+    Older release lines intentionally retain ``pending_runtime`` for
+    historical comparison. v11.6.0 is the stabilization line, so its
+    replay evidence must execute rather than silently allowing a green gate.
+    """
+
+    if status == "pending_runtime" and _target_at_least(target, "v11.6.0"):
+        return "blocked"
+    return status
+
+
 def _same_output(command: list[str]) -> tuple[str, str]:
     missing = _missing_input_fixtures(command)
     if missing:
@@ -1906,6 +1925,12 @@ def verify(
             checks[name] = "historical_baseline_preserved"
             continue
         if name == "frozen_release_manifest_v11_5_candidate_accepted" and not _target_at_least(target, "v11.5"):
+            checks[name] = "pending_runtime"
+            continue
+        if name == "frozen_release_manifest_v11_5_1_candidate_accepted" and _target_at_least(target, "v11.6.0"):
+            checks[name] = "historical_baseline_preserved"
+            continue
+        if name == "frozen_release_manifest_v11_6_candidate_accepted" and not _target_at_least(target, "v11.6.0"):
             checks[name] = "pending_runtime"
             continue
         if _target_at_least(target, "v11.1"):
@@ -2441,9 +2466,10 @@ def verify(
             ]
         )
     replay_detail = _detail(replay_result)
-    checks["replay_certification"] = (
+    replay_status = (
         "pending_runtime" if replay_result.returncode != 0 and _is_missing_runtime_surface(replay_detail) else _status(replay_result)
     )
+    checks["replay_certification"] = _strict_replay_status(target, replay_status)
     if replay_result.returncode != 0:
         details["replay_certification"] = replay_detail
 
@@ -2456,7 +2482,7 @@ def verify(
     )
     if router_replay_status == "failed" and _is_missing_runtime_surface(router_replay_detail):
         router_replay_status = "pending_runtime"
-    checks["router_replay_certification"] = router_replay_status
+    checks["router_replay_certification"] = _strict_replay_status(target, router_replay_status)
     if router_replay_detail:
         details["router_replay_certification"] = router_replay_detail
 
@@ -2514,7 +2540,7 @@ def verify(
         "checks_summary": _checks_summary(checks),
     }
     _write_timing_json(timing_json, payload)
-    return (0 if not failed else 1), payload
+    return (2 if blocked else (0 if not failed else 1)), payload
 
 
 def verify_replay_only(target: str | None = None, timing_json: str | None = None) -> tuple[int, dict[str, Any]]:
@@ -2542,9 +2568,10 @@ def verify_replay_only(target: str | None = None, timing_json: str | None = None
         ]
     )
     replay_detail = _detail(replay_result)
-    checks["replay_certification"] = (
+    replay_status = (
         "pending_runtime" if replay_result.returncode != 0 and _is_missing_runtime_surface(replay_detail) else _status(replay_result)
     )
+    checks["replay_certification"] = _strict_replay_status(target, replay_status)
     if replay_result.returncode != 0:
         details["replay_certification"] = replay_detail
     timings.append(_timing_record("replay_certification", "replay", checks["replay_certification"], replay_start))
@@ -2559,10 +2586,10 @@ def verify_replay_only(target: str | None = None, timing_json: str | None = None
     )
     if router_replay_status == "failed" and _is_missing_runtime_surface(router_replay_detail):
         router_replay_status = "pending_runtime"
-    checks["router_replay_certification"] = router_replay_status
+    checks["router_replay_certification"] = _strict_replay_status(target, router_replay_status)
     if router_replay_detail:
         details["router_replay_certification"] = router_replay_detail
-    timings.append(_timing_record("router_replay_certification", "replay", router_replay_status, router_start))
+    timings.append(_timing_record("router_replay_certification", "replay", checks["router_replay_certification"], router_start))
 
     try:
         replay_output.unlink()
@@ -2570,17 +2597,18 @@ def verify_replay_only(target: str | None = None, timing_json: str | None = None
         pass
 
     failed = [name for name, status in checks.items() if status == "failed"]
+    blocked = [name for name, status in checks.items() if status == "blocked"]
     payload: dict[str, Any] = {
         "schema": "core.release_verification.v1",
         "mode": "replay",
         "target": target,
-        "status": "passed" if not failed else "failed",
+        "status": "blocked" if blocked else ("passed" if not failed else "failed"),
         "checks": dict(sorted(checks.items())),
         "details": dict(sorted(details.items())),
         "timings": timings,
     }
     _write_timing_json(timing_json, payload)
-    return (0 if not failed else 1), payload
+    return (2 if blocked else (0 if not failed else 1)), payload
 
 
 def verify_tests_only(target: str | None = None, timing_json: str | None = None) -> tuple[int, dict[str, Any]]:

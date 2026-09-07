@@ -1,0 +1,114 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://core-runtime-engine.local/schemas/core/frozen_release_manifest.v9.json",
+  "title": "FrozenReleaseManifest.v9",
+  "description": "The exact public CORE v11.6.0 stabilization inventory.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "type",
+    "release_version",
+    "status",
+    "scope",
+    "inventory_profile",
+    "critical_subsystems",
+    "self_reference_policy",
+    "canonicalization",
+    "hash_algorithm",
+    "created_at",
+    "artifact_count",
+    "artifacts",
+    "fingerprint"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "core.frozen_release_manifest.v9"
+    },
+    "type": {
+      "const": "frozen_release_manifest"
+    },
+    "release_version": {
+      "const": "v11.6.0"
+    },
+    "status": {
+      "const": "candidate"
+    },
+    "scope": {
+      "const": "deterministic_scale_kernel_v3"
+    },
+    "inventory_profile": {
+      "const": "core.stabilization_release.v11_6_0_candidate"
+    },
+    "critical_subsystems": {
+      "const": [
+        "dsk_v3",
+        "contract_program_v2",
+        "executable_contracts",
+        "release_integrity"
+      ]
+    },
+    "self_reference_policy": {
+      "const": "manifest_file_excluded_fingerprint_covers_inventory"
+    },
+    "canonicalization": {
+      "const": "core.canonical_json.v1"
+    },
+    "hash_algorithm": {
+      "const": "sha256"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "artifact_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/artifact"
+      }
+    },
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    }
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "role",
+        "file_sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^(?!/)(?![A-Za-z]:\\\\)(?!.*(?:^|/)\\.\\.(?:/|$)).+"
+        },
+        "role": {
+          "enum": [
+            "ci",
+            "contract",
+            "documentation",
+            "example",
+            "release_metadata",
+            "runtime",
+            "schema",
+            "script",
+            "test"
+          ]
+        },
+        "file_sha256": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        }
+      }
+    }
+  }
+}

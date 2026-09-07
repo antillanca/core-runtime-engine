@@ -95,6 +95,13 @@ def test_v11_5_1_manifest_contract_has_exact_standalone_validator_binding() -> N
     )
 
 
+def test_v11_6_manifest_contract_has_exact_standalone_validator_binding() -> None:
+    assert STANDALONE_EXECUTABLE_CONTRACTS["core.frozen_release_manifest.v9"] == (
+        "scripts.validate_frozen_release_manifest_v11_6",
+        "validate_v11_6_release_manifest",
+    )
+
+
 def test_v11_3_manifest_contracts_have_exact_standalone_validator_bindings() -> None:
     assert STANDALONE_EXECUTABLE_CONTRACTS["core.frozen_release_manifest.v4"] == (
         "scripts.validate_frozen_release_manifest_v11_3",

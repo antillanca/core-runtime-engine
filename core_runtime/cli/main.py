@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from core_runtime.__version__ import __version__
 from core_runtime.cli.bump_version import cmd_bump_version
 from core_runtime.cli.create_domain import cmd_create_domain
 from core_runtime.cli.contract_preflight import cmd_contract_preflight
@@ -28,6 +29,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="core-runtime",
         description="CORE Runtime tooling commands",
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=__version__,
+        help="Show the installed CORE Runtime version",
     )
     subparsers = parser.add_subparsers(dest="command", metavar="COMMAND")
 

@@ -49,19 +49,25 @@ def test_available_contracts_are_stable():
 
 
 def test_contract_schema_paths_resolve_into_public_schema_tree():
-    assert contract_schema_path("memory_artifact.v1") == SCHEMA_DIR / "memory_artifact.v1.json"
-    assert contract_schema_path("pattern_candidate.v1") == SCHEMA_DIR / "pattern_candidate.v1.json"
-    assert contract_schema_path("template_promotion_candidate.v1") == SCHEMA_DIR / "template_promotion_candidate.v1.json"
-    assert contract_schema_path("causal_trace.v1") == SCHEMA_DIR / "causal_trace.v1.json"
-    assert contract_schema_path("contract_program.v1") == SCHEMA_DIR / "contract_program.v1.json"
-    assert contract_schema_path("entropy_signal.v1") == SCHEMA_DIR / "entropy_signal.v1.json"
-    assert contract_schema_path("control_decision.v1") == SCHEMA_DIR / "control_decision.v1.json"
-    assert contract_schema_path("execution_receipt.v1") == SCHEMA_DIR / "execution_receipt.v1.json"
-    assert contract_schema_path("policy_lifecycle.v1") == SCHEMA_DIR / "policy_lifecycle.v1.json"
-    assert contract_schema_path("reversibility_policy.v1") == SCHEMA_DIR / "reversibility_policy.v1.json"
-    assert contract_schema_path("state_transition.v1") == SCHEMA_DIR / "state_transition.v1.json"
-    assert contract_schema_path("task_closeout.v1") == SCHEMA_DIR / "task_closeout.v1.json"
-    assert contract_schema_path("effect_result.v1") == SCHEMA_DIR / "effect_result.v1.json"
+    expected = {
+        "memory_artifact.v1",
+        "pattern_candidate.v1",
+        "template_promotion_candidate.v1",
+        "causal_trace.v1",
+        "contract_program.v1",
+        "entropy_signal.v1",
+        "control_decision.v1",
+        "execution_receipt.v1",
+        "policy_lifecycle.v1",
+        "reversibility_policy.v1",
+        "state_transition.v1",
+        "task_closeout.v1",
+        "effect_result.v1",
+    }
+    for contract_name in expected:
+        path = contract_schema_path(contract_name)
+        assert path.name == f"{contract_name}.json"
+        assert path.is_file()
 
 
 def test_contract_loader_reads_generic_schema_objects():

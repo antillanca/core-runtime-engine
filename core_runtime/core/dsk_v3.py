@@ -31,7 +31,10 @@ def _error(code: str, message: str, field: str | None = None) -> dict[str, str]:
 def _decimal(value: Any) -> Decimal:
     if isinstance(value, bool):
         raise InvalidOperation
-    return Decimal(str(value))
+    decimal = Decimal(str(value))
+    if not decimal.is_finite():
+        raise InvalidOperation
+    return decimal
 
 
 def _decimal_text(value: Decimal) -> str:
@@ -93,22 +96,35 @@ def evaluate_dsk_v3(payload: dict[str, Any]) -> dict[str, Any]:
 
     try:
         value = _decimal(source["value"])
-        converted = value * Decimal(conversion["numerator"]) / Decimal(conversion["denominator"])
+        numerator = _decimal(conversion["numerator"])
+        denominator = _decimal(conversion["denominator"])
+        converted = value * numerator / denominator
     except (InvalidOperation, ZeroDivisionError):
         return _envelope(payload, "invalid", [_error("numeric_value_invalid", "Numeric values must be finite and deterministic.", "crossing.source.value")])
 
     policies = payload.get("policies", {})
     discrete = policies.get("discrete_multiple")
-    if discrete is not None and converted % Decimal(discrete["multiple"]) != 0:
-        errors.append(_error("discrete_multiple_violation", "Converted value is not an allowed discrete multiple.", "policies.discrete_multiple"))
+    if discrete is not None:
+        try:
+            multiple = _decimal(discrete["multiple"])
+            discrete_violation = converted % multiple != 0
+        except (InvalidOperation, ZeroDivisionError):
+            return _envelope(payload, "invalid", [_error("numeric_value_invalid", "Numeric values must be finite and deterministic.", "policies.discrete_multiple.multiple")])
+        if discrete_violation:
+            errors.append(_error("discrete_multiple_violation", "Converted value is not an allowed discrete multiple.", "policies.discrete_multiple"))
 
     resolution = policies.get("resolution")
     if resolution is not None and _decimal_places(converted) > resolution["max_decimal_places"]:
         errors.append(_error("resolution_violation", "Converted value exceeds the declared resolution.", "policies.resolution"))
 
     threshold = policies.get("threshold")
-    if threshold is not None and converted < Decimal(str(threshold["minimum_value"])):
-        errors.append(_error("threshold_ineligible", "Threshold eligibility was not met; no authority is created.", "policies.threshold"))
+    if threshold is not None:
+        try:
+            minimum_value = _decimal(threshold["minimum_value"])
+        except InvalidOperation:
+            return _envelope(payload, "invalid", [_error("numeric_value_invalid", "Numeric values must be finite and deterministic.", "policies.threshold.minimum_value")])
+        if converted < minimum_value:
+            errors.append(_error("threshold_ineligible", "Threshold eligibility was not met; no authority is created.", "policies.threshold"))
 
     if errors:
         return _envelope(payload, "blocked", errors, authority_ceiling=ceiling)

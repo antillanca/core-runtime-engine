@@ -389,3 +389,47 @@ def test_missing_producer() -> None:
     payload = json.loads(result.stdout)
     codes = [e["code"] for e in payload["results"][0]["errors"]]
     assert "missing_producer" in codes
+
+
+def test_nonfinite_confidence_is_rejected() -> None:
+    candidate = json.loads((FIXTURES_DIR / "accepted.json").read_text(encoding="utf-8"))
+    candidate["classification"]["confidence"] = float("nan")
+    import tempfile
+
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False, dir="/tmp") as handle:
+        json.dump(candidate, handle, allow_nan=True)
+        handle.flush()
+        result = subprocess.run(
+            [sys.executable, str(SCRIPT), handle.name],
+            check=False,
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_ROOT,
+        )
+    payload = json.loads(result.stdout)
+    assert result.returncode != 0
+    assert "invalid_confidence" in {
+        item["code"] for item in payload["results"][0]["errors"]
+    }
+
+
+def test_nonfinite_threshold_is_rejected() -> None:
+    candidate = json.loads((FIXTURES_DIR / "accepted.json").read_text(encoding="utf-8"))
+    candidate["policy"]["accept_threshold"] = float("inf")
+    import tempfile
+
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False, dir="/tmp") as handle:
+        json.dump(candidate, handle, allow_nan=True)
+        handle.flush()
+        result = subprocess.run(
+            [sys.executable, str(SCRIPT), handle.name],
+            check=False,
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_ROOT,
+        )
+    payload = json.loads(result.stdout)
+    assert result.returncode != 0
+    assert "invalid_thresholds" in {
+        item["code"] for item in payload["results"][0]["errors"]
+    }

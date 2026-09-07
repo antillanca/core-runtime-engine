@@ -13,7 +13,7 @@ PROJECT_ROOT_PATH = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT_PATH) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT_PATH))
 
-from core_runtime.core.rule_anchor import PROJECT_ROOT, build_rule_anchor_batch  # noqa: E402
+from core_runtime.core.rule_anchor import build_rule_anchor_batch  # noqa: E402
 
 
 def _read_json(path: Path) -> Any:
@@ -24,9 +24,9 @@ def _safe_repository_path(value: str) -> Path:
     candidate = Path(value)
     if candidate.is_absolute() or ".." in candidate.parts:
         raise ValueError("build-request paths must be repository-relative and cannot contain '..'")
-    resolved = (PROJECT_ROOT / candidate).resolve()
+    resolved = (PROJECT_ROOT_PATH / candidate).resolve()
     try:
-        resolved.relative_to(PROJECT_ROOT.resolve())
+        resolved.relative_to(PROJECT_ROOT_PATH.resolve())
     except ValueError as exc:
         raise ValueError("build-request path escapes the repository") from exc
     return resolved

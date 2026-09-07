@@ -140,11 +140,18 @@ class ReplacementRule:
     file_rel: str
     pattern: str
     replacement_template: str  # use {old} and {new} placeholders
+    max_replacements: int = 0
 
     def compute_replacement(self, text: str, old_version: str, new_version: str) -> tuple[int, str]:
         """Apply the replacement to *text*, returning (count, new_text)."""
         repl = self.replacement_template.format(old=old_version, new=new_version)
-        new_text, count = re.subn(self.pattern, repl, text, flags=re.MULTILINE)
+        new_text, count = re.subn(
+            self.pattern,
+            repl,
+            text,
+            count=self.max_replacements,
+            flags=re.MULTILINE,
+        )
         return count, new_text
 
 
@@ -209,6 +216,7 @@ DEFAULT_REPLACEMENT_RULES: list[ReplacementRule] = [
         file_rel="CHANGELOG.md",
         pattern=r"^(##\s+v)\d+\.\d+\.\d+",
         replacement_template=r"\g<1>{new}",
+        max_replacements=1,
     ),
     # docs/CORE_RELEASE_README.md — CORE: vX.Y.Z
     ReplacementRule(
@@ -394,6 +402,26 @@ class BumpVersionPlanner:
 
         # 9. Write files (transactional — only after all validations pass)
         written_files: list[str] = []
+        original_contents: dict[str, bytes | None] = {}
+        for file_rel in new_contents:
+            full_path = self.repo_root / file_rel
+            original_contents[file_rel] = full_path.read_bytes() if full_path.exists() else None
+
+        release_note_path = self.repo_root / "docs" / "releases" / f"v{target_version}.md"
+        release_note_created = False
+
+        def rollback() -> None:
+            """Restore every byte touched by this apply attempt."""
+
+            for file_rel, original in original_contents.items():
+                full_path = self.repo_root / file_rel
+                if original is None:
+                    full_path.unlink(missing_ok=True)
+                else:
+                    full_path.write_bytes(original)
+            if release_note_created:
+                release_note_path.unlink(missing_ok=True)
+
         try:
             for file_rel, new_text in new_contents.items():
                 full_path = self.repo_root / file_rel
@@ -401,6 +429,7 @@ class BumpVersionPlanner:
                 full_path.write_text(new_text, encoding="utf-8")
                 written_files.append(file_rel)
         except Exception:
+            rollback()
             # Partial mutation — report blocked and list touched files
             diagnostics.add_blocked(
                 code="core.bump_version.internal_error",
@@ -411,11 +440,24 @@ class BumpVersionPlanner:
             )
             return [], {}
 
-        # 10. Create release note for target version (preferred path)
-        release_note_path = self.repo_root / "docs" / "releases" / "v{0}.md".format(target_version)
-        if not release_note_path.exists():
-            self._create_release_note(target_version, release_note_path)
-            written_files.append("docs/releases/v{0}.md".format(target_version))
+        # 10. Create release note for target version (preferred path).  Keep
+        # this inside the transaction: a partial release-note write must not
+        # leave version-bearing files advanced while the note is missing.
+        try:
+            if not release_note_path.exists():
+                release_note_created = True
+                self._create_release_note(target_version, release_note_path)
+                written_files.append("docs/releases/v{0}.md".format(target_version))
+        except Exception:
+            rollback()
+            diagnostics.add_blocked(
+                code="core.bump_version.internal_error",
+                message="Partial mutation: release note write failed. Touched files: {0}".format(
+                    ", ".join(written_files)
+                ),
+                path="internal",
+            )
+            return [], {}
 
         # 11. docs/releases/README.md already mutated in new_contents (compute-time).
         # No post-write pass here — see _compute_new_contents for the regex.
@@ -450,6 +492,16 @@ class BumpVersionPlanner:
                     message="[post-apply] {0}".format(d.message),
                     path=d.path,
                 )
+            rollback()
+            return [], {
+                "files_checked": len(new_contents),
+                "files_changed": 0,
+                "replacement_count": 0,
+                "info": 0,
+                "warning": 0,
+                "error": len(post_diagnostics.diagnostics),
+                "blocked": 0,
+            }
 
         # Build summary
         files_changed = sum(1 for a in applied if a.changed)

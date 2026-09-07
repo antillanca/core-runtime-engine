@@ -6,6 +6,7 @@ import json
 import tempfile
 from pathlib import Path
 
+import pytest
 
 from core_runtime.tooling.bump_version import (
     APPROVED_MUTATION_FILES,
@@ -173,6 +174,18 @@ class TestReplacementRule:
         count, new_text = rule.compute_replacement(text, "10.5.0", "10.5.1")
         assert count == 1
         assert "CORE v10.5.1" in new_text
+
+    def test_compute_replacement_can_bound_matches(self):
+        rule = ReplacementRule(
+            file_rel="CHANGELOG.md",
+            pattern=r"^(##\s+v)\d+\.\d+\.\d+",
+            replacement_template=r"\g<1>{new}",
+            max_replacements=1,
+        )
+        text = "## v10.5.0\n\n## v10.4.0\n"
+        count, new_text = rule.compute_replacement(text, "10.5.0", "10.5.1")
+        assert count == 1
+        assert new_text == "## v10.5.1\n\n## v10.4.0\n"
 
 
 # ---------------------------------------------------------------------------
@@ -545,6 +558,33 @@ class TestApplySuccessfulPatchBump:
             content = release_note.read_text(encoding="utf-8")
             assert "v10.5.1" in content
 
+    def test_release_note_failure_rolls_back_all_version_files(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = create_mock_repo(Path(tmp))
+            before = {
+                path: (repo / path).read_bytes()
+                for path in (
+                    "core_runtime/__version__.py",
+                    "pyproject.toml",
+                    "README.md",
+                    "CHANGELOG.md",
+                )
+            }
+            planner = BumpVersionPlanner(repo)
+
+            def fail_release_note(*args, **kwargs):
+                raise OSError("synthetic release-note failure")
+
+            monkeypatch.setattr(planner, "_create_release_note", fail_release_note)
+            diagnostics = DiagnosticCollection()
+            applied, _summary = planner.apply("10.5.1", "10.5.0", diagnostics)
+
+            assert applied == []
+            assert diagnostics.has_blocked()
+            assert not (repo / "docs/releases/v10.5.1.md").exists()
+            for path, content in before.items():
+                assert (repo / path).read_bytes() == content
+
 
 # ---------------------------------------------------------------------------
 # TC10: apply() — changelog preserves history — Slice 3
@@ -693,6 +733,15 @@ class TestCmdBumpVersionSlice3:
 # ---------------------------------------------------------------------------
 
 class TestBumpVersionParser:
+    def test_parser_global_version(self, capsys):
+        from core_runtime.__version__ import __version__
+        from core_runtime.cli.main import build_parser
+
+        with pytest.raises(SystemExit) as exc_info:
+            build_parser().parse_args(["--version"])
+        assert exc_info.value.code == 0
+        assert capsys.readouterr().out.strip() == __version__
+
     def test_parser_has_bump_version(self):
         from core_runtime.cli.main import build_parser
 

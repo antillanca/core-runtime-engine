@@ -16,6 +16,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+from scripts.validate_private_domain_candidate import _load_vocabulary
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 SCRIPT = PROJECT_ROOT / "scripts" / "validate_private_domain_candidate.py"
@@ -201,6 +202,17 @@ class TestExternalVocabularyPrefix:
         unresolved = [w for w in result.get("warnings", [])
                       if w["code"] == "external_vocabulary_unresolved"]
         assert len(unresolved) == 1
+
+    def test_vocabulary_symlink_cannot_escape_vocab_directory(self, tmp_path: Path):
+        vocab_dir = tmp_path / "vocabs"
+        vocab_dir.mkdir()
+        escaped = tmp_path / "outside.json"
+        escaped.write_text(json.dumps({"commands": [{"name": "ghost"}]}))
+        (vocab_dir / "custom_domain_v1.json").symlink_to(escaped)
+        assert _load_vocabulary(
+            "external:custom_domain.commands.v1",
+            [vocab_dir],
+        ) is None
 
 
 class TestLeakCheck:

@@ -2,7 +2,7 @@ name: replay-certification
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
 
 jobs:
@@ -41,15 +41,13 @@ jobs:
         shell: bash
         run: |
           ruff check .
-      - name: Validate FrozenReleaseManifest v11.2.1
+      - name: Validate FrozenReleaseManifest v11.6.0
         shell: bash
         run: |
-          python scripts/validate_frozen_release_manifest_v11_2.py examples/frozen_release_manifest/accepted_v11_2_1_candidate.json
-          python scripts/validate_frozen_release_manifest_v11_2_frozen.py examples/frozen_release_manifest/accepted_v11_2_1.json
+          python scripts/validate_frozen_release_manifest_v11_6.py examples/frozen_release_manifest/accepted_v11_6_0_candidate.json --verify-live-artifacts
           pytest -q \
-            tests/test_frozen_release_manifest.py \
-            tests/test_frozen_release_manifest_v11_2.py \
-            tests/test_frozen_release_manifest_v11_2_frozen.py
+            tests/test_frozen_release_manifest_v11_5_1.py \
+            tests/test_frozen_release_manifest_v11_6.py
       - name: Frozen rule and non-custodial anchor tests
         shell: bash
         run: |
@@ -85,15 +83,15 @@ jobs:
         shell: bash
         run: |
           pytest -q
-      - name: CORE v11.2.1 release gate
+      - name: CORE v11.6.0 release gate
         shell: bash
         run: |
           mkdir -p artifacts/release
-          python scripts/verify_release.py --target v11.2.1 --skip-full-pytest --output artifacts/release/core-v11.2.1-release-gate.json
-      - name: Upload CORE v11.2.1 release report
+          python scripts/verify_release.py --target v11.6.0 --skip-full-pytest --output artifacts/release/core-v11.6.0-release-gate.json
+      - name: Upload CORE v11.6.0 release report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: core-v11.2.1-release-${{ matrix.os }}-py${{ matrix.python-version }}
-          path: artifacts/release/core-v11.2.1-release-gate.json
+          name: core-v11.6.0-release-${{ matrix.os }}-py${{ matrix.python-version }}
+          path: artifacts/release/core-v11.6.0-release-gate.json
           if-no-files-found: ignore

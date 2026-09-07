@@ -1,9 +1,10 @@
 [project]
 name = "core-runtime-engine"
-version = "11.5.1"
+version = "11.6.0"
 description = "CORE - deterministic contract, schema and validation engine"
 readme = "docs/CORE_RELEASE_README.md"
-license = {text = "MIT"}
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.11"
 authors = [
     {name = "CORE Project"},
