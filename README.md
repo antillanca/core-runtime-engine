@@ -20,9 +20,8 @@ separate publication workflow.
 
 ## DSK v3
 
-In HDEV, DSK canonically means **Domain-Scale Kernel**. CORE v11.6.0 keeps
-**Deterministic Scale Kernel v3** as the public compatibility label for
-(`core.dsk.v3`); the label is intentionally not renamed in this minor release.
+DSK means **Domain Scale Kernel**. The technical compatibility identifier
+remains `core.dsk.v3`; v11.6.0 does not change that identifier.
 The contract validates typed scale crossings with rational conversion,
 declared loss, evidence references, policy gates and a non-amplifying authority
 ceiling. DSK v3 remains a public contract surface; it does not grant

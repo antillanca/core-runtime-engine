@@ -8,10 +8,9 @@ remains byte-preserved, while this line owns an independent manifest and
 release-gate path. Do not infer GitHub release assets or package publication
 until the dedicated publication workflow completes.
 
-The public contract `core.dsk.v3` retains the compatibility label
-**Deterministic Scale Kernel v3**. The canonical HDEV expansion of DSK is
-**Domain-Scale Kernel**. The surface contains typed scale crossings, rational
-conversion, declared loss, evidence references, policy gates and a
+The public contract `core.dsk.v3` is the **Domain Scale Kernel v3** surface.
+The technical compatibility identifier remains unchanged. The surface contains
+typed scale crossings, rational conversion, declared loss, evidence references, policy gates and a
 non-amplifying authority ceiling. This describes the source surface only and
 does not promote the candidate to a formal public release.
 

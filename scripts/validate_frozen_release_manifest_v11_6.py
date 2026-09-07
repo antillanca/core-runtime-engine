@@ -108,7 +108,7 @@ def build_v11_6_candidate_manifest(created_at: str) -> dict[str, Any]:
         "type": "frozen_release_manifest",
         "release_version": RELEASE_VERSION,
         "status": "candidate",
-        "scope": "deterministic_scale_kernel_v3",
+        "scope": "domain_scale_kernel_v3",
         "inventory_profile": INVENTORY_PROFILE,
         "critical_subsystems": list(CRITICAL_SUBSYSTEMS),
         "self_reference_policy": SELF_REFERENCE_POLICY,

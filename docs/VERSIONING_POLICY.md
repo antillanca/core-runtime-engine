@@ -16,9 +16,9 @@ CORE follows strict semantic versioning (MAJOR.MINOR.PATCH).
 v11.6.0 is the additive stabilization line before CORE-Interop. It may repair
 determinism, fail-closed validation, package metadata, release tooling, replay
 gates and documentation without changing the meaning of an existing frozen
-fingerprint or public schema. The public `core.dsk.v3` label remains the
-compatibility name **Deterministic Scale Kernel v3**; HDEV uses the canonical
-expansion **Domain-Scale Kernel**.
+fingerprint or public schema. The public contract name is **Domain Scale
+Kernel v3**, and its technical compatibility identifier remains
+`core.dsk.v3`.
 
 ### Planned v12.0.0 boundary
 

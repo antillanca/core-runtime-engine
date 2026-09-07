@@ -35,7 +35,7 @@
       "const": "candidate"
     },
     "scope": {
-      "const": "deterministic_scale_kernel_v3"
+      "const": "domain_scale_kernel_v3"
     },
     "inventory_profile": {
       "const": "core.stabilization_release.v11_6_0_candidate"

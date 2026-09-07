@@ -32,9 +32,8 @@
 
 - Add the global `core-runtime --version` command and prepare a new v11.6.0
   frozen-manifest line.
-- Document DSK as **Domain-Scale Kernel** in HDEV while retaining
-  **Deterministic Scale Kernel v3** as the public `core.dsk.v3` compatibility
-  label.
+- Document DSK as **Domain Scale Kernel** while retaining the technical
+  compatibility identifier `core.dsk.v3`.
 - Reserve v12.0.0 for the separately documented canonicalization and envelope
   migration.
 
@@ -51,7 +50,7 @@
 
 ### Added
 
-- Public deterministic Scale Kernel v3 (`core.dsk.v3`) with typed resources,
+- Public Domain Scale Kernel v3 (`core.dsk.v3`) with typed resources,
   rational scale crossing, declared loss, policy gates and non-amplifying
   authority semantics.
 - Closed draft-07 schema, validator CLI, canonical fingerprints, replay tests,

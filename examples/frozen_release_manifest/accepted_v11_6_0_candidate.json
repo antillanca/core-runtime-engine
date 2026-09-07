@@ -3,7 +3,7 @@
   "type": "frozen_release_manifest",
   "release_version": "v11.6.0",
   "status": "candidate",
-  "scope": "deterministic_scale_kernel_v3",
+  "scope": "domain_scale_kernel_v3",
   "inventory_profile": "core.stabilization_release.v11_6_0_candidate",
   "critical_subsystems": [
     "dsk_v3",
@@ -14,7 +14,7 @@
   "self_reference_policy": "manifest_file_excluded_fingerprint_covers_inventory",
   "canonicalization": "core.canonical_json.v1",
   "hash_algorithm": "sha256",
-  "created_at": "2026-09-07T03:08:42Z",
+  "created_at": "2026-09-07T03:17:05Z",
   "artifact_count": 203,
   "artifacts": [
     {
@@ -30,7 +30,7 @@
     {
       "path": "CHANGELOG.md",
       "role": "release_metadata",
-      "file_sha256": "sha256:7fbf5c91bd66f526be27fdf3aabfe79590d0564befec69062bc4c505f032744a"
+      "file_sha256": "sha256:3484c8a5b3abcc94ce0090ea8eaba7fbf3a88b01e770a4a025e9ea40fb69d5a8"
     },
     {
       "path": "LICENSE",
@@ -40,7 +40,7 @@
     {
       "path": "README.md",
       "role": "documentation",
-      "file_sha256": "sha256:9bb8abf20962899f076a6ac7e21de4a5e501064936b5cd716625317b93eee848"
+      "file_sha256": "sha256:3798a75c128e6a9664924a6a2107fed3f4db1fdc184cc7a0fd97decfcca111ba"
     },
     {
       "path": "contracts/CoreRuleAnchor.abi.json",
@@ -130,7 +130,7 @@
     {
       "path": "core_runtime/core/dsk_v3.py",
       "role": "runtime",
-      "file_sha256": "sha256:5dab36313d84de729118e9b96edf712b56b13ac9679303d02f4a6bcf9f621038"
+      "file_sha256": "sha256:91b63c1d16f48d4755b083a5c3373c4295caeb602fe1a9630f5cd596b1f85f9f"
     },
     {
       "path": "core_runtime/core/rule_anchor.py",
@@ -150,7 +150,7 @@
     {
       "path": "docs/CORE_RELEASE_README.md",
       "role": "documentation",
-      "file_sha256": "sha256:111276ce8b31ee3747edc76c336f99128b132e5f8e237bbf93d7776e3931ad70"
+      "file_sha256": "sha256:09db00bece8ffefa8e8527bba4ada99b50ffb99e81c8cfe012384a3b9b8bc624"
     },
     {
       "path": "docs/EXECUTABLE_CONTRACTS_AND_PHYSICAL_SAFETY.md",
@@ -175,7 +175,7 @@
     {
       "path": "docs/VERSIONING_POLICY.md",
       "role": "documentation",
-      "file_sha256": "sha256:808c90edb3767c552712c9cd1e1529f6acc9efd4a1622bdcbb90610243510437"
+      "file_sha256": "sha256:f0bb685673ae54e7e789b857653a903666bb5f7d00bfadf6383ee483eb00b908"
     },
     {
       "path": "docs/releases/README.md",
@@ -205,7 +205,7 @@
     {
       "path": "docs/releases/v11.6.0.md",
       "role": "documentation",
-      "file_sha256": "sha256:7f842d7737da20c51fa0620cff11d578053d7549fe34150f164bbbc334c01f8a"
+      "file_sha256": "sha256:af99f7e90fceccbc379c29b2120a649afce092393c06620eff7108d73a0092fd"
     },
     {
       "path": "examples/anchoring/accepted_freeze_artifact.json",
@@ -515,7 +515,7 @@
     {
       "path": "schemas/core/dsk.v3.json",
       "role": "schema",
-      "file_sha256": "sha256:f1892f19e04387d75b4ada0701a0bf7ca9d80c3a1500c3e820f614dc04f04f4e"
+      "file_sha256": "sha256:f34b588f357fe00b5e3c0075483b8ad3325ade746858f9bdd3d1c51f9d6fc5c7"
     },
     {
       "path": "schemas/core/effect_result.v1.json",
@@ -550,7 +550,7 @@
     {
       "path": "schemas/core/frozen_release_manifest.v9.json",
       "role": "schema",
-      "file_sha256": "sha256:73e4332e148a75d3c2b3b1942a08583dcab6b3dc486dba6605d2499a9570e987"
+      "file_sha256": "sha256:86a838a7f4581788af4dd2b015d42be70577283963e27201c9045211d17214bb"
     },
     {
       "path": "schemas/core/frozen_rule_set.v1.json",
@@ -810,7 +810,7 @@
     {
       "path": "scripts/validate_frozen_release_manifest_v11_6.py",
       "role": "script",
-      "file_sha256": "sha256:4be5822c4e0f84b10b51b5dfb95312a28636294f3e7c0466a5b95aa82914bb3a"
+      "file_sha256": "sha256:d60e576314b133d43ff1a5c3f8182361b5ab3de244476c3ecf22127157e04f92"
     },
     {
       "path": "scripts/validate_frozen_rule_set.py",
@@ -1033,5 +1033,5 @@
       "file_sha256": "sha256:ef31dec1e079134c66585c2fd84c21c1493a75b51f45019c2a6cd06694f20470"
     }
   ],
-  "fingerprint": "sha256:e259b8ac179f461e04d10e97b68cc390cc44c816fd9d1936d2bf199ccb6fc8ba"
+  "fingerprint": "sha256:608a61ecb2424199ee57672d33dbb8a7b1c0aae9e943e549e98fdca816ffd92c"
 }

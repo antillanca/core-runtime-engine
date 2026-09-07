@@ -1,4 +1,4 @@
-"""Deterministic Scale Kernel v3 evaluator.
+"""Domain Scale Kernel v3 evaluator.
 
 The kernel validates one typed scale crossing. It never calls a provider,
 consults a domain or increases the authority declared by the input.
