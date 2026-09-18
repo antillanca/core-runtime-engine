@@ -72,7 +72,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p artifacts/release
-          python scripts/verify_release.py --target v12.0.0 --skip-full-pytest --output artifacts/release/core-v12.0.0-release-gate.json
+          python scripts/verify_release.py --target v12.0.0 --group tooling --output artifacts/release/core-v12.0.0-release-gate.json
       - name: Upload CORE v12.0.0 release report
         if: always()
         uses: actions/upload-artifact@v4
