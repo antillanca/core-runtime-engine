@@ -80,16 +80,20 @@ def error(code: str, message: str, field: str = "$", **extra: Any) -> Error:
 
 
 def artifact_fingerprint(payload: Mapping[str, Any]) -> str:
-    """Fingerprint canonical artifact content, excluding its own fingerprint."""
+    """Fingerprint canonical artifact content, excluding its own fingerprint.
 
+    Returns: "sha256:<hex>"
+    """
     body = {key: value for key, value in payload.items() if key != "fingerprint"}
-    return f"sha256:{canonical_json_hash(body)}"
+    return canonical_json_hash(body)
 
 
 def input_fingerprint(payload: Any) -> str:
-    """Fingerprint the exact parsed input used by the evaluator."""
+    """Fingerprint the exact parsed input used by the evaluator.
 
-    return f"sha256:{canonical_json_hash(payload)}"
+    Returns: "sha256:<hex>"
+    """
+    return canonical_json_hash(payload)
 
 
 def _timezone_datetime(value: Any) -> datetime | None:

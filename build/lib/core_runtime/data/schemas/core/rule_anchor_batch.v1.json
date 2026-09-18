@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://core.antillanca.dev/schemas/core/rule_anchor_batch.v1.json",
+  "title": "RuleAnchorBatch.v1",
+  "description": "A deterministic SHA-256 Merkle batch of approved frozen rule sets.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "type",
+    "batch_id",
+    "hash_algorithm",
+    "merkle_scheme",
+    "chain_id",
+    "verifying_contract",
+    "rule_set_count",
+    "visibility_mask",
+    "entries",
+    "merkle_root",
+    "manifest_fingerprint"
+  ],
+  "properties": {
+    "schema_version": {"const": "core.rule_anchor_batch.v1"},
+    "type": {"const": "rule_anchor_batch"},
+    "batch_id": {
+      "type": "string",
+      "pattern": "^rule-anchor-batch:[a-f0-9]{24}$"
+    },
+    "hash_algorithm": {"const": "sha256"},
+    "merkle_scheme": {"const": "core.sha256_merkle.v1"},
+    "chain_id": {"type": "integer", "minimum": 1},
+    "verifying_contract": {"$ref": "#/definitions/address"},
+    "rule_set_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4294967295
+    },
+    "visibility_mask": {"type": "integer", "minimum": 1, "maximum": 3},
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/definitions/entry"}
+    },
+    "merkle_root": {"$ref": "#/definitions/fingerprint"},
+    "manifest_fingerprint": {"$ref": "#/definitions/fingerprint"}
+  },
+  "definitions": {
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "address": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$"
+    },
+    "proof_node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["position", "hash"],
+      "properties": {
+        "position": {"enum": ["left", "right"]},
+        "hash": {"$ref": "#/definitions/fingerprint"}
+      }
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_set_fingerprint",
+        "rule_class",
+        "visibility",
+        "approval_fingerprints",
+        "leaf_hash",
+        "proof"
+      ],
+      "properties": {
+        "rule_set_fingerprint": {"$ref": "#/definitions/fingerprint"},
+        "rule_class": {"enum": ["general", "personal"]},
+        "visibility": {"enum": ["public", "private_commitment"]},
+        "approval_fingerprints": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/definitions/fingerprint"}
+        },
+        "leaf_hash": {"$ref": "#/definitions/fingerprint"},
+        "proof": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/proof_node"}
+        }
+      }
+    }
+  }
+}

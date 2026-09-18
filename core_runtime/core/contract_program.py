@@ -87,6 +87,13 @@ def execute_contract_program(program: Mapping[str, Any], sealed_inputs: Mapping[
                     break
                 if instruction["operation"] == "copy":
                     values[instruction["output"]] = copy.deepcopy(values[keys[0]])
+                elif instruction["operation"] == "count":
+                    source = values[keys[0]]
+                    if not isinstance(source, (list, dict, set, tuple)):
+                        execution["status"] = "blocked"
+                        execution["errors"].append(_error("count_requires_collection", "Count operation requires a list, dict, set, or tuple.", f"{field}.input_keys"))
+                        break
+                    values[instruction["output"]] = len(source)
                 elif instruction["operation"] == "registry":
                     try:
                         values[instruction["output"]] = execute_registry_operation(
@@ -100,7 +107,9 @@ def execute_contract_program(program: Mapping[str, Any], sealed_inputs: Mapping[
                         )
                         break
                 else:
-                    values[instruction["output"]] = len(keys)
+                    execution["status"] = "blocked"
+                    execution["errors"].append(_error("derive_operation_unknown", f"Unknown derive operation: {instruction['operation']}", f"{field}.operation"))
+                    break
             elif opcode == "transition":
                 execution["staged_transitions"].append(
                     {

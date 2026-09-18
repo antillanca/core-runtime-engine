@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://core.antillanca.dev/schemas/core/rule_approval_request.v1.json",
+  "title": "RuleApprovalRequest.v1",
+  "description": "A public message for an external wallet to review and sign. It never contains signing secrets.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "type",
+    "rule_set_fingerprint",
+    "chain_id",
+    "verifying_contract",
+    "signer",
+    "signature_scheme",
+    "decision",
+    "message",
+    "fingerprint"
+  ],
+  "properties": {
+    "schema_version": {"const": "core.rule_approval_request.v1"},
+    "type": {"const": "rule_approval_request"},
+    "rule_set_fingerprint": {"$ref": "#/definitions/fingerprint"},
+    "chain_id": {"type": "integer", "minimum": 1},
+    "verifying_contract": {"$ref": "#/definitions/address"},
+    "signer": {"$ref": "#/definitions/address"},
+    "signature_scheme": {"const": "eip191_secp256k1"},
+    "decision": {"const": "approve_frozen_rule_set"},
+    "message": {"type": "string", "minLength": 1, "maxLength": 1024},
+    "fingerprint": {"$ref": "#/definitions/fingerprint"}
+  },
+  "definitions": {
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "address": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$"
+    }
+  }
+}

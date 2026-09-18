@@ -18,7 +18,7 @@ from typing import Any
 
 from jsonschema import Draft7Validator
 
-from core_runtime.core.canonicalization import canonical_json_dumps
+from core_runtime.core.canonicalization import canonical_json_dumps, canonical_json_hash, v12_envelope_fingerprint
 
 
 SCHEMA_ROOT = files("core_runtime").joinpath("data", "schemas", "core")
@@ -87,15 +87,19 @@ def sha256_fingerprint_bytes(payload: bytes) -> str:
 
 
 def canonical_fingerprint(payload: Any) -> str:
-    """Fingerprint canonical UTF-8 JSON using SHA-256."""
+    """Fingerprint canonical UTF-8 JSON using SHA-256.
 
-    return sha256_fingerprint_bytes(canonical_json_dumps(payload).encode("utf-8"))
+    Returns: "sha256:<hex>"
+    """
+    return canonical_json_hash(payload)
 
 
 def artifact_fingerprint(payload: Mapping[str, Any], field: str = "fingerprint") -> str:
-    """Fingerprint an artifact while excluding its declared fingerprint."""
+    """Fingerprint an artifact while excluding its declared fingerprint.
 
-    return canonical_fingerprint({key: value for key, value in payload.items() if key != field})
+    Returns: "sha256:<hex>"
+    """
+    return canonical_json_hash({key: value for key, value in payload.items() if key != field})
 
 
 def load_verified_rule_anchor_build() -> tuple[dict[str, Any], str]:

@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://core-runtime-engine.local/schemas/core/entropy_signal.v1.json",
+  "title": "EntropySignal.v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "type",
+    "signal_id",
+    "source_type",
+    "source_id",
+    "signal_type",
+    "severity",
+    "confidence",
+    "measurement",
+    "suggested_response",
+    "source_refs",
+    "evidence_refs",
+    "timestamp",
+    "fingerprint"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.entropy_signal.v1"
+    },
+    "type": {
+      "type": "string",
+      "const": "entropy_signal"
+    },
+    "signal_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "repetition",
+        "context_bloat",
+        "state_drift",
+        "invariant_violation",
+        "cost_growth",
+        "ambiguous_intent",
+        "missing_evidence",
+        "stale_memory",
+        "manual_review_required"
+      ]
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "measurement": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "suggested_response": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^(?!/).+"
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^(?!/).+"
+      }
+    },
+    "timestamp": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fingerprint": {
+      "type": "string",
+      "minLength": 1
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

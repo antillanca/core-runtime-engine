@@ -4,14 +4,14 @@
 
 CORE follows strict semantic versioning (MAJOR.MINOR.PATCH).
 
-- **Current**: v11.6.0
+- **Current**: v12.0.0
 - **MAJOR**: breaking changes to public schemas, validator CLI contracts,
   or frozen fingerprint/canonicalization semantics.
 - **MINOR**: new schemas, new validator scripts, new CLI subcommands
   (additive, non-breaking).
 - **PATCH**: bug fixes, performance improvements, documentation.
 
-### v11.6.0 stabilization boundary
+### v11.6.0 stabilization boundary (historical)
 
 v11.6.0 is the additive stabilization line before CORE-Interop. It may repair
 determinism, fail-closed validation, package metadata, release tooling, replay
@@ -20,13 +20,13 @@ fingerprint or public schema. The public contract name is **Domain Scale
 Kernel v3**, and its technical compatibility identifier remains
 `core.dsk.v3`.
 
-### Planned v12.0.0 boundary
+### v12.0.0 boundary
 
-v12.0.0 is reserved for a separately approved breaking migration. Its design
-record must cover, at minimum:
+v12.0.0 is the sealed public release implementing the breaking migration defined
+in HDEV_CORE_V12_SEALED_PUBLIC_RELEASE.md. Its design covers:
 
-- an interoperable canonicalization profile (preferably RFC 8785/JCS or an
-  explicitly versioned equivalent) and a migration for existing fingerprints;
+- an interoperable canonicalization profile (JCS/RFC 8785) and a migration for
+  existing fingerprints (legacy_canonical_json_hash for historical replay);
 - strict I-JSON/non-finite-number rejection and removal of implicit
   `default=str` coercion from public hashing paths;
 - closed, versioned result envelopes and schema references across all public
@@ -36,8 +36,8 @@ record must cover, at minimum:
 - dual-read/replay evidence proving that v11 artifacts remain verifiable
   without silently treating them as v12 artifacts.
 
-No v12 behavior is enabled by the v11.6.0 release. A v12 implementation must
-introduce new fingerprints and manifests rather than rewriting v11 history.
+No v12 behavior is enabled by the v11.6.0 release. The v12 implementation
+introduces new fingerprints and manifests rather than rewriting v11 history.
 
 ## Frozen-manifest lifecycle
 

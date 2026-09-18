@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://core-runtime-engine.local/schemas/core/pattern_candidate.v1.json",
+  "title": "PatternCandidate.v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "type",
+    "pattern_id",
+    "source_type",
+    "source_id",
+    "classification",
+    "confidence",
+    "occurrences",
+    "normalized_signature",
+    "source_refs",
+    "suggested_action"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.pattern_candidate.v1"
+    },
+    "type": {
+      "type": "string",
+      "const": "pattern_candidate"
+    },
+    "pattern_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "classification": {
+      "type": "string",
+      "enum": [
+        "already_deterministic",
+        "candidate_for_template",
+        "candidate_for_closeout_builder",
+        "candidate_for_metrics_only",
+        "too_ambiguous"
+      ]
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "occurrences": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "normalized_signature": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "source_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^(?!/).+"
+      }
+    },
+    "example_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "source_kinds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "suggested_action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "llm_reduction_potential": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "observed_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

@@ -2,6 +2,26 @@
 
 ## Unreleased
 
+## v12.0.0
+
+### Release status
+- Sealed public release per HDEV_CORE_V12_SEALED_PUBLIC_RELEASE.md.
+- Implements JCS/RFC 8785 canonicalization, versioned fingerprints, v12 envelopes, and `additionalProperties: false` schemas.
+- Removes `default=str` from public hashing paths; adds `legacy_canonical_json_hash` for historical replay compatibility.
+- Contract program derive operations restricted to explicit `copy`/`count`/`registry`; unknown operations fail closed.
+- Single declarative contract registry replaces hardcoded contract lists.
+- Schema source unified to `schemas/`; `core_runtime/data/schemas/` generated at build time.
+- v11.6.0 frozen as historical baseline; no backports.
+
+### Changed
+- Canonical JSON serialization now strict JCS (no `default=str`).
+- Fingerprint format now versioned: `sha256:` for content, `v12:` for envelopes.
+- Result envelope schema versioned to `hdev.core_v12_envelope.v1` with replay matrix.
+- All schemas declare `additionalProperties: false` with JSON Schema draft 2020-12 dialect.
+- Verdict policy: multi-finding severity order (error > warning > info), `forbidden_authorises_authority` → rejected.
+- Contract registry: single declarative source at `schemas/core/contract_registry.v12.json`.
+- Derive opcode: explicit operations only; `derive_operation_unknown` for unknown ops.
+
 ## v11.6.0
 
 ### Release status

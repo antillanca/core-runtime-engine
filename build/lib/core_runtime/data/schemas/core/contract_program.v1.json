@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://core-runtime-engine.local/schemas/core/contract_program.v1.json",
+  "title": "ContractProgram.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "type",
+    "program_id",
+    "program_version",
+    "authority",
+    "effect_policy",
+    "capabilities",
+    "limits",
+    "instructions",
+    "source_refs",
+    "declared_loss",
+    "fingerprint"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "core.contract_program.v1"},
+    "type": {"type": "string", "const": "contract_program"},
+    "program_id": {"type": "string", "minLength": 1, "maxLength": 128},
+    "program_version": {"type": "string", "minLength": 1, "maxLength": 64},
+    "authority": {"type": "string", "const": "validation_only"},
+    "effect_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["external_effects", "network_access", "filesystem_access", "state_apply"],
+      "properties": {
+        "external_effects": {"type": "boolean"},
+        "network_access": {"type": "boolean"},
+        "filesystem_access": {"type": "boolean"},
+        "state_apply": {"type": "boolean"}
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["read_input", "assert", "derive", "stage_transition", "emit_result"]
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_steps", "max_items", "max_emits"],
+      "properties": {
+        "max_steps": {"type": "integer", "minimum": 1, "maximum": 128},
+        "max_items": {"type": "integer", "minimum": 0, "maximum": 10000},
+        "max_emits": {"type": "integer", "minimum": 0, "maximum": 128}
+      }
+    },
+    "instructions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "items": {"$ref": "#/$defs/instruction"}
+    },
+    "source_refs": {"$ref": "#/$defs/refs"},
+    "declared_loss": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1, "maxLength": 256}
+    },
+    "fingerprint": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"}
+  },
+  "$defs": {
+    "ref": {"type": "string", "minLength": 1, "maxLength": 256, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"},
+    "refs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/ref"}
+    },
+    "key": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z][A-Za-z0-9_]{0,127}$"},
+    "scalar": {"type": ["string", "number", "integer", "boolean", "null"]},
+    "load_instruction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["opcode", "key", "output"],
+      "properties": {
+        "opcode": {"const": "load"},
+        "key": {"$ref": "#/$defs/key"},
+        "output": {"$ref": "#/$defs/key"}
+      }
+    },
+    "assert_instruction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["opcode", "key", "equals"],
+      "properties": {
+        "opcode": {"const": "assert"},
+        "key": {"$ref": "#/$defs/key"},
+        "equals": {"$ref": "#/$defs/scalar"}
+      }
+    },
+    "derive_instruction": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["opcode", "operation", "input_keys", "output"],
+          "properties": {
+            "opcode": {"const": "derive"},
+            "operation": {"type": "string", "enum": ["copy", "count"]},
+            "input_keys": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 128,
+              "uniqueItems": true,
+              "items": {"$ref": "#/$defs/key"}
+            },
+            "output": {"$ref": "#/$defs/key"}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["opcode", "operation", "registry_key", "input_keys", "output"],
+          "properties": {
+            "opcode": {"const": "derive"},
+            "operation": {"const": "registry"},
+            "registry_key": {
+              "type": "string",
+              "enum": ["rank.quantity.v1", "member.scale_adapter.v1", "regex.grammar_context.v1"]
+            },
+            "input_keys": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 128,
+              "uniqueItems": true,
+              "items": {"$ref": "#/$defs/key"}
+            },
+            "output": {"$ref": "#/$defs/key"}
+          }
+        }
+      ]
+    },
+    "transition_instruction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["opcode", "transition_id", "before_ref", "after_ref", "reversibility_class"],
+      "properties": {
+        "opcode": {"const": "transition"},
+        "transition_id": {"$ref": "#/$defs/ref"},
+        "before_ref": {"$ref": "#/$defs/ref"},
+        "after_ref": {"$ref": "#/$defs/ref"},
+        "reversibility_class": {"type": "string", "enum": ["reversible", "compensable", "irreversible", "unknown"]}
+      }
+    },
+    "emit_instruction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["opcode", "code", "value_key"],
+      "properties": {
+        "opcode": {"const": "emit"},
+        "code": {"type": "string", "minLength": 1, "maxLength": 128},
+        "value_key": {"$ref": "#/$defs/key"}
+      }
+    },
+    "halt_instruction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["opcode", "status"],
+      "properties": {
+        "opcode": {"const": "halt"},
+        "status": {"type": "string", "enum": ["passed", "blocked", "insufficient_data"]}
+      }
+    },
+    "instruction": {
+      "oneOf": [
+        {"$ref": "#/$defs/load_instruction"},
+        {"$ref": "#/$defs/assert_instruction"},
+        {"$ref": "#/$defs/derive_instruction"},
+        {"$ref": "#/$defs/transition_instruction"},
+        {"$ref": "#/$defs/emit_instruction"},
+        {"$ref": "#/$defs/halt_instruction"}
+      ]
+    }
+  }
+}

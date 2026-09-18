@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://core-runtime-engine.local/schemas/core/retention_manifest.v1.json",
+  "title": "RetentionManifest.v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "entries"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "core.retention_manifest.v1"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_type", "source_id", "artifact_ref", "retention_class", "reason"],
+        "properties": {
+          "source_type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "artifact_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "retention_class": {
+            "type": "string",
+            "enum": ["keep", "compress", "forget", "quarantine"]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "checksum": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          },
+          "restore_ref": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

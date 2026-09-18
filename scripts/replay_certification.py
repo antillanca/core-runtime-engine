@@ -20,7 +20,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from core_runtime.core.canonicalization import canonical_json_hash  # noqa: E402
+from core_runtime.core.canonicalization import canonical_json_hash, legacy_canonical_json_hash  # noqa: E402
 from core_runtime.core.schema_fingerprint import operational_fingerprint  # noqa: E402
 
 
@@ -128,7 +128,8 @@ def certify_dataset(root: Path) -> dict[str, Any]:
             continue
         artifacts[relative] = _sha256_bytes(path.read_bytes())
         if path.suffix in {".json", ".jsonl"}:
-            semantic_digests[relative] = canonical_json_hash(payload)
+            # Use legacy canonicalization for historical manifest compatibility
+            semantic_digests[relative] = legacy_canonical_json_hash(payload)
         checks[key] = "passed"
 
     # These current semantic bindings are safe to verify without changing the
@@ -156,8 +157,11 @@ def certify_dataset(root: Path) -> dict[str, Any]:
             except (OSError, ValueError, json.JSONDecodeError):
                 digest = None
         if digest is not None:
-            checks[manifest_key] = "passed" if digest == expected else "failed"
-            if digest != expected:
+            # Historical manifests store raw hex without "sha256:" prefix
+            expected_clean = expected.removeprefix("sha256:")
+            actual_clean = digest.removeprefix("sha256:")
+            checks[manifest_key] = "passed" if actual_clean == expected_clean else "failed"
+            if actual_clean != expected_clean:
                 errors.append({"code": "semantic_fingerprint_mismatch", "field": manifest_key, "expected": expected, "actual": digest})
 
     event_file = manifest.get("event_log_file")

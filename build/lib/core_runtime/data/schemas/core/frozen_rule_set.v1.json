@@ -1,0 +1,282 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://core.antillanca.dev/schemas/core/frozen_rule_set.v1.json",
+  "title": "FrozenRuleSet.v1",
+  "description": "Immutable, replayable rules. General rules publish their content; personal rules publish only a blinded commitment.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "type",
+    "rule_set_id",
+    "domain",
+    "rule_version",
+    "status",
+    "rule_class",
+    "visibility",
+    "canonicalization",
+    "hash_algorithm",
+    "content",
+    "governance",
+    "frozen_at",
+    "fingerprint"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "core.frozen_rule_set.v1"
+    },
+    "type": {
+      "const": "frozen_rule_set"
+    },
+    "rule_set_id": {
+      "type": "string",
+      "pattern": "^rule-set:[a-z0-9][a-z0-9._-]{2,127}$"
+    },
+    "domain": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{1,63}$"
+    },
+    "rule_version": {
+      "type": "string",
+      "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "status": {
+      "const": "frozen"
+    },
+    "rule_class": {
+      "enum": ["general", "personal"]
+    },
+    "visibility": {
+      "enum": ["public", "private_commitment"]
+    },
+    "canonicalization": {
+      "const": "core.canonical_json.v1"
+    },
+    "hash_algorithm": {
+      "const": "sha256"
+    },
+    "content": {
+      "oneOf": [
+        {"$ref": "#/definitions/public_content"},
+        {"$ref": "#/definitions/private_content"}
+      ]
+    },
+    "governance": {
+      "$ref": "#/definitions/governance"
+    },
+    "frozen_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "supersedes": {
+      "$ref": "#/definitions/fingerprint"
+    },
+    "fingerprint": {
+      "$ref": "#/definitions/fingerprint"
+    }
+  },
+  "definitions": {
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "evm_address": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$"
+    },
+    "source_kind": {
+      "enum": [
+        "human",
+        "nonhuman_biological",
+        "software",
+        "human_directed_software",
+        "mixed_ensemble"
+      ]
+    },
+    "step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "step_id",
+        "requirement",
+        "result_schema",
+        "accepted_evidence_sources",
+        "on_failure"
+      ],
+      "properties": {
+        "step_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{1,63}$"
+        },
+        "requirement": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "result_schema": {
+          "type": "string",
+          "pattern": "^(?!/)(?![A-Za-z]:\\\\).+",
+          "maxLength": 256
+        },
+        "accepted_evidence_sources": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/source_kind"
+          }
+        },
+        "on_failure": {
+          "enum": ["reject", "veto", "responsible_review"]
+        }
+      }
+    },
+    "conformance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deterministic",
+        "fail_closed",
+        "replay_required",
+        "evidence_required",
+        "evidence_is_projection"
+      ],
+      "properties": {
+        "deterministic": {"const": true},
+        "fail_closed": {"const": true},
+        "replay_required": {"const": true},
+        "evidence_required": {"const": true},
+        "evidence_is_projection": {"const": true}
+      }
+    },
+    "public_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_id",
+        "domain",
+        "purpose",
+        "applicability",
+        "steps",
+        "final_result_schema",
+        "conformance",
+        "source_refs"
+      ],
+      "properties": {
+        "rule_id": {
+          "type": "string",
+          "pattern": "^rule:[a-z0-9][a-z0-9._-]{2,127}$"
+        },
+        "domain": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{1,63}$"
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "applicability": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/step"
+          }
+        },
+        "final_result_schema": {
+          "type": "string",
+          "pattern": "^(?!/)(?![A-Za-z]:\\\\).+",
+          "maxLength": 256
+        },
+        "conformance": {
+          "$ref": "#/definitions/conformance"
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(?!/)(?![A-Za-z]:\\\\).+",
+            "maxLength": 512
+          }
+        }
+      }
+    },
+    "public_content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "rules"],
+      "properties": {
+        "mode": {"const": "public"},
+        "rules": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/public_rule"
+          }
+        }
+      }
+    },
+    "private_content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "commitment_scheme",
+        "commitment",
+        "rule_count",
+        "contains_plaintext_private_data",
+        "blinding_nonce_published"
+      ],
+      "properties": {
+        "mode": {"const": "private_commitment"},
+        "commitment_scheme": {"const": "core.blinded_commitment.v1"},
+        "commitment": {"$ref": "#/definitions/fingerprint"},
+        "rule_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4294967295
+        },
+        "contains_plaintext_private_data": {"const": false},
+        "blinding_nonce_published": {"const": false}
+      }
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "signature_scheme",
+        "approval_threshold",
+        "authorized_signers",
+        "accountability",
+        "automated_delegation",
+        "amendment_mode"
+      ],
+      "properties": {
+        "signature_scheme": {"const": "eip191_secp256k1"},
+        "approval_threshold": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 255
+        },
+        "authorized_signers": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 255,
+          "items": {"$ref": "#/definitions/evm_address"}
+        },
+        "accountability": {"const": "authorized_signer_set"},
+        "automated_delegation": {
+          "enum": ["none", "bounded_by_frozen_rule"]
+        },
+        "amendment_mode": {"const": "new_frozen_version_only"}
+      }
+    }
+  }
+}

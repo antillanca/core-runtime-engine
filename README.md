@@ -1,4 +1,4 @@
-# CORE v11.6.0 — Contract-Oriented Reproducible Evaluation
+# CORE v12.0.0 — Contract-Oriented Reproducible Evaluation
 
 CORE validates artifacts against public contracts: JSON schemas, fingerprints,
 manifests and bounded evidence windows. It never executes domain business
@@ -13,9 +13,9 @@ fiscal, or economic truth.
 
 ## Release status
 
-The current stabilization line is CORE `v11.6.0`. The `v11.5.1` tag and
+The current stabilization line is CORE `v12.0.0`. The `v11.6.0` tag and
 manifest remain historical public evidence and are preserved unchanged.
-GitHub and package publication require the v11.6.0 release gate and the
+GitHub and package publication require the v12.0.0 release gate and the
 separate publication workflow.
 
 ## DSK v3
