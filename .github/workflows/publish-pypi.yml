@@ -24,6 +24,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    outputs:
+      dist_dir: ${{ steps.dist_name.outputs.dist_dir }}
     steps:
       - name: Check out the immutable release tag
         uses: actions/checkout@v4
@@ -35,19 +37,28 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Compute dist directory name
+        id: dist_name
+        run: |
+          if [ "${{ inputs.version }}" = "12.0.0" ]; then
+            echo "dist_dir=dist/pypi-v12_0_0" >> $GITHUB_OUTPUT
+          else
+            echo "dist_dir=dist/pypi-v11_6_0" >> $GITHUB_OUTPUT
+          fi
+
       - name: Build one wheel and sdist pair
         run: |
           python -m pip install --upgrade build twine
-          mkdir -p dist/pypi-${{ inputs.version | replace('.', '_') }}
-          python -m build --outdir dist/pypi-${{ inputs.version | replace('.', '_') }}
-          python -m twine check dist/pypi-${{ inputs.version | replace('.', '_') }}/*
-          sha256sum dist/pypi-${{ inputs.version | replace('.', '_') }}/* > dist/pypi-${{ inputs.version | replace('.', '_') }}/SHA256SUMS
+          mkdir -p ${{ steps.dist_name.outputs.dist_dir }}
+          python -m build --outdir ${{ steps.dist_name.outputs.dist_dir }}
+          python -m twine check ${{ steps.dist_name.outputs.dist_dir }}/*
+          sha256sum ${{ steps.dist_name.outputs.dist_dir }}/* > ${{ steps.dist_name.outputs.dist_dir }}/SHA256SUMS
 
       - name: Upload the immutable distributions
         uses: actions/upload-artifact@v4
         with:
           name: core-runtime-engine-${{ inputs.version }}-distributions
-          path: dist/pypi-${{ inputs.version | replace('.', '_') }}
+          path: ${{ steps.dist_name.outputs.dist_dir }}
           if-no-files-found: error
           retention-days: 7
 
@@ -65,14 +76,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: core-runtime-engine-${{ inputs.version }}-distributions
-          path: dist/pypi-${{ inputs.version | replace('.', '_') }}
+          path: ${{ needs.build.outputs.dist_dir }}
 
       - name: Verify the downloaded artifact hashes
         run: |
-          sha256sum --check dist/pypi-${{ inputs.version | replace('.', '_') }}/SHA256SUMS
+          sha256sum --check ${{ needs.build.outputs.dist_dir }}/SHA256SUMS
           mkdir -p publish
-          cp dist/pypi-${{ inputs.version | replace('.', '_') }}/*.whl publish/
-          cp dist/pypi-${{ inputs.version | replace('.', '_') }}/*.tar.gz publish/
+          cp ${{ needs.build.outputs.dist_dir }}/*.whl publish/
+          cp ${{ needs.build.outputs.dist_dir }}/*.tar.gz publish/
 
       - name: Publish with PyPI Trusted Publishing
         uses: pypa/gh-action-pypi-publish@release/v1
