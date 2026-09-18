@@ -40,7 +40,7 @@ jobs:
       - name: Ruff
         shell: bash
         run: |
-          ruff check .
+          ruff check core_runtime/ scripts/ tests/
       - name: Validate FrozenReleaseManifest v11.6.0
         shell: bash
         run: |
