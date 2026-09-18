@@ -13,8 +13,8 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from core_runtime.core.audit_event import compute_operational_fingerprint
-from scripts.expert_router_common import evaluate_fixture, fixture_label, fixture_paths
+from core_runtime.core.audit_event import compute_operational_fingerprint  # noqa: E402
+from scripts.expert_router_common import evaluate_fixture, fixture_label, fixture_paths  # noqa: E402
 
 
 DEFAULT_ROOT = Path("examples/expert_router/routing_fixtures")

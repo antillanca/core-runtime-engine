@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the CORE v11.5.0 DSK v3 frozen release candidate manifest."""
+"""Build the CORE v12.0.0 sealed release frozen manifest."""
 
 from __future__ import annotations
 
@@ -12,12 +12,12 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from scripts.validate_frozen_release_manifest_v11_5 import build_v11_5_candidate_manifest  # noqa: E402
+from scripts.validate_frozen_release_manifest_v12_0 import build_v12_0_frozen_manifest  # noqa: E402
   # noqa: E402
 
 def main() -> int:
-    output = PROJECT_ROOT / "examples" / "frozen_release_manifest" / "accepted_v11_5_0_candidate.json"
-    manifest = build_v11_5_candidate_manifest(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
+    output = PROJECT_ROOT / "examples" / "frozen_release_manifest" / "accepted_v12_0_0_frozen.json"
+    manifest = build_v12_0_frozen_manifest(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
     output.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"Built {output.relative_to(PROJECT_ROOT)} ({manifest['artifact_count']} artifacts)")
     return 0

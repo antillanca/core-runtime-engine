@@ -7,7 +7,9 @@ validates DSK declarations at each crossing, emits one of 9 verdicts.
 Deterministic. No LLM. Same input → same verdict.
 """
 from __future__ import annotations
-import hashlib, json, sys
+import hashlib
+import json
+import sys
 from typing import Any
 
 SCHEMA_VERSION = "core.contract_program.v2"

@@ -5,7 +5,6 @@ from __future__ import annotations
 import copy
 import importlib
 import json
-from importlib.resources import files
 from typing import Any
 
 from core_runtime.core.canonicalization import canonical_json_hash

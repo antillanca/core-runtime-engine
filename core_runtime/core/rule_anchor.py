@@ -18,7 +18,7 @@ from typing import Any
 
 from jsonschema import Draft7Validator
 
-from core_runtime.core.canonicalization import canonical_json_dumps, canonical_json_hash, v12_envelope_fingerprint
+from core_runtime.core.canonicalization import canonical_json_dumps, canonical_json_hash
 
 
 SCHEMA_ROOT = files("core_runtime").joinpath("data", "schemas", "core")
