@@ -49,4 +49,3 @@ target-version = "py311"
 
 [tool.ruff.isort]
 known-first-party = ["core_runtime"]
-import-heading = "core_runtime"
