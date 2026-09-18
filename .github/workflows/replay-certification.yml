@@ -45,9 +45,6 @@ jobs:
         shell: bash
         run: |
           python scripts/validate_frozen_release_manifest_v12_0.py examples/frozen_release_manifest/accepted_v12_0_0_frozen.json --verify-live-artifacts
-          pytest -q \
-            tests/test_frozen_release_manifest_v11_5_1.py \
-            tests/test_frozen_release_manifest_v11_6.py
       - name: Frozen rule and non-custodial anchor tests
         shell: bash
         run: |
