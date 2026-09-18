@@ -49,3 +49,4 @@ target-version = "py311"
 
 [tool.ruff.lint.isort]
 known-first-party = ["core_runtime"]
+force-single-line-imports = false
