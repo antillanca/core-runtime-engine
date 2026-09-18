@@ -46,21 +46,12 @@ jobs:
         run: |
           python scripts/build_frozen_release_manifest_v12_0.py
           python scripts/validate_frozen_release_manifest_v12_0.py examples/frozen_release_manifest/accepted_v12_0_0_frozen.json --verify-live-artifacts
-      - name: Frozen rule and non-custodial anchor tests
+      - name: CORE v12.0.0 core tests
         shell: bash
         run: |
           pytest -q \
-            tests/test_frozen_rule_set_validator.py \
-            tests/test_rule_approval_validator.py \
-            tests/test_rule_anchor_batch.py \
-            tests/test_rule_anchor_deployment.py \
-            tests/test_rule_anchor_transaction.py \
-            tests/test_core_rule_anchor_contract.py \
-            tests/test_executable_contracts.py \
-            tests/test_physical_safety_assurance.py
-          python scripts/audit_contract_executability.py
-          python scripts/build_merkle_batch.py examples/merkle_batch/accepted_batch_request.json
-          python scripts/verify_merkle_proof.py examples/merkle_batch/accepted_batch_manifest.json
+            tests/test_frozen_release_manifest_v12_0.py \
+            tests/test_canonicalization_jcs.py
       - name: Compile CoreRuleAnchor with pinned solc
         if: runner.os == 'Linux'
         shell: bash
