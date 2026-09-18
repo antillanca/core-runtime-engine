@@ -47,5 +47,5 @@ exclude = ["build/", "dist/", ".git/", "__pycache__/"]
 line-length = 100
 target-version = "py311"
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-first-party = ["core_runtime"]
