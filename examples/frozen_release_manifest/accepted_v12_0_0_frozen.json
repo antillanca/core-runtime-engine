@@ -15,7 +15,7 @@
   "self_reference_policy": "manifest_file_excluded_fingerprint_covers_inventory",
   "canonicalization": "core.canonical_json.v1",
   "hash_algorithm": "sha256",
-  "frozen_at": "2026-09-18T01:28:19Z",
+  "frozen_at": "2026-09-18T02:28:03Z",
   "artifact_count": 208,
   "artifacts": [
     {
@@ -31,7 +31,7 @@
     {
       "path": ".github/workflows/replay-certification.yml",
       "role": "ci",
-      "file_sha256": "sha256:d7054dae6d257ad1c6c29479c8bc681a050e7f5fbfe3676328cd13893e501377"
+      "file_sha256": "sha256:6deb50f738db1c2310c221c12900484bece51c1dfb89dfac4b533888250ac5dc"
     },
     {
       "path": "CHANGELOG.md",
@@ -111,7 +111,7 @@
     {
       "path": "core_runtime/core/contract_executability.py",
       "role": "runtime",
-      "file_sha256": "sha256:43693036f9509141276aeac23c5df0d823a1d48ed06bcd6b26a5ebb5c8e675d6"
+      "file_sha256": "sha256:a7c6d5b4011720d8104d5a02b395c400f02bad20e5ac87326382f05ba93837df"
     },
     {
       "path": "core_runtime/core/contract_loader.py",
@@ -131,7 +131,7 @@
     {
       "path": "core_runtime/core/contract_program_v2.py",
       "role": "runtime",
-      "file_sha256": "sha256:9fa1e20ceb619cfdf989b1b7be5c1ed07fe74735347e956d502ec8089edb65e5"
+      "file_sha256": "sha256:0a74cb6aaaafe73282b47e8192df0a25115879196102c9e669fec1723bb33431"
     },
     {
       "path": "core_runtime/core/dsk_v3.py",
@@ -141,7 +141,7 @@
     {
       "path": "core_runtime/core/rule_anchor.py",
       "role": "runtime",
-      "file_sha256": "sha256:6afb2f5606addd63167745555980d6eae398ed3441727f3967a17d4be258d122"
+      "file_sha256": "sha256:8fc9e2695c93fc8951d78d0cfc279d1e5db24646a1048d621ea3259defb9ccbb"
     },
     {
       "path": "core_runtime/tooling/bump_version.py",
@@ -466,12 +466,12 @@
     {
       "path": "pyproject.toml",
       "role": "release_metadata",
-      "file_sha256": "sha256:5cde5af422773820b17275b918f8e330a74272bb1fccdfe2b2cc3527fa0312ca"
+      "file_sha256": "sha256:52ef3c2f16a0826ef002b0fdad6d1b1795ac5fcf1982108ce6bf92ddd7ff5c34"
     },
     {
       "path": "requirements-dev.txt",
       "role": "release_metadata",
-      "file_sha256": "sha256:930e9286296464db46c0a5bb0b7873561655d4abfdb2461889c0b8c11c70c31f"
+      "file_sha256": "sha256:e59487ade61a7945552c4cea57ee6f52647d906f80df5e3b0ffdc860f6175036"
     },
     {
       "path": "requirements.lock",
@@ -676,22 +676,22 @@
     {
       "path": "scripts/build_frozen_release_manifest_v11_4.py",
       "role": "script",
-      "file_sha256": "sha256:2649339e7c9c9f3d3f32fa31902eda3a92c2ba2b25751427f26df8d8611c6f1e"
+      "file_sha256": "sha256:f5cbcbafbb81a0377d0e559b7f6926a7463abf62e6c064bb401c2d6ac2bf0094"
     },
     {
       "path": "scripts/build_frozen_release_manifest_v11_5_1.py",
       "role": "script",
-      "file_sha256": "sha256:7a33d563ade263635bf670759a7000a92325c7e3984d995a586db8abe5759420"
+      "file_sha256": "sha256:e0f9d2031fbb2fe9169e53570ce82a1aa952b342f6d9713ae4c9c7c120dac41f"
     },
     {
       "path": "scripts/build_frozen_release_manifest_v11_6.py",
       "role": "script",
-      "file_sha256": "sha256:4c99823d8a6be31c658dd42baa655f86303d1f421859fe956afd63fe5ce0e653"
+      "file_sha256": "sha256:5cbf7817d936013c33c2f3d9cf08b97b79b4c189e8b6390741297fd1d5520c2f"
     },
     {
       "path": "scripts/build_frozen_release_manifest_v12_0.py",
       "role": "script",
-      "file_sha256": "sha256:e938f4bf7f593615b70e1d72c7eac306082bf2106bf695358c77a2d2acccda93"
+      "file_sha256": "sha256:3367856dd7c7b8394c733e237018779fcc5232a833a37f6b7dc15ec984562403"
     },
     {
       "path": "scripts/build_merkle_batch.py",
@@ -706,7 +706,7 @@
     {
       "path": "scripts/certify_router_replay.py",
       "role": "script",
-      "file_sha256": "sha256:d75791a68892142f901e9394be8507653165e34f4fe0910708351a9523bedaf2"
+      "file_sha256": "sha256:8ea436cb99591cb4b285b52756c8260a3c0c1bc886ce64da5fddb86fc9d080ea"
     },
     {
       "path": "scripts/compile_core_rule_anchor.py",
@@ -736,7 +736,7 @@
     {
       "path": "scripts/evaluate_expert_router.py",
       "role": "script",
-      "file_sha256": "sha256:ffc6b71b0fdc5771b2e54f3b51a58e332954e9fef50be5539fa5ec0f112389f7"
+      "file_sha256": "sha256:7a3cfced4c00a464d626047940340cab4063147612dcbea73151747385db1562"
     },
     {
       "path": "scripts/expert_router_common.py",
@@ -761,7 +761,7 @@
     {
       "path": "scripts/pypi_preflight.py",
       "role": "script",
-      "file_sha256": "sha256:54f18671cdbd701a50da99aad830d8480f03c5739ca8915e4aa221a04258084f"
+      "file_sha256": "sha256:addea14cd627bcbf17e4722efa402f06f233a3861b716fdb643278927bb878aa"
     },
     {
       "path": "scripts/replay_certification.py",
@@ -771,7 +771,7 @@
     {
       "path": "scripts/report_expert_router.py",
       "role": "script",
-      "file_sha256": "sha256:9941f70e3bdf6bc368e396b80195640e57b6015c8e6da5432c38351064360c5b"
+      "file_sha256": "sha256:688a8e8697dd9e9df3ef773e66497f2550020a1948ef2f0962dfb3a511a84789"
     },
     {
       "path": "scripts/submit_anchoring.py",
@@ -806,7 +806,7 @@
     {
       "path": "scripts/validate_expert_router.py",
       "role": "script",
-      "file_sha256": "sha256:c7947c7ee7a41bcc79d61353ed93758b927d376ea2e1bdeb259d10684a2f3d62"
+      "file_sha256": "sha256:82ff848a5463d45729ec54b90848127caa43bcbe24988a94658ea3717b8de178"
     },
     {
       "path": "scripts/validate_frozen_release_manifest.py",
@@ -916,7 +916,7 @@
     {
       "path": "tests/test_contract_program_v2.py",
       "role": "test",
-      "file_sha256": "sha256:2751526592456b18ae1d9fd1c28d3c33bf02a0420dae385a3c855542061bb9f7"
+      "file_sha256": "sha256:911f9f94d268cfe95ce18d9a3c89758bb62b06de4093217ffc1445399272dafe"
     },
     {
       "path": "tests/test_control_plane_contracts.py",
@@ -1011,7 +1011,7 @@
     {
       "path": "tests/test_replay_certification.py",
       "role": "test",
-      "file_sha256": "sha256:9148031c7981c3180fb329420786b5093a598a80a99aa47cc0faf0fe65bfc6cd"
+      "file_sha256": "sha256:166bf29da83eee38ff3399a312d9a0723024f3a724489851b61d37770fe9a136"
     },
     {
       "path": "tests/test_rule_anchor_batch.py",
@@ -1059,5 +1059,5 @@
       "file_sha256": "sha256:ef31dec1e079134c66585c2fd84c21c1493a75b51f45019c2a6cd06694f20470"
     }
   ],
-  "fingerprint": "sha256:1379cd269e6d5627fe5fb42b747f7a074645a239b88a301b79d805478367ae82"
+  "fingerprint": "sha256:554ac82957d377683181bec3a8a027ebd05254331afbaeb79323a20b0f0c34dc"
 }
