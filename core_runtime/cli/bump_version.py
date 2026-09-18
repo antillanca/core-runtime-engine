@@ -35,7 +35,7 @@ def cmd_bump_version(args: object) -> int:
             print(json.dumps(blocked_msg, indent=2, ensure_ascii=False))
         else:
             print("# BLOCKED")
-            print("")
+            print()
             print("--dry-run and --apply are mutually exclusive. Specify one.")
         return ExitCode.BLOCKED.value
 
@@ -55,7 +55,7 @@ def cmd_bump_version(args: object) -> int:
             print(json.dumps(blocked_msg, indent=2, ensure_ascii=False))
         else:
             print("# BLOCKED")
-            print("")
+            print()
             print("--confirm-current is required when using --apply.")
             print("Usage: python -m core_runtime.cli bump-version <target> --apply --confirm-current <current>")
         return ExitCode.BLOCKED.value
