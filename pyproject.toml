@@ -46,3 +46,7 @@ core_runtime = [
 exclude = ["build/", "dist/", ".git/", "__pycache__/"]
 line-length = 100
 target-version = "py311"
+
+[tool.ruff.isort]
+known-first-party = ["core_runtime"]
+import-heading = "core_runtime"
