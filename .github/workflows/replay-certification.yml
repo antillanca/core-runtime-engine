@@ -44,6 +44,7 @@ jobs:
       - name: Validate FrozenReleaseManifest v12.0.0
         shell: bash
         run: |
+          python scripts/build_frozen_release_manifest_v12_0.py
           python scripts/validate_frozen_release_manifest_v12_0.py examples/frozen_release_manifest/accepted_v12_0_0_frozen.json --verify-live-artifacts
       - name: Frozen rule and non-custodial anchor tests
         shell: bash
