@@ -8,7 +8,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from scripts.validate_frozen_release_manifest_v12_0 import validate_v12_0_release_manifest
+from scripts.validate_frozen_release_manifest_v12_0 import validate_v12_0_release_manifest  # noqa: E402
 
 MANIFEST = PROJECT_ROOT / "examples" / "frozen_release_manifest" / "accepted_v12_0_0_frozen.json"
 
