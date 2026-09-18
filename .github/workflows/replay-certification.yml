@@ -41,10 +41,10 @@ jobs:
         shell: bash
         run: |
           ruff check core_runtime/ scripts/ tests/
-      - name: Validate FrozenReleaseManifest v11.6.0
+      - name: Validate FrozenReleaseManifest v12.0.0
         shell: bash
         run: |
-          python scripts/validate_frozen_release_manifest_v11_6.py examples/frozen_release_manifest/accepted_v11_6_0_candidate.json --verify-live-artifacts
+          python scripts/validate_frozen_release_manifest_v12_0.py examples/frozen_release_manifest/accepted_v12_0_0_frozen.json --verify-live-artifacts
           pytest -q \
             tests/test_frozen_release_manifest_v11_5_1.py \
             tests/test_frozen_release_manifest_v11_6.py
@@ -83,15 +83,15 @@ jobs:
         shell: bash
         run: |
           pytest -q
-      - name: CORE v11.6.0 release gate
+      - name: CORE v12.0.0 release gate
         shell: bash
         run: |
           mkdir -p artifacts/release
-          python scripts/verify_release.py --target v11.6.0 --skip-full-pytest --output artifacts/release/core-v11.6.0-release-gate.json
-      - name: Upload CORE v11.6.0 release report
+          python scripts/verify_release.py --target v12.0.0 --skip-full-pytest --output artifacts/release/core-v12.0.0-release-gate.json
+      - name: Upload CORE v12.0.0 release report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: core-v11.6.0-release-${{ matrix.os }}-py${{ matrix.python-version }}
-          path: artifacts/release/core-v11.6.0-release-gate.json
+          name: core-v12.0.0-release-${{ matrix.os }}-py${{ matrix.python-version }}
+          path: artifacts/release/core-v12.0.0-release-gate.json
           if-no-files-found: ignore
